@@ -1,0 +1,37 @@
+.function-card {
+  width: 33%; 
+  float: 'left'; 
+  margin: 5;
+  padding: 5px 5px 5px 5px; 
+  border: none;
+}
+
+
+.card-size {
+  min-width: 33%;
+}
+
+.info-text-14 {
+  font-size: 14px;
+}
+
+.btn.rounded-start-pill:hover {
+  border-top-left-radius: 50rem !important;
+  border-bottom-left-radius: 50rem !important;
+}
+
+.btn.rounded-end-pill:hover {
+  border-top-right-radius: 50rem !important;
+  border-bottom-right-radius: 50rem !important;
+}
+
+.team-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.team-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+

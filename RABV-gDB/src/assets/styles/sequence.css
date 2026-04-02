@@ -1,0 +1,18 @@
+
+.title-sub {
+    float:left;
+    color:var(--primary);
+}
+
+.reference {
+    float:left;
+}
+
+.exclusion-td {
+    background-color:#f8d7da !important;
+}
+
+.coverage {
+    color: var(--secondary);
+    text-decoration: none;
+}

@@ -1,0 +1,72 @@
+
+.btn-main {
+  color: var(--secondary) !important;
+  background-color: #fff !important;
+  border-color: #fff !important; /*set the color you want here*/
+}
+
+.btn-main:hover, .open>.dropdown-toggle.btn-main {
+  color: #fff !important;
+  background-color: var(--secondary) !important;
+  border-color: var(--secondary) !important; /*set the color you want here*/
+  border-radius: 5px !important;
+}
+
+
+.btn-main-filled {
+  color: #fff !important;
+  background-color: var(--secondary) !important;
+  border-color: var(--secondary) !important; /*set the color you want here*/
+  border-radius: 5px !important;
+  
+}
+.btn-main-filled:hover, .btn-main-filled:active, .open>.dropdown-toggle.btn-main-filled {
+  color: var(--secondary) !important;
+  background-color: #fff !important;
+  border-color: #fff !important;
+}
+
+
+.btn-secondary-outline {
+  color: var(--primary) !important;
+  background-color: #fff !important;
+  border-color: var(--primary) !important; /*set the color you want here*/
+  border-radius: 5px !important;
+  
+}
+.btn-secondary-outline:hover, .btn-secondary-outline:focus, .btn-secondary-outline:active, .btn-secondary-outline.active, .open>.dropdown-toggle.btn-secondary-outline {
+  color: var(--primary) !important;
+  background-color: #fff !important;
+  border-color: #fff !important; /*set the color you want here*/
+}
+
+
+.btn-main-outline {
+  color: var(--secondary) !important;
+  background-color: #fff !important;
+  border-color: var(--secondary) !important; /*set the color you want here*/
+  border-radius: 5px !important;
+  
+}
+
+.btn-main-outline:hover, .btn-main-outline:focus, .btn-main-outline:active, .btn-main-outline.active, .open>.dropdown-toggle.btn-main-outline {
+  color: var(--secondary) !important;
+  background-color: #fff !important;
+  border-color: #fff !important; /*set the color you want here*/
+}
+
+.btn-main-no-outline {
+  color: var(--secondary) !important;
+  background-color: #fff !important;
+  border-color: #fff !important; /*set the color you want here*/
+  border-radius: 5px !important;
+  
+}
+
+.btn-main-no-outline:hover {
+  color: var(--secondary) !important;
+  background-color: #fff !important;
+  border-color: var(--secondary) !important; /*set the color you want here*/
+}
+
+

@@ -1,0 +1,65 @@
+[
+    {
+        "name":"Dr Kirstyn Brunker",
+        "title":"Research Fellow",
+        "affiliation":"School of Biodiversity, Animal Health & Comparative Medicine",
+        "info": "Dr. Brunker is an MRC research fellow passionate about applying genomics in One Health systems to enhance pathogen surveillance and management in low- and middle-income countries. Her research focuses on developing platforms for deployable and accessible sequencing and analysis of the rabies virus, with the goal of converting knowledge into action. This involves generating and analysing near real-time genetic data for routine surveillance and rapid epidemiological investigations.",
+        "photo_src": "/static/imgs/team_imgs/KirstynBrunker.jpg",
+        "rg_link": "https://www.researchgate.net/profile/Kirstyn_Brunker",
+        "twitter_link": "https://twitter.com/intent/follow?screen_name=kirstynbrunker"
+    },
+
+    {
+        "name":"Prof Katie Hampson",
+        "title": "Professor",
+        "affiliation":"School of Biodiversity, Animal Health & Comparative Medicine",
+        "info": "Dr Katie Hampson is a Wellcome Trust Senior Research Fellow. Her research focuses on the epidemiological dynamics and control of dog-mediated rabies combining field research with quantitative analyses, working in East Africa, Southeast Asia, Latin America and Europe, to address fundamental and applied questions. In Tanzania, she uses contact tracing and whole genome sequencing, combined with large-scale vaccination programmes and surveillance systems to understand transmission dynamics and investigate cost-effective approaches for rabies control and prevention. With international organisations and governments she uses modelling and analyses to learn from control efforts, with a focus on disease elimination.",
+        "photo_src": "/static/imgs/team_imgs/KatieHampson.jpg",
+        "rg_link": "https://www.researchgate.net/profile/Katie_Hampson",
+        "twitter_link": "https://twitter.com/intent/follow?screen_name=hampson_katie"
+    },
+
+
+    {
+        "name":"Dr Sandeep Kasaragod",
+        "title": "Bioinformatician",
+        "affiliation":"School of Biodiversity, Animal Health & Comparative Medicine",
+        "info": "Dr. Kasaragod is a Bioinformatician, he is passionate about working on genome sequencing data analysis. He works majorly on the development of the workflow and tools to support the virus research.",
+        "photo_src": "",
+        "rg_link": "",
+        "twitter_link": ""
+    },
+
+    {
+        "name":"Dr Joseph Hughes",
+        "title": "Bioinformatician",
+        "affiliation":"MRC University of Glasgow Centre for Virus Research",
+        "info": null,
+        "photo_src": "",
+        "rg_link": null,
+        "twitter_link": null
+    },
+
+    {
+        "name":"Dana Allen",
+        "title": "Research Software Engineer",
+        "affiliation":"MRC University of Glasgow Centre for Virus Research",
+        "info": null,
+        "photo_src": "",
+        "rg_link": null,
+        "twitter_link": ""
+    },
+
+    {
+        "name":"Dr Kathryn Campbell",
+        "title": "PhD Student",
+        "affiliation":"Institute of Biodiversity, Animal Health and Comparative Medicine",
+        "info": "Kathryn Campbell is a former PhD student whose work encompassed aspects of genomic surveillance to guide rabies elimination. Her research focused on producing an easy-to-use, objective and transferable classification tool (MAD DOG) for tracking viruses at high resolution. This allows identification of areas of persistence and transmission and patterns of virus spread not previously apparent with coarser resolution classifications.",
+        "photo_src": "/static/imgs/team_imgs/KathrynCampbell.jpg",
+        "rg_link": "https://www.researchgate.net/profile/Kathryn-Campbell-7",
+        "twitter_link": "https://twitter.com/intent/follow?screen_name=ThatKatC",
+        "status":0
+    }
+
+
+]
