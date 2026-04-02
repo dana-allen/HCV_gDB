@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RABV_gDB Frontend</title>
+</head>
+<body>
+
+    <h1>Data from Private API</h1>
+
+    {% if error %}
+        <p style="color:red;">Error: {{ error }}</p>
+    {% endif %}
+
+    {% if data %}
+        <pre>{{ data }}</pre>
+    {% else %}
+        <p>No data received</p>
+    {% endif %}
+
+</body>
+</html>
