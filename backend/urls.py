@@ -27,5 +27,5 @@ urlpatterns = [
     path("api/", include("api.urls")),
 
     # React app
-    re_path(r"^.*$", TemplateView.as_view(template_name="index.html")),
+    # re_path(r"^.*$", TemplateView.as_view(template_name="index.html")),
 ]

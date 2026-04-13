@@ -15,6 +15,6 @@ export { default as useTaxonomy } from "./useTaxonomy";
 export { default as useErrorHandler } from "./useErrorHandler";
 export { default as useDownload } from "./useDownload";
 
-
+export { default as useDrugResistance } from "./useDrugResistance";
 
 export { default as useFetch } from "./useFetch";

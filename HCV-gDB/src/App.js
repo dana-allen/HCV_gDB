@@ -49,12 +49,15 @@ import Phylogeny from './views/explore/phylogeny';
 import Acknowledgments from 'views/about/acknowledgements';
 import VGdb from 'views/about/v_gdb';
 
+
+import DrugResistance from './views/explore/drug_resistance/drug_resistance'
+
 function App() {
 
-  useEffect(() => {
-    ReactGA.initialize('G-EFWP5TC9Y0');
-    ReactGA.send({ hitType: "pageview", page: window.location.pathname });
-  }, []);
+  // useEffect(() => {
+  //   ReactGA.initialize('G-EFWP5TC9Y0');
+  //   ReactGA.send({ hitType: "pageview", page: window.location.pathname });
+  // }, []);
 
 
   return (
@@ -78,6 +81,7 @@ function App() {
                 <Route exact path="/reference/:id"  element={<Reference />} />
                 <Route path="/global_overview"      element={<GlobalOverview />} />
                 <Route path="/phylogeny"            element={<Phylogeny />} />
+                <Route path="/drug_resistance"      element={<DrugResistance />} />
 
                 
 
