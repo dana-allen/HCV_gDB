@@ -2,7 +2,7 @@ import { useState, useCallback, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import BarFilter from 'components/filters/BarFilter';
 // Hooks & Contexts
-import { useSequences, useDrugResistance } from 'hooks'
+import { useSequences, useDrugResistance, useFetch } from 'hooks'
 import { useLoadingWheelHandler, useErrorHandler } from 'contexts'; 
 
 // Custom Components
@@ -22,6 +22,7 @@ const DrugResistance = ({  } ) => {
     // const [filters, setFilters] = useState({"items_per_page":10, "accession_type":"reference"})
 
     // const [params, setParams] = useState({"items_per_page":10, "accession_type":"reference"});
+
 
     const { accessions, loading, error } = useDrugResistance();
 

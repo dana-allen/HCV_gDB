@@ -11,6 +11,7 @@ urlpatterns = [
 
     path('phylogeny/tree/', api_phylogeny_tree, name='api_phylogeny_tree'),
     path('taxonomy/<str:taxa_level>', api_taxonomy, name='api_taxonomy'),
+    path('phylogeny/trees/', api_get_trees, name='api_get_trees'),
 
     path('sequences/global/', api_sequences_global, name='api_sequences_global'),
     path('lineages/', api_lineages, name='api_lineages'),

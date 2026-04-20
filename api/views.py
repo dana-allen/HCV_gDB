@@ -147,6 +147,9 @@ def api_search_country(request, query):
 def api_version(request):
     return proxy_get(f"get_vgt_version/", request, safe=False)
 
+def api_get_trees(request):
+    return proxy_get(f"phylogeny/trees/", request, safe=False)
+
 def api_download_sequences_meta_data(request):
     return proxy_get_download(f"sequences/download_sequences_meta_data/", request, safe=False)
 

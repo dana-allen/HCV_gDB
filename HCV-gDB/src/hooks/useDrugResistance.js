@@ -1,7 +1,3 @@
-import useFetch from "./useFetch";
-// import { buildGenomeViewerResults } from 'assets/javascript/genomeViewerHelper';
-import { formatMetaDataRegions } from 'assets/javascript/formatHelper'
-
 function useDrugResistance(id) {
     
     // const url = `${process.env.REACT_APP_BACKEND_URL}/api/sequence/${id}`;
@@ -12,9 +8,8 @@ function useDrugResistance(id) {
     // const {
     //     accessions
     // } = data|| {};
-    const accessions = [{"primary_accession": "", "combination_id":"", "combination_status":"", "mutations_detected":"", "resistance_category":"", "drug":""}]
+    const accessions = [{"primary_accession": "AB008084", "combination_id":"123", "combination_status":"active", "mutations_detected":"10", "resistance_category":"I", "drug":"glecaprevir"}]
     
-    // const genomeViewerData = data ? buildGenomeViewerResults(data) : []
 
     return { accessions };
 

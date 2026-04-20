@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import Taxonium from "taxonium-component";
 import { Button } from 'react-bootstrap';
-import { useDownload, usePhylogenyTree } from 'hooks'
+import { useDownload, usePhylogenyTree, useFetch } from 'hooks'
 import { useLoadingWheelHandler, useErrorHandler } from 'contexts';
 
+import PhylogenyFilter from "./PhylogenyFilter";
 // Style Sheets 
 import 'assets/styles/phylogeny.css' //VERY IMPORTANT This class controls the taxonium component tree height
 
@@ -13,10 +14,11 @@ const Phylogeny = () => {
   const { triggerError } = useErrorHandler();
   const [sourceData, setSourceData] = useState(null);
 
+  const [params, setParams] = useState("")
 
-  const { tree, meta_data, loading, error } = usePhylogenyTree();
+  const { tree, meta_data, loading, error } = usePhylogenyTree(params);
   const { downloadFile } = useDownload();
-
+  console.log("new tree", tree)
 
   const handleQuery = (e) => {
     console.log("query", e)
@@ -37,6 +39,7 @@ const Phylogeny = () => {
   useEffect(() => {
     if (tree) {
       
+      console.log("WE ARE IN HERE")
       const metadata = {
         filename: "metadata.csv",
         data: meta_data,
@@ -47,11 +50,12 @@ const Phylogeny = () => {
               status: "loaded",
               filename: "tree.nwk",
               // data: tree,
-              data: tree.newick,
+              data: `${tree.newick}`,
               filetype: "nwk",
               metadata: metadata,
             });
     }
+    console.log(tree)
   }, [tree]);
 
   useEffect(() => {
@@ -59,6 +63,12 @@ const Phylogeny = () => {
     triggerError(error)
   }, [loading, error]);
   // console.log("updateQuery:", updateQuery);
+
+  const handleParams = (e) => {
+    console.log(e)
+    setParams({"tree_type":e})
+
+  }
   return (
     <div className="container" >
       <h2>Phylogenetic Tree</h2>
@@ -67,6 +77,9 @@ const Phylogeny = () => {
         This provides an interactive phylogenic tree. Within a tree, the tips are named by primary accession and coloured by various metadata, 
         which may be chosen by selecting Colour by. The tree may be searched for tip names or metadata by entering text into the Search box.
       </p>
+
+
+      <PhylogenyFilter label={"tree"} idKey={"name"} handleId={handleParams}/>
       <div>
         {tree && <h2>{tree.tree_name}</h2> }
         {tree &&
