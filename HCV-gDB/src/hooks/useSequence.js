@@ -8,7 +8,7 @@ function useSequence(id) {
     const url = `/api/sequence/${id}`;
 
     const { data, ...rest } = useFetch(id ? url : null);
-
+    console.log("DATA", data)
     const {
         meta_data,
         sequence,

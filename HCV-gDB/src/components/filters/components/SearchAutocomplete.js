@@ -26,7 +26,9 @@ const SearchAutocomplete = ({ ref, label, url, idKey, handleId, preSelected = []
         if (query.length > 2) {
           setLoading(true);
           try {
-            const res = await fetch(`${url}${query}`);
+            const res = await fetch(`${url}${query}`,{
+            headers: { 'database': process.env.REACT_APP_DATABASE },
+          });
             const data = await res.json() || [];
 
             // Merge with already selected options so chips are visible

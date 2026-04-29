@@ -14,6 +14,7 @@ const InsertionDetails = ({ insertions }) => {
             </div>
             <div>
                 {insertions.map((insertion, insertionIndex) => {
+                    console.log("Insertions", insertion)
                     const row = insertion ? insertion.split(";") : null
                     return (
                         <>
@@ -33,7 +34,7 @@ const InsertionDetails = ({ insertions }) => {
                                         return (
                                             <tbody key={`tbody-${rowIndex}`}>
                                                 <tr>
-                                                    <td><p>{k[0]}</p></td>
+                                                    <td>{k[0]}</td>
                                                     <td>
                                                         <div className='blocks'>
                                                             {k[1].split("").map((nuc, nucId) => (

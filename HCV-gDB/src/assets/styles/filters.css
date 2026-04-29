@@ -67,7 +67,7 @@
 
 .btn-filter-active {
     color: #fff !important;
-    background-color: rgb(139, 0, 0, 0.6) !important;
+    background-color: rgba(235, 152, 78, 0.6) !important;
     border: none;
 }
 

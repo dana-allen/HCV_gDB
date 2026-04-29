@@ -74,9 +74,9 @@ const DrugResistance = ({  } ) => {
             </ul>
 
             {accessions && 
-            <div>
-                <DrugResistanceTable accessions={accessions}/>
-            </div>
+                <div>
+                    <DrugResistanceTable accessions={accessions}/>
+                </div>
             }
             
             <hr></hr>

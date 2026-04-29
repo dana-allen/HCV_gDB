@@ -36,27 +36,26 @@ const Phylogeny = () => {
     "srch": "[{\"key\":\"aa1\",\"type\":\"name\",\"method\":\"text_match\",\"text\":\"AF365\",\"gene\":\"S\",\"position\":484,\"new_residue\":\"any\",\"min_tips\":0}]"
 
 }
+
+  const [showTree, setShowTree] = useState(true)
   useEffect(() => {
-    if (tree) {
-      
-      console.log("WE ARE IN HERE")
-      const metadata = {
-        filename: "metadata.csv",
-        data: meta_data,
-        status: "loaded",
-        filetype: "meta_csv",
-      };
+  if (tree) {
+    setTimeout(() => {
       setSourceData({
-              status: "loaded",
-              filename: "tree.nwk",
-              // data: tree,
-              data: `${tree.newick}`,
-              filetype: "nwk",
-              metadata: metadata,
-            });
-    }
-    console.log(tree)
-  }, [tree]);
+        status: "loaded",
+        filename: `tree-${Date.now()}.nwk`,
+        data: tree.newick,
+        filetype: "nwk",
+        metadata: {
+          filename: "metadata.csv",
+          data: meta_data,
+          status: "loaded",
+          filetype: "meta_csv",
+        },
+      });
+    }, 50); // 👈 small delay helps some libs
+  }
+}, [tree]);
 
   useEffect(() => {
     triggerLoadingWheel(loading)
@@ -69,6 +68,10 @@ const Phylogeny = () => {
     setParams({"tree_type":e})
 
   }
+
+  useEffect(() => {
+
+  }, sourceData)
   return (
     <div className="container" >
       <h2>Phylogenetic Tree</h2>
@@ -90,11 +93,11 @@ const Phylogeny = () => {
           </div>
         }
         {/* {sourceData && <Taxonium sourceData={sourceData} query={default_query}/> } */}
-        {sourceData && <Taxonium sourceData={sourceData} /> }
+        {showTree && sourceData && <Taxonium key={tree.tree_name} sourceData={sourceData} /> }
         {/* {sourceData && <Taxonium sourceData={sourceData} updateQuery={(query) => {
-    console.log("Query updated:", query);
-    // Do whatever you want with the query object
-  }}/>} */}
+          console.log("Query updated:", query);
+          // Do whatever you want with the query object
+        }}/>} */}
       </div>
       
     </div>
