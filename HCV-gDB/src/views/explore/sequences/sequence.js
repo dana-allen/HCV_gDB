@@ -135,11 +135,10 @@ const Sequence = () => {
                             </div>
                              <div className="col-md-6">
                                 { mutations &&
-                        <MutationDetails mutations={[mutations[0].relevant_mutations_present]} />
-                    }
-                    
-                    </div>
-                    </div>
+                                    <MutationDetails mutations={[mutations[0].relevant_mutations_present]} />
+                                }
+                            </div>
+                        </div>
                     </div>
 
                     { pubmedId && 

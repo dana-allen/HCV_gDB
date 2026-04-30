@@ -16,5 +16,7 @@ export { default as useErrorHandler } from "./useErrorHandler";
 export { default as useDownload } from "./useDownload";
 
 export { default as useDrugResistance } from "./useDrugResistance";
+export { default as usePolymorphisms } from "./usePolymorphisms";
+export { default as usePolymorphism } from "./usePolymorphism";
 
 export { default as useFetch } from "./useFetch";

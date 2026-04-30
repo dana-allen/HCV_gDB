@@ -187,3 +187,21 @@ export const formatString = (str) => {
   // Capitalize the first letter
   return withSpaces.charAt(0).toUpperCase() + withSpaces.slice(1);
 }
+
+
+export const parseRestianceCategory = (str) => {
+    if (!str) return '';
+    if (str === 'insignificant') return 'Insignificant'
+    
+    const withSpaces = str.replace(/_/g, ' ');
+    return withSpaces.charAt(0).toUpperCase() + withSpaces.slice(1);
+
+}
+
+export const parseMutationType = (str) => {
+    if (!str) return '';
+
+    if (str === 'aminoAcidSimplePolymorphism') return 'Simple';
+    if (str === 'aminoAcidDeletionPolymorphism') return 'Deletion';
+}
+

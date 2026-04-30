@@ -1,6 +1,7 @@
 :root {
-  --primary: #E67E22;
-  --secondary:#2C3E50;
+  /* --primary: #5B2A6E; */
+  --primary: #7A4E6D;
+  --secondary:#3d6e2a;
   --secondary-dark: #006F6F;
   --secondary-light: rgba(0, 139, 139, 0.25);
 

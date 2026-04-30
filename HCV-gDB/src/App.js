@@ -52,6 +52,9 @@ import VGdb from 'views/about/v_gdb';
 
 import DrugResistance from './views/explore/drug_resistance/drug_resistance'
 
+import Polymorphisms from 'views/explore/polymorphisms/polymorphisms';
+import Polymorphism from 'views/explore/polymorphisms/polymorphism';
+
 function App() {
 
   // useEffect(() => {
@@ -82,6 +85,8 @@ function App() {
                 <Route path="/global_overview"      element={<GlobalOverview />} />
                 <Route path="/phylogeny"            element={<Phylogeny />} />
                 <Route path="/drug_resistance"      element={<DrugResistance />} />
+                <Route path="/polymorphisms"        element={<Polymorphisms />} />
+                <Route path="/polymorphism/:id"         element={<Polymorphism />} />
 
                 
 

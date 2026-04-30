@@ -160,3 +160,10 @@ def api_download_alignments(request):
 @require_POST
 def api_analysis_clade_assignment(request):
     return proxy_post(f"analysis/clade_assignment/", request)
+
+
+def api_polymorphisms(request):
+    return proxy_get(f"polymorphisms/", request, safe=False)
+
+def api_polymorphism(request, id):
+    return proxy_get(f"polymorphism/{id}", request, safe=False)

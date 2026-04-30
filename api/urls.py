@@ -28,5 +28,9 @@ urlpatterns = [
     path('analysis/clade_assignment/', api_analysis_clade_assignment, name='api_analysis_clade_assignment'),
 
     path('version', api_version, name='api_version'),
+
+
+    path('polymorphisms/', api_polymorphisms, name='api_polymorphisms'),
+    path('polymorphism/<str:id>', api_polymorphism, name='api_polymorphism'),
     
 ]

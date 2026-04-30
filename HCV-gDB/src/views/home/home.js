@@ -36,13 +36,6 @@ const Home = () => {
                         computational resources to organise and analyse existing and new HCV sequence data in research, public health and 
                         clinical contexts.
                     </p>
-                    {/* <p>         
-                        Infection with RABV can occur in all species of mammal, but up to 99% of human
-                        rabies cases arise from bites from infected domestic dogs. Vaccinating dogs
-                        to interrupt transmission is therefore paramount, and a major focus of the
-                        ‘Zero by 30’ global strategy to eliminate human deaths from dog-mediated rabies
-                        by 2030.
-                    </p> */}
                 </div>
                 <div className='info-container'>
                     <h4 className='primary-color'>Why {process.env.REACT_APP_VIRUS_ABB}-{process.env.REACT_APP_WEB_RESOURCE}?</h4>
