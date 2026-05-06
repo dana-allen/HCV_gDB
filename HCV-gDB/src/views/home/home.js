@@ -17,9 +17,9 @@ const Home = () => {
                 />
                 <div className='banner-text-container'>
                     <h2 className='banner-title'><b>{process.env.REACT_APP_VIRUS_ABB}-gDB</b></h2>
-                    <h2 className='banner-subtitle'>A {process.env.REACT_APP_VIRUS_NAME} Virus Genome Database Resource</h2>
+                    <h2 className='banner-subtitle'>{process.env.REACT_APP_VIRUS_NAME} Virus Genome Database Resource</h2>
                 </div>
-                <ReactSVG className="banner-svg" src="/icons/home_background.svg" />
+                <ReactSVG className="banner-svg" src="/static/imgs/icons/home_background.svg" />
             </div>
 
             <Cards></Cards>

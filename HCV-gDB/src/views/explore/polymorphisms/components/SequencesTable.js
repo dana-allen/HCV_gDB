@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
-import PagingButtons from 'components/buttons/PagingButtons';
+import PagingButtonsSlim from 'components/buttons/PagingButtonsSlim';
 // Stylesheets
 import 'assets/styles/tables.css'
 
@@ -46,32 +46,47 @@ const SequencesTable = ({ data = null, type = null }) => {
     return (
         <div>
             <div className='row'><h4 className='title-sub'>Sequences</h4></div>
-            <div className='row'>
-                <p>Sequences that have mutation present</p>
-            </div>
-
-            {/* 🔍 SEARCH BAR */}
             
+            
+            <div className='row'>
+                <div className='col-6'>
+                    
 
-            <PagingButtons data={filteredData} onPageChange={handlePageChange} />
+                </div>
+                <div className='col-6'>
+                    
 
-            <a>
-                Sequences {startRecord} to {endRecord} of {filteredData.length}
-            </a>
-
+                </div>
+            </div>
+            
             <table className="table table-striped table-bordered table-font-12 table-width-50">
                 <thead>
                     <tr>
                         <th>
-                            <div style={{ position: 'relative'  }}>
+                            <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+                             <div>
+                                <span className="size-12-font" style={{ fontWeight: "normal" }}>
+                                Sequences {startRecord} to {endRecord} of {filteredData.length}
+                                </span>
+                            </div>
+                            {/* Top row: search + paging */}
+                            <div
+                                style={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "8px"
+                                }}
+                            >
+                                {/* Search input */}
+                                <div style={{ position: "relative", flex: 1 }}>
                                 <i
                                     className="fa fa-search"
                                     style={{
-                                        position: 'absolute',
-                                        top: '50%',
-                                        left: '8px',
-                                        transform: 'translateY(-50%)',
-                                        color: '#888'
+                                    position: "absolute",
+                                    top: "50%",
+                                    left: "8px",
+                                    transform: "translateY(-50%)",
+                                    color: "#888"
                                     }}
                                 ></i>
 
@@ -81,11 +96,29 @@ const SequencesTable = ({ data = null, type = null }) => {
                                     placeholder="Search primary accession..."
                                     value={search}
                                     onChange={(e) => setSearch(e.target.value)}
-                                    style={{ paddingLeft: '28px',fontSize:'12px' }} // space for icon
+                                    style={{
+                                    paddingLeft: "28px",
+                                    fontSize: "12px",
+                                    height: "30px"
+                                    }}
                                 />
+                                </div>
+
+                                {/* Paging buttons */}
+                                <div style={{ whiteSpace: "nowrap" }}>
+                                <PagingButtonsSlim
+                                    data={filteredData}
+                                    onPageChange={handlePageChange}
+                                />
+                                </div>
+                            </div>
+
+                            {/* Bottom row: sequence info */}
+                           
+
                             </div>
                         </th>
-                    </tr>
+                        </tr>
                 </thead>
 
                 <tbody>

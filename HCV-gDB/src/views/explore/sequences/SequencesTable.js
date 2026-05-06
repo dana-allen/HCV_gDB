@@ -34,7 +34,7 @@ const SequencesTable = ( { data=null, type=null } ) => {
                     <tr key={i} id={i}>
 
                         <td><b><Link className='gdb-link' to={type=='sequence' ? `/sequence/${sequence.primary_accession}`:`/reference/${sequence.primary_accession}` }> {sequence.primary_accession} </Link> </b></td>
-                        <td>{sequence["EPA_major_clade"]} {sequence["EPA_minor_clade"]}</td>
+                        <td>{sequence["nearest_reference_genotype"]}{sequence["nearest_reference_subtype"]}</td>
                         <td>{sequence.create_date}</td>
                         <td>{sequence.update_date}</td>
                         <td>{sequence.real_length}</td>

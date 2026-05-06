@@ -40,20 +40,18 @@ const Sequence = () => {
             insertions,
             formatted_regions,
             taxanomic_info,
+            mutations,
             loading, error } = useSequence(id);
 
     useEffect(() => {
     
-        // triggerLoadingWheel(loading)
+        triggerLoadingWheel(loading)
         if (error) triggerError(error);
     
     }, [loading, error]);
-    console.log(insertions)
+
 
     const pubmedId = meta_data?.pubmed_id;
-
-    const mutations = [{primary_accession:"AB030907",	relevant_mutations_present:"NS3:168T;NS3:170A;NS3:180V;NS3:54A;NS3:55A;NS3:62T;NS3:80L;NS5A:129H;NS5A:24A;NS5A:24S;NS5A:28L;NS5A:28T;NS5A:29R;NS5A:30G;NS5A:30L;NS5A:37L;NS5A:54H;NS5A:58L;NS5A:58S;NS5A:62A;NS5B:100R"}]
-	
 
     return (
         <div className='container'>
@@ -97,6 +95,7 @@ const Sequence = () => {
 
                     </div>
                     <br></br>
+                    <hr style={{color:'var(--primary)'}}></hr>
     
 
                     { meta_data.exclusion_status === "0" && alignment &&
@@ -124,23 +123,23 @@ const Sequence = () => {
                         </div>
                     }
                     <br></br>
+                    <hr style={{color:'var(--primary)'}}></hr>
 
-                    <div>
-                        <div className="row">
+                    <div className="row">
+  
+                        {insertions && (
                             <div className="col-md-6">
+                            <InsertionDetails insertions={insertions} />
+                            </div>
+                        )}
 
-                                { insertions &&
-                                    <InsertionDetails insertions={insertions} />
-                                }
+                        {mutations && (
+                            <div className="col-md-6">
+                            <MutationDetails mutations={mutations} />
                             </div>
-                             <div className="col-md-6">
-                                { mutations &&
-                                    <MutationDetails mutations={[mutations[0].relevant_mutations_present]} />
-                                }
-                            </div>
-                        </div>
+                        )}
+
                     </div>
-
                     { pubmedId && 
                         <PubMedRefDetails pubmedId={pubmedId} />
                     }

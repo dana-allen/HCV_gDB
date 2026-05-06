@@ -15,7 +15,8 @@ function useSequence(id) {
         alignment,
         regions,
         insertions,
-        taxanomic_info
+        taxanomic_info,
+        mutations
     } = data|| {};
 
     
@@ -30,6 +31,7 @@ function useSequence(id) {
             insertions,
             formatted_regions,
             taxanomic_info,
+            mutations,
             genomeViewerData,
             ...rest
             };

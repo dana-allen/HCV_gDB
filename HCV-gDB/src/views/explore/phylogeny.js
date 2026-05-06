@@ -14,7 +14,7 @@ const Phylogeny = () => {
   const { triggerError } = useErrorHandler();
   const [sourceData, setSourceData] = useState(null);
 
-  const [params, setParams] = useState("")
+  const [params, setParams] = useState({'tree_type':'iqtree'})
 
   const { tree, meta_data, loading, error } = usePhylogenyTree(params);
   const { downloadFile } = useDownload();
@@ -23,27 +23,15 @@ const Phylogeny = () => {
   const handleQuery = (e) => {
     console.log("query", e)
   }
-//   const default_query =  {
-//   // srch: JSON.stringify([]),
-//   // enabled: JSON.stringify({ [first_search.key]: true }),
-//   // backend: "",
-//   // xType: "x_dist",
-//   // mutationTypesEnabled: JSON.stringify({ aa: true, nt: false }),
-//   // treenomeEnabled: false,
-// };
-  const default_query = {
-    "srch": "[{\"key\":\"aa1\",\"type\":\"name\",\"method\":\"text_match\",\"text\":\"AF36\",\"gene\":\"S\",\"position\":484,\"new_residue\":\"any\",\"min_tips\":0}],",
-    "srch": "[{\"key\":\"aa1\",\"type\":\"name\",\"method\":\"text_match\",\"text\":\"AF365\",\"gene\":\"S\",\"position\":484,\"new_residue\":\"any\",\"min_tips\":0}]"
 
-}
 
   const [showTree, setShowTree] = useState(true)
   useEffect(() => {
   if (tree) {
-    setTimeout(() => {
-      setSourceData({
+    console.log('tree', tree)
+    setSourceData({
         status: "loaded",
-        filename: `tree-${Date.now()}.nwk`,
+        filename: `${tree.name}.nwk`,
         data: tree.newick,
         filetype: "nwk",
         metadata: {
@@ -53,7 +41,6 @@ const Phylogeny = () => {
           filetype: "meta_csv",
         },
       });
-    }, 50); // 👈 small delay helps some libs
   }
 }, [tree]);
 
@@ -72,6 +59,8 @@ const Phylogeny = () => {
   useEffect(() => {
 
   }, sourceData)
+
+  console.log('source data', sourceData)
   return (
     <div className="container" >
       <h2>Phylogenetic Tree</h2>
@@ -84,7 +73,7 @@ const Phylogeny = () => {
 
       <PhylogenyFilter label={"tree"} idKey={"name"} handleId={handleParams}/>
       <div>
-        {tree && <h2>{tree.tree_name}</h2> }
+        {tree && <h2>{tree.name}</h2> }
         {tree &&
           <div style={{'textAlign':'right'}}> 
             <Button size='sm' className='btn-main-filled' onClick={() => downloadFile(tree.newick, tree.tree_name+".newick", "newick")}>
@@ -92,8 +81,10 @@ const Phylogeny = () => {
             </Button> 
           </div>
         }
+        {/* {sourceData && <TaxoniumTree treeName={tree.name} treeData={sourceData}/>} */}
+        {sourceData &&<Taxonium key={tree.name} sourceData={sourceData} />}
         {/* {sourceData && <Taxonium sourceData={sourceData} query={default_query}/> } */}
-        {showTree && sourceData && <Taxonium key={tree.tree_name} sourceData={sourceData} /> }
+        {/* {showTree && sourceData && <Taxonium key={tree.tree_name} sourceData={sourceData} /> } */}
         {/* {sourceData && <Taxonium sourceData={sourceData} updateQuery={(query) => {
           console.log("Query updated:", query);
           // Do whatever you want with the query object

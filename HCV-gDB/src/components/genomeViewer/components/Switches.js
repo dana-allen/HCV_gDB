@@ -14,7 +14,7 @@ export const GreenSwitch = styled(Switch)(({ theme }) => ({
 }));
 
 const Switches = ({ switches }) => (
-  <div style={{ marginLeft: '50px' }}>
+  <div style={{ marginLeft: '20px' }}>
     {switches.map(({ label, checked, onChange }) => (
       <FormControlLabel
         key={label}
@@ -26,8 +26,13 @@ const Switches = ({ switches }) => (
           />
         }
         label={label}
+        sx={{
+          "& .MuiFormControlLabel-label": {
+            fontSize: "12px"
+          }
+        }}
       />
-    ))}
+          ))}
   </div>
 );
 

@@ -51,7 +51,7 @@ const AlignmentViewer = ({reference_sequence, query_sequence, nucleotidePosition
         <div>
             <ul className='size-12-font'>
                 <li>The highlighted nucleotides represent positions where the query sequence does not match its reference sequence.</li>
-                <li>Hover over/Click on a nucleotide to view more information</li>
+                <li>Hover over a nucleotide to view more information</li>
             </ul>
 
             <div>

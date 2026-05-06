@@ -48,15 +48,9 @@ const Polymorphism = () => {
               <PolymorphismTable data={polymorphism}/>
               <ResistanceCategoryBlurb />
 
-                
-
             </div>
             <SequencesTable data={sequences} />
-            
-            
-
-           
-             
+                        
             </div>
             
         }

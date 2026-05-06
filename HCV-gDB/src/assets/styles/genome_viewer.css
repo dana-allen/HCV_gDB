@@ -120,12 +120,25 @@
     position: absolute;
     height: 100%;
     background-color: #008cba;
-    border: 1px solid #008cba;
+    /* border: 1px solid #008cba; */
+    border-radius: 5px;
     font-size: 10px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
 
+}
+
+/* structural */
+.features-btn.structural {
+    background-color: #2A6199;   /* purple */
+    /* border-color: #1F4E79; */
+}
+
+/* non-structural */
+.features-btn.non-structural {
+    background-color: #4FC3F7;   /* teal */
+    /* border-color: #4FC3F7; */
 }
 
 .features-btn:hover {

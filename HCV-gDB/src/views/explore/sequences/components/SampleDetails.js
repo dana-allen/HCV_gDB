@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import 'assets/styles/tables.css'
 
 const SampleDetails = ({ meta_data, regions, taxanomic_info }) => {
-    console.log(taxanomic_info)
+    console.log("META DATA", meta_data)
     return (
         <div >
             <h4 className="title-sub">Sample Details</h4>
@@ -26,7 +26,7 @@ const SampleDetails = ({ meta_data, regions, taxanomic_info }) => {
                         <td><b>Isolation Source</b></td>
                         <td>{meta_data.isolation_source ? `${meta_data.isolation_source}`:"-"}</td>
                     </tr>
-                    {taxanomic_info && 
+                    {taxanomic_info ? 
                         <>
                                 {taxanomic_info.phylum &&
                                 <tr>
@@ -74,7 +74,11 @@ const SampleDetails = ({ meta_data, regions, taxanomic_info }) => {
                                     <td><em>{taxanomic_info.species}</em></td>
                                 </tr>
                             }
-                        </>
+                        </> :
+                        <tr>
+                            <td><b>Host</b></td>
+                            <td>{meta_data.host ? meta_data.host : '-'}</td>
+                        </tr>
                     }
                     
                     

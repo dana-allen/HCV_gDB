@@ -12,7 +12,7 @@ import { Button } from "react-bootstrap";
 
 const GenomeViewer = ({ data }) => {
 
-    
+    console.log(data)
     
     const [selectedFeature, setSelectedFeature] = useState(null);
     
@@ -25,7 +25,7 @@ const GenomeViewer = ({ data }) => {
     const min = 1;
     const max = reference_alignment_sequence.length;
     const range = max - min;
-    const positions_tmp = Array.from(new Set([].concat(...features.map(f => [f.cds_start, f.cds_end])))).sort((a, b) => a - b);
+    const positions_tmp = Array.from(new Set([].concat(...features.map(f => [f.cds_start])))).sort((a, b) => a - b);
     const positions = [min, ...positions_tmp, max]
 
 
@@ -42,6 +42,8 @@ const GenomeViewer = ({ data }) => {
             nucleotide_positions,
         };
     });
+
+    console.log('enriched', enrichedFeatures)
 
 
     const onFeatureClick = (feature) => {
@@ -64,8 +66,36 @@ const GenomeViewer = ({ data }) => {
                     <Link className="custom-link" to={`/reference/${reference_accession}`}><b>{reference_accession}</b></Link>
                 </p>
             }
+
+            <div style={{ display: "flex", gap: "16px", alignItems: "center" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                    <div
+                    style={{
+                        width: "12px",
+                        height: "12px",
+                        borderRadius: "3px",
+                        backgroundColor: "#2A6199"
+                    }}
+                    />
+                    <span style={{ fontSize: "12px" }}><em>Structural protein</em></span>
+                </div>
+                <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                    <div
+                    style={{
+                        width: "12px",
+                        height: "12px",
+                        borderRadius: "3px",
+                        backgroundColor: "#4FC3F7"
+                    }}
+                    />
+                    <span style={{ fontSize: "12px" }}><em>Non-structural protein</em></span>
+                </div>
+
+            </div>
+            <br></br>
             
             <NumberLine positions={positions} min={min} range={range} includeLabel={query_alignment_sequence ? false : true}/>
+
 
             <Features
                 features={enrichedFeatures}
@@ -78,7 +108,6 @@ const GenomeViewer = ({ data }) => {
             />
             { query_alignment_sequence ?
                 <MismatchBarRow
-                    // key={primary_a}
                     sequence={query_alignment_sequence}
                     reference_sequence={reference_alignment_sequence}
                     min={min}
@@ -90,7 +119,6 @@ const GenomeViewer = ({ data }) => {
                 query_aligned_sequences.map((query, i) => {
                     return (
                         <MismatchBarRow
-                            // key={primary_a}
                             sequence={query}
                             reference_sequence={reference_alignment_sequence}
                             min={min}
@@ -102,6 +130,8 @@ const GenomeViewer = ({ data }) => {
 
                 }) 
             }
+
+
             
 
             {selectedFeature && (
@@ -134,8 +164,8 @@ const GenomeViewer = ({ data }) => {
                                         reference_sequence={reference_alignment_sequence} 
                                         query_sequence={query_alignment_sequence ? [query_alignment_sequence.query_alignment_sequence] : query_aligned_sequences.map(item => item.query_alignment_sequence)}
                                         nucleotidePositions={selectedFeature.nucleotide_positions}
-                                        start={selectedFeature.cds_start}
-                                        end={selectedFeature.cds_end}   />
+                                        start={parseInt(selectedFeature.cds_start)}
+                                        end={parseInt(selectedFeature.cds_end)}   />
                     }
                 </div>
             )}

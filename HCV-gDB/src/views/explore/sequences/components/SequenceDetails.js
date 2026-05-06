@@ -9,6 +9,18 @@ import { formatGenomeCoverage } from 'assets/javascript/formatHelper'
 import 'assets/styles/sequence.css'
 import 'assets/styles/tables.css'
 
+const productDisplay = {'core protein':'Core',
+                    'envelope protein E1': 'E1',
+                    'envelope protein E2':'E2',
+                    'RNA-dependent RNA polymerase NS5B':'NS5B',
+                    'nonstructural protein NS5A':'NS5A',
+                    'nonstructural protein NS4B':'NS4B',
+                    'nonstructural protein NS4A':'NS4A',
+                    'protease/helicase protein NS3':'NS3',
+                    'nonstructural protein NS2':'NS2',
+                    'protein p7':'p7'
+                  }
+                  
 const SequenceDetails = ({ meta_data, alignment }) => {
     
     return (
@@ -27,8 +39,8 @@ const SequenceDetails = ({ meta_data, alignment }) => {
                         </td>
                     </tr>
                     <tr>
-                        <td><b>Clade</b></td>
-                        <td>{meta_data["EPA_major_clade"] ? meta_data["EPA_major_clade"] : "" }  {meta_data["EPA_minor_clade"] ? meta_data["EPA_minor_clade"] : ""}</td>
+                        <td><b>Genotype/Subtype</b></td>
+                        <td>{meta_data["nearest_reference_genotype"] ? `${meta_data["nearest_reference_genotype"]}` : "" }{meta_data["nearest_reference_subtype"] ? meta_data["nearest_reference_subtype"] : ""}</td>
                     </tr>
                     {meta_data["serotype"] &&
                         <tr>				
@@ -78,14 +90,14 @@ const SequenceDetails = ({ meta_data, alignment }) => {
                     
                     {alignment &&
                         <tr>
-                            <td><b>Coverage of Genome Region</b><br/>based on homology with<br/><Link className='custom-link' to={`/reference/${alignment.reference_accession}`}>{alignment.reference_accession}</Link></td>
+                            <td><b>Coverage of Genome Region</b><br/>based on homology with<br/><Link className='custom-link' to={`/reference/${alignment.reference_accession}`}><strong>{alignment.reference_accession}</strong></Link></td>
                             <td><div>
                                 {alignment.features.map((feature, featureIndex) => {
                                     let coverage = formatGenomeCoverage(alignment.query_alignment_sequence, feature.cds_start, feature.cds_end)
                                     return (
                                         <div key={`coverage-details-${featureIndex}`}>
                                             { coverage > 0 && 
-                                                <a className='capitalize-text coverage'>{feature.product}: {coverage}%<br/></a>
+                                                <a className='capitalize-text coverage'>{productDisplay[feature.product]}: {coverage}%<br/></a>
                                             }
                                         </div>
                                     )
