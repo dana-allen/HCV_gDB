@@ -121,7 +121,7 @@ export const getSequenceData = (start, end, referenceSequence, currentSequences,
   const refSequenceRegion = referenceSequence ? referenceSequence.slice(start, end) : '';
   const refCodonsArray = splitIntoCodons(refSequenceRegion);
   const currentCodonArrays = currentSequencesRegions.map(seq => splitIntoCodons(seq));
-  const startIndex = start;
+  const startIndex = parseInt(start, 10);
 
   for (let i = 0; i < nucIndexes.length; i++) {
     const index = nucIndexes[i];
@@ -134,7 +134,7 @@ export const getSequenceData = (start, end, referenceSequence, currentSequences,
       const refCodon = refCodonsArray[codonIndex];
       const refAA = codonTable[refCodon] || '-';
       const codonStart = startIndex + codonIndex * 3;
-      const nuc_index = [codonStart + 1, codonStart + 2, codonStart + 3];
+      const nuc_index = [parseInt(codonStart + 1, 10), parseInt(codonStart + 2), parseInt(codonStart + 3)];
 
 
       const fullCodon = {
@@ -162,7 +162,7 @@ export const getSequenceData = (start, end, referenceSequence, currentSequences,
     }
 
     // Nucleotide block
-    const nucEntry = { ref: { nuc: referenceSequence[index] }, seq: [], nuc_index: index+1 };
+    const nucEntry = { ref: { nuc: referenceSequence[index] }, seq: [], nuc_index: parseInt(index+1, 10) };
     for (let j = 0; j < currentSequences.length; j++) {
       nucEntry.seq[j] = { nuc: currentSequences[j][index] };
     }

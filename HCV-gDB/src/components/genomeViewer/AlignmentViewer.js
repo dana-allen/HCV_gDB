@@ -35,8 +35,8 @@ const AlignmentViewer = ({reference_sequence, query_sequence, nucleotidePosition
         const matches = nucleotidePositions.filter(
             (m) => Number(m) === position
         );
-        const results = getSequenceData( start,
-                                        end,
+        const results = getSequenceData( parseInt(start, 10),
+                                        parseInt(end, 10),
                                         reference_sequence,
                                         query_sequence,
                                         matches

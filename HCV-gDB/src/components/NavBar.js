@@ -26,7 +26,7 @@ const NavBar = () => {
               <a className="dropdown-item" href="/references">References</a>
               <a className="dropdown-item" href="/global_overview">Global Overview</a>
               <a className="dropdown-item" href="/phylogeny">Phylogenetic Trees</a>
-              <a className="dropdown-item" href="/drug_resistance">Drug Resistance</a>
+              <a className="dropdown-item" href="/polymorphisms">Polymorphisms</a>
             </div>
           </li>
 

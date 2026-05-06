@@ -11,8 +11,8 @@ import PolymorphismTable from './components/PolymorphismTable';
 // Stylesheets
 import 'assets/styles/sequences.css';
 
-import { resistanceCategoryBlurb } from 'assets/javascript/formatHelper'
 import ResistanceCategoryBlurb from './components/ResistanceCategoryBlurb';
+import SequencesTable from './components/SequencesTable';
 
  
 
@@ -21,7 +21,7 @@ const Polymorphism = () => {
   const { id } = useParams()
   const gene = id.split(':')[0]
   const combination = id.split(':')[1]
-  const { polymorphism, loading, error } = usePolymorphism(id);
+  const { polymorphism, sequences, loading, error } = usePolymorphism(id);
   console.log('poly', polymorphism)
 
   // Contexts
@@ -40,13 +40,22 @@ const Polymorphism = () => {
 
       {polymorphism && 
       <div>
+        
+
+
 
             <div className='padding-table'>
+              <PolymorphismTable data={polymorphism}/>
+              <ResistanceCategoryBlurb />
 
-                <PolymorphismTable data={polymorphism}/>
+                
 
             </div>
-            <ResistanceCategoryBlurb />
+            <SequencesTable data={sequences} />
+            
+            
+
+           
              
             </div>
             

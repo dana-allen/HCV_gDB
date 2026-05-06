@@ -11,6 +11,8 @@ import { Button } from "react-bootstrap";
 
 
 const GenomeViewer = ({ data }) => {
+
+    
     
     const [selectedFeature, setSelectedFeature] = useState(null);
     

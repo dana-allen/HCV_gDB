@@ -11,40 +11,41 @@ function usePolymorphism(id) {
     // const polymorphism = data
     console.log("DATA", data)
 
-const reshaped = data && Object.values(
-  data.reduce((acc, item) => {
-    const key = item.mutation_id;
+  const reshaped = data && Object.values(
+    data["polymorphism"].reduce((acc, item) => {
+      const key = item.mutation_id;
 
-    if (!acc[key]) {
-      acc[key] = {
-        mutation_id: item.mutation_id,
-        aa_position: item.aa_position,
-        alt_residue: item.alt_residue,
-        reference_accession: item.reference_accession,
-        resistance: []
-      };
-    }
+      if (!acc[key]) {
+        acc[key] = {
+          mutation_id: item.mutation_id,
+          aa_position: item.aa_position,
+          alt_residue: item.alt_residue,
+          reference_accession: item.reference_accession,
+          resistance: []
+        };
+      }
 
-    const exists = acc[key].resistance.some(
-      r =>
-        r.drug === item.drug &&
-        r.resistance_category === item.resistance_category
-    );
+      const exists = acc[key].resistance.some(
+        r =>
+          r.drug === item.drug &&
+          r.resistance_category === item.resistance_category
+      );
 
-    if (!exists) {
-      acc[key].resistance.push({
-        resistance_category: item.resistance_category,
-        drug: item.drug
-      });
-    }
+      if (!exists) {
+        acc[key].resistance.push({
+          resistance_category: item.resistance_category,
+          drug: item.drug
+        });
+      }
 
-    return acc;
-  }, {})
-);
+      return acc;
+    }, {})
+  );
 
     const polymorphism = reshaped
+    const sequences = data && data["sequences"]
 
-            return { polymorphism, ...rest };
+    return { polymorphism, sequences, ...rest };
 
     };
 

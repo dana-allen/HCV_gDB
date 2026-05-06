@@ -23,13 +23,13 @@ const SequenceViewer = ({ start, end, refSequence, currentSequences, nucPosition
         .filter(pos => pos >= start && pos <= end)
         .sort((a, b) => a - b); // numerical ascending
 
-      const results = getSequenceData( start,
-                                        end,
+      const results = getSequenceData( parseInt(start, 10),
+                                        parseInt(end, 10),
                                         refSequence,
                                         currentSequences,
                                         nucPositionsRegion
                                       );
-                              
+                              console.log("results", results)
       setSequenceData(results);
     }
   }, [start, end, nucPositions]);
