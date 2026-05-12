@@ -5,7 +5,7 @@ import { Box, TextField, InputAdornment, MenuItem } from '@mui/material';
 import SearchIcon from "@mui/icons-material/Search";
 import 'assets/styles/filters.css';
 
-export default function RadioButtonDropdown({label, reset, onChange}) {
+export default function RadioButtonDropdown({label, reset, options, onChange}) {
 
     const [open, setOpen] = useState(false);
     const containerRef = useRef(null);
@@ -98,19 +98,22 @@ export default function RadioButtonDropdown({label, reset, onChange}) {
         <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
           <label style={{ fontWeight: "bold", fontSize: "12px" }}>Find Excluded Sequences</label>
             <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+                {options.map((option, key) => (
+                  <label style={{ display: "flex", alignItems: "center", gap: "6px", fontSize:'12px' }}>
+                    <input
+                      type="radio"
+                      name="lengthMode"
+                      value="1"
+                      checked={mode === "1"}
+                      onChange={handleModeChange}
+                    />
+                    {option}
+                  </label>
 
-                <label style={{ display: "flex", alignItems: "center", gap: "6px", fontSize:'12px' }}>
-                  <input
-                    type="radio"
-                    name="lengthMode"
-                    value="1"
-                    checked={mode === "1"}
-                    onChange={handleModeChange}
-                  />
-                  Yes
-                </label>
+                ))}
+                
 
-                <label style={{ display: "flex", alignItems: "center", gap: "6px", fontSize:'12px' }}>
+                {/* <label style={{ display: "flex", alignItems: "center", gap: "6px", fontSize:'12px' }}>
                   <input
                     type="radio"
                     name="lengthMode"
@@ -118,8 +121,8 @@ export default function RadioButtonDropdown({label, reset, onChange}) {
                     checked={mode === "0"}
                     onChange={handleModeChange}
                   />
-                  No
-                </label>
+                  {options[1]}
+                </label> */}
               </div>
 
               

@@ -12,7 +12,7 @@ const ResistanceCategoryBlurb = () => {
                 <li>(b) both found at baseline and treatment-emergent.</li>
                 </ul>
             </li>
-            <li><b>Category II</b>: <em>in vitro</em> level ≥ 5 or found at baseline or treatment-emergent.</li>
+            <li><b>Category II</b>: <em>in vitro</em> level ≥ 50 or found at baseline or treatment-emergent.</li>
             <li><b>Category III</b>: <em>in vitro</em> level ≥ 5</li>
         </ul>
                

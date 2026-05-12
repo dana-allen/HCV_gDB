@@ -34,7 +34,10 @@ function usePolymorphism(id) {
       if (!exists) {
         acc[key].resistance.push({
           resistance_category: item.resistance_category,
-          drug: item.drug
+          drug: item.drug,
+          drug_category: item.drug_category,
+          drug_producer: item.drug_producer,
+          pubmed_id: item.pubmed_id,
         });
       }
 

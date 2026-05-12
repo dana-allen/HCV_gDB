@@ -12,6 +12,7 @@ import PagingButtons from 'components/buttons/PagingButtons';
 import 'assets/styles/sequences.css';
 
 
+import DRFilter from 'components/filters/DRFilter';
 
 const Polymorphisms = () => {
 
@@ -40,10 +41,21 @@ const Polymorphisms = () => {
         if (error) triggerError(error);
     
     }, [loading, error]);
+
+    const handleBarFilters = useCallback((data) => {  }, []);
+    const handleReset = useCallback((data) => {  }, []);
+
+
     return (
         <div className="container">
         <h2>Polymorphisms</h2>
         <p>{process.env.REACT_APP_VIRUS_ABB}-{process.env.REACT_APP_WEB_RESOURCE} analyses sequences for these individual or combined amino acid substitutions and deletions.</p>
+
+        <div>
+        <DRFilter onApplyFilter={handleBarFilters} onClickReset={handleReset}/>
+        <hr></hr>
+        
+        </div>
 
         {polymorphisms && 
 

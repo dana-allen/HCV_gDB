@@ -24,6 +24,7 @@ const PolymorphismsTable = ( { data=null, type=null } ) => {
                     <th>Reference</th>
                     <th>Drug</th>
                     <th>Resistance Category*</th>
+                    <th>Reference</th>
                     
                     {/* <th>Mutation</th>
                     <th>Reference Accssion</th> */}
@@ -50,8 +51,20 @@ const PolymorphismsTable = ( { data=null, type=null } ) => {
                             
                         </>
                         )}
-                        <td>{r.drug}</td>
+
+                        <td>
+                            {r.drug}
+                            <br></br>
+                            <span style={{fontSize:'10px'}}><em>{r.drug_category}</em></span>
+                            <div>
+                                
+                                
+                            </div>
+                        </td>
                         <td>{parseRestianceCategory(r.resistance_category)}</td>
+                        <td >
+                            { r.pubmed_id ? <Link className='gdb-link' to={`https://www.ncbi.nlm.nih.gov/pubmed/${r.pubmed_id}`} target="_blank"> <FontAwesomeIcon icon={faLink} /> PubMed {r.pubmed_id} </Link>:"-" }
+                        </td>
 
                     </tr>
                     ));
