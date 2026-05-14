@@ -15,6 +15,7 @@ import PubMedRefDetails from './components/PubMedRefDetails'
 
 // Generic Components
 import GenomeViewer from 'components/genomeViewer/GenomeViewer';
+import MutationViewer from 'components/mutationViewer/MutationViewer';
 
 // Helpers
 import { downloadPng } from "utils/downloadHelper";
@@ -120,6 +121,8 @@ const Sequence = () => {
 
                              
                             }
+
+                            
                         </div>
                     }
                     <br></br>
@@ -143,6 +146,15 @@ const Sequence = () => {
                     { pubmedId && 
                         <PubMedRefDetails pubmedId={pubmedId} />
                     }
+
+                    {mutations && 
+
+                        <div ref={viewerRef}>
+                            <MutationViewer data={alignment} mutations={mutations}/>
+                        </div>
+
+                             
+                        }
                 </div>
             }
             

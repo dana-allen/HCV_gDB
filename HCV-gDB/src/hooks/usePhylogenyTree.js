@@ -10,10 +10,12 @@ function usePhylogenyTree(params) {
 
   const tree = data && data.tree
 
+  console.log("META_DATA", data && data.meta_data)
+
   //  Convert to CSV text
-  const csvHeader = "primary_accession,major_clade,minor_clade,collection_year,country,phylum,class,order,family,genus,species\n";
+  const csvHeader = "primary_accession,major_clade,minor_clade,collection_year,country\n";
   const csvBody = data && data.meta_data
-    .map(row => `${row.primary_accession},${row.nearest_reference_genotype},${row.nearest_reference_subtype}, ${row.collection_year}, ${row.country}, ${row.phylum}, ${row.class}, ${row.order_category}, ${row.family}, ${row.genus}, ${row.species}`)
+    .map(row => `${row.primary_accession}, ${row.nearest_reference_genotype}, ${row.nearest_reference_subtype}, ${row.collection_year}, ${row.country}`)
     .join("\n");
   console.log("HOOK TREE", tree)
   const meta_data = csvHeader + csvBody;

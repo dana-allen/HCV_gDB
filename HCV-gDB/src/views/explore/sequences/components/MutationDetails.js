@@ -55,7 +55,7 @@ const MutationDetails = ({ mutations }) => {
                                 gap: "8px"
                                 }}
                             >
-                <h4 className='title-sub'>Mutations</h4>
+                <h4 className='title-sub'>Anti-Viral Mutations</h4>
                 <div style={{ whiteSpace: "nowrap", marginLeft: "auto" }}>
                     <Link to="/polymorphisms">
                         <Button size="sm" className="btn-main-filled">

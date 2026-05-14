@@ -141,7 +141,7 @@ const GenomeViewer = ({ data }) => {
                         <li><strong>region mismatches</strong> show only nucleotides and amino acids that differ from the reference in the {selectedFeature.product} region. </li>
                         <li><strong>full region alignment</strong> displays all nucleotides in the region, with mismatches highlighted</li>
                     </ul>
-                     <p className='selected-feature-label'>
+                    <p className='selected-feature-label'>
                         <em>view: &nbsp;</em>
                         <Button size='sm' className={`btn-table-sequence ${!checked ? 'show' : ''}`} onClick={()=>onChange(0)}>region mismatches</Button> 
                         <Button size='sm' className={`btn-table-sequence ${checked ? 'show' : ''}`} onClick={()=>onChange(1)}>full region alignment</Button>

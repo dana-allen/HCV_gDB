@@ -18,7 +18,7 @@ const Phylogeny = () => {
 
   const { tree, meta_data, loading, error } = usePhylogenyTree(params);
   const { downloadFile } = useDownload();
-  console.log("new tree", tree)
+  
 
   const handleQuery = (e) => {
     console.log("query", e)

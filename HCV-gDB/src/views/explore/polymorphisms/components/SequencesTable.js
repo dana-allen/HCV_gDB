@@ -5,7 +5,7 @@ import PagingButtonsSlim from 'components/buttons/PagingButtonsSlim';
 // Stylesheets
 import 'assets/styles/tables.css'
 
-const SequencesTable = ({ data = null, type = null }) => {
+const SequencesTable = ({ data = null, clades = null, type = null }) => {
 
     const [search, setSearch] = useState('');
     const [startRecord, setStartRecord] = useState('');
@@ -46,23 +46,13 @@ const SequencesTable = ({ data = null, type = null }) => {
     return (
         <div>
             <div className='row'><h4 className='title-sub'>Sequences</h4></div>
+            <span className='size-12-font'>Sequences with mutation present</span>
+        
             
-            
-            <div className='row'>
-                <div className='col-6'>
-                    
-
-                </div>
-                <div className='col-6'>
-                    
-
-                </div>
-            </div>
-            
-            <table className="table table-striped table-bordered table-font-12 table-width-50">
+            <table className="table table-striped table-bordered table-font-12">
                 <thead>
                     <tr>
-                        <th>
+                        <th colSpan={2}>
                             <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
                              <div>
                                 <span className="size-12-font" style={{ fontWeight: "normal" }}>
@@ -106,10 +96,10 @@ const SequencesTable = ({ data = null, type = null }) => {
 
                                 {/* Paging buttons */}
                                 <div style={{ whiteSpace: "nowrap" }}>
-                                <PagingButtonsSlim
-                                    data={filteredData}
-                                    onPageChange={handlePageChange}
-                                />
+                                    <PagingButtonsSlim
+                                        data={filteredData}
+                                        onPageChange={handlePageChange}
+                                    />
                                 </div>
                             </div>
 
@@ -118,7 +108,11 @@ const SequencesTable = ({ data = null, type = null }) => {
 
                             </div>
                         </th>
-                        </tr>
+                    </tr>
+                    <tr>
+                        <th>Primary Accession</th>
+                        <th>Clade</th>
+                    </tr>
                 </thead>
 
                 <tbody>
@@ -126,16 +120,19 @@ const SequencesTable = ({ data = null, type = null }) => {
                         <tr key={i}>
                             <td>
                                 <Link
-                                    className='gdb-link'
+                                    className='custom-link'
                                     to={`/sequence/${sequence.primary_accession}`}
                                 >
                                     {sequence.primary_accession}
                                 </Link>
                             </td>
+                            <td>{clades.filter(c => c.sequence_id === sequence.primary_accession)[0].nearest_reference_genotype}{clades.filter(c => c.sequence_id === sequence.primary_accession)[0].nearest_reference_subtype}</td>
                         </tr>
                     ))}
                 </tbody>
             </table>
+
+
         </div>
     );
 };

@@ -2,14 +2,9 @@ import useFetch from "./useFetch";
 
 function usePolymorphism(id) {
 
-    const url = `/api/polymorphism/${id}`;
+  const url = `/api/polymorphism/${id}`;
 
-    const { data, ...rest } = useFetch(id ? url : null);
-    
-    console.log("URL", url)
-
-    // const polymorphism = data
-    console.log("DATA", data)
+  const { data, ...rest } = useFetch(id ? url : null);
 
   const reshaped = data && Object.values(
     data["polymorphism"].reduce((acc, item) => {
@@ -38,6 +33,9 @@ function usePolymorphism(id) {
           drug_category: item.drug_category,
           drug_producer: item.drug_producer,
           pubmed_id: item.pubmed_id,
+          in_vitro_max_ec50_midpoint: item.in_vitro_max_ec50_midpoint,
+          in_vivo_baseline: item.in_vivo_baseline,
+          in_vivo_treatment_emergent: item.in_vivo_treatment_emergent, 
         });
       }
 
@@ -47,8 +45,9 @@ function usePolymorphism(id) {
 
     const polymorphism = reshaped
     const sequences = data && data["sequences"]
+    const chart_data = data && data["chart_data"]
 
-    return { polymorphism, sequences, ...rest };
+    return { polymorphism, sequences, chart_data, ...rest };
 
     };
 
