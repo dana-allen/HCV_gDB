@@ -46,6 +46,7 @@ function usePolymorphism(id) {
     const polymorphism = reshaped
     const sequences = data && data["sequences"]
     const chart_data = data && data["chart_data"]
+    console.log("here", chart_data)
 
     return { polymorphism, sequences, chart_data, ...rest };
 

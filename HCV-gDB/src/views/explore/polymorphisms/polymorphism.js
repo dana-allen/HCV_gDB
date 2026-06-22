@@ -26,6 +26,7 @@ const Polymorphism = () => {
   const combination = id.split(':')[1]
   const { polymorphism, sequences, chart_data, loading, error } = usePolymorphism(id);
   console.log('poly', polymorphism)
+  console.log("chart data", chart_data)
 
   // Contexts
   const { triggerLoadingWheel } = useLoadingWheelHandler();
@@ -55,7 +56,7 @@ const Polymorphism = () => {
               <SequencesTable data={sequences} clades={chart_data && chart_data["meta_data"]}/>
             </div>
             <div className="col-md-6">
-              <CladeFrequencyChart data={chart_data} />
+              {/* <CladeFrequencyChart data={chart_data} /> */}
             </div>
 
           </div>

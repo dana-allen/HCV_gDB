@@ -116,6 +116,7 @@ export function getAminoAcidAtPosition(aminoAcids, aaPosition) {
 // --------------------------------------------------
 
 export function getAAForSequence(sequence, references, aaPosition) {
+// export function getAAForSequence(sequence, aaPosition) {
   const reference = getReferenceForSequence(sequence, references);
 
   if (!reference) {
@@ -124,14 +125,14 @@ export function getAAForSequence(sequence, references, aaPosition) {
 
   const cdsStart = Number(reference.cds_start);
   const cdsEnd = Number(reference.cds_end);
-
+  console.log("coordinates", cdsStart, cdsEnd)
   const codingRegion = extractCodingRegion(
     sequence.alignment,
     cdsStart,
     cdsEnd
   );
 
-  const ungappedSequence = removeGaps(codingRegion);
+  // const ungappedSequence = removeGaps(codingRegion);
 
   const codons = splitIntoCodons(codingRegion);
 
@@ -146,10 +147,12 @@ export function getAAForSequence(sequence, references, aaPosition) {
 // --------------------------------------------------
 
 export function countAminoAcids(metaData, references, aaPosition) {
+// export function countAminoAcids(metaData, aaPosition) {
   const counts = {};
 
   metaData.forEach((sequence) => {
     const aa = getAAForSequence(sequence, references, aaPosition);
+    //  const aa = getAAForSequence(sequence, aaPosition);
 
     if (!aa) return;
 
