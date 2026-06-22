@@ -96,7 +96,7 @@ export function splitIntoCodons(sequence) {
 
 export function translateCodons(codons) {
   return codons.map((codon) => {
-    return CODON_TABLE[codon] || "X";
+    return CODON_TABLE[codon.toUpperCase()] || "X";
   });
 }
 
@@ -115,16 +115,19 @@ export function getAminoAcidAtPosition(aminoAcids, aaPosition) {
 // Process a single sequence
 // --------------------------------------------------
 
-export function getAAForSequence(sequence, references, aaPosition) {
-// export function getAAForSequence(sequence, aaPosition) {
-  const reference = getReferenceForSequence(sequence, references);
+// export function getAAForSequence(sequence, references, aaPosition) {
+export function getAAForSequence(sequence, aaPosition) {
+  // const reference = getReferenceForSequence(sequence, references);
 
-  if (!reference) {
-    return null;
-  }
+  // if (!reference) {
+  //   return null;
+  // }
 
-  const cdsStart = Number(reference.cds_start);
-  const cdsEnd = Number(reference.cds_end);
+  // const cdsStart = Number(reference.cds_start);
+  // const cdsEnd = Number(reference.cds_end);
+  // console.log(sequence)
+    const cdsStart = Number(sequence.cds_start);
+  const cdsEnd = Number(sequence.cds_end);
   console.log("coordinates", cdsStart, cdsEnd)
   const codingRegion = extractCodingRegion(
     sequence.alignment,
@@ -132,7 +135,7 @@ export function getAAForSequence(sequence, references, aaPosition) {
     cdsEnd
   );
 
-  // const ungappedSequence = removeGaps(codingRegion);
+  const ungappedSequence = removeGaps(codingRegion);
 
   const codons = splitIntoCodons(codingRegion);
 
@@ -151,8 +154,8 @@ export function countAminoAcids(metaData, references, aaPosition) {
   const counts = {};
 
   metaData.forEach((sequence) => {
-    const aa = getAAForSequence(sequence, references, aaPosition);
-    //  const aa = getAAForSequence(sequence, aaPosition);
+    // const aa = getAAForSequence(sequence, references, aaPosition);
+     const aa = getAAForSequence(sequence, aaPosition);
 
     if (!aa) return;
 

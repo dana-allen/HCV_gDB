@@ -6,7 +6,7 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import RadioButtonFilter from './components/RadioButtonFilter';
-
+import { Typography } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons'
 
@@ -14,12 +14,20 @@ import 'assets/styles/filters.css'
 
 const AlignmentFilter = ({show, onClose, params, sequences_count, onApplyFilter}) => {
 
-    const features = [{name:'Glycoprotein', text:'Glycoprotein'}, 
-                                                {name:'Large protein / RNA polymerase', text:'Large protein / RNA polymerase'},
-                                                {name:'Matrix protein', text:'Matrix protein'},
-                                                {name:'Nucleoprotein', text:'Nucleoprotein'},
-                                                {name:'Phosphoroprotein', text:'Phosphoroprotein'}
-                                            ];
+    const structural_features = [{name:'core protein', text:'Core protein'}, 
+                    {name:'envelope protein E1', text:'Envelope protein E1'},
+                    {name:'envelope protein E2', text:'Envelope protein E2'}
+                ];
+
+    const non_structural_features = [
+                    {name:'protein p7', text:'Protein p7'},
+                    {name:'nonstructural protein NS2', text:'NS2'},
+                    {name:'protease/helicase protein NS3', text:'NS3'},
+                    {name:'nonstructural protein NS4A', text:'NS4A'},
+                    {name:'nonstructural protein NS4B', text:'NS4B'},
+                    {name:'nonstructural protein NS5A', text:'NS5A'},
+                    {name:'RNA-dependend RNA polymerase NS5B', text:'NS5B'}
+                ];
 
     const [genomeDisplay, setGenomeDisplay] = useState('');
     const [fullOrPartial, setFullOrPartial] = useState('entirety');
@@ -148,41 +156,128 @@ const AlignmentFilter = ({show, onClose, params, sequences_count, onApplyFilter}
                         Select specific genome regions and corresponding nucleotides and/or codons for all <b>{sequences_count ? sequences_count.toLocaleString() : ""}</b> selected sequences.
                     </p>
                     {advancedDownload &&
+
+                    
                         <div>
                             <h5>Select Genome Region:</h5>
                             
-                            <div className='row'>
-                                <div className="col-12">
-                                    <FormControl>
-                                        <RadioGroup
-                                            row
-                                            aria-labelledby="demo-row-radio-buttons-group-label"
-                                            name="row-radio-buttons-group"
-                                            onChange={e => handleRegionChange(e.target.value)}  
-                                        >
-                                            {features.map((feature, i) => (
-                                                <FormControlLabel value={feature.name} 
-                                                                control={<Radio size="small" 
-                                                                                sx={{
-                                                                                    color: 'var(--primary)',
-                                                                                    '&.Mui-checked': {color: 'var(--primary)',},
-                                                                                }}/>} 
-                                                                                label={feature.text} />
+                            <div className="row">
+                            <div className="col-12">
+                                <FormControl fullWidth>
+                                    <RadioGroup
+                                        name="protein-selection"
+                                        onChange={(e) => handleRegionChange(e.target.value)}
+                                    >
+                                        <div className="row">
 
+                                        {/* Non-Structural */}
+                                        <div className="col-md-6">
+                                            <Typography
+                                            variant="subtitle2"
+                                            sx={{
+                                                fontSize: "14px",
+                                                fontWeight: 600,
+                                                mb: 1,
+                                            }}
+                                            >
+                                            Non-Structural Proteins
+                                            </Typography>
+
+                                            {non_structural_features.map((feature) => (
+                                            <FormControlLabel
+                                                key={feature.name}
+                                                value={feature.name}
+                                                    sx={{
+                                                        ml: 0.5, // moves the whole item slightly right
+                                                        "& .MuiFormControlLabel-label": {
+                                                        fontSize: "12px",
+                                                        lineHeight: 1.2,
+                                                        },
+                                                        "& .MuiRadio-root": {
+                                                        marginRight: "6px", // 👈 key part (space between circle and text)
+                                                        },
+                                                    }}
+                                                    control={
+                                                        <Radio
+                                                        size="small"
+                                                        sx={{
+                                                            padding: "4px",
+                                                            transform: "scale(0.8)",
+                                                            color: "var(--primary)",
+                                                            "&.Mui-checked": {
+                                                            color: "var(--primary)",
+                                                            },
+                                                        }}
+                                                        />
+                                                    }
+                                                label={feature.text}
+                                            />
                                             ))}
-                                        </RadioGroup>
+                                        </div>
+
+                                        {/* Structural */}
+                                        <div className="col-md-6">
+                                            <Typography
+                                            variant="subtitle2"
+                                            sx={{
+                                                fontSize: "14px",
+                                                fontWeight: 600,
+                                                mb: 1,
+                                            }}
+                                            >
+                                            Structural Proteins
+                                            </Typography>
+
+                                            {structural_features.map((feature) => (
+
+                                            <FormControlLabel
+                                                key={feature.name}
+                                                value={feature.name}
+                                                sx={{
+                                                    ml: 0.5, // moves the whole item slightly right
+                                                    "& .MuiFormControlLabel-label": {
+                                                    fontSize: "12px",
+                                                    lineHeight: 1.2,
+                                                    },
+                                                    "& .MuiRadio-root": {
+                                                    marginRight: "6px", // 👈 key part (space between circle and text)
+                                                    },
+                                                }}
+                                                control={
+                                                    <Radio
+                                                    size="small"
+                                                    sx={{
+                                                        padding: "4px",
+                                                        transform: "scale(0.8)",
+                                                        color: "var(--primary)",
+                                                        "&.Mui-checked": {
+                                                        color: "var(--primary)",
+                                                        },
+                                                    }}
+                                                    />
+                                                }
+                                                label={feature.text}
+                                            />
+                                            ))}
+                                        </div>
+
+                                        </div>
+                                    </RadioGroup>
                                     </FormControl>
                                 </div>
                             </div>
+
+
                             {genomeDisplay != '' && 
                                 <div>
                                     <h5>Select Alignment Region:</h5>
-                                    <RadioButtonFilter 
+                                    <RadioButtonFilter
                                         label={undefined}
                                         label_values={['Entirety', 'Subregion']}
                                         value={['entirety', 'subregion']}
-                                        handleId={e => setFullOrPartial(e)} 
-                                    ></RadioButtonFilter>
+                                        handleId={e => setFullOrPartial(e)}
+
+                                ></RadioButtonFilter>
                                 
                                 </div>
                             }

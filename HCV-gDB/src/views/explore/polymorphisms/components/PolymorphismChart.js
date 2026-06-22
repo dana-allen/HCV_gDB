@@ -22,7 +22,7 @@ const PolymorphismChart= ( { data=null } ) => {
     const counts = countAminoAcids(
         data.meta_data,
         data.reference,
-        36
+        155
     );
 
     const chartData = createChartData(counts);
