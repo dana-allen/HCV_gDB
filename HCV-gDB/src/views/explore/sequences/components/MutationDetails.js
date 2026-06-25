@@ -3,7 +3,8 @@ import 'assets/styles/tables.css'
 
 import { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faDownload} from '@fortawesome/free-solid-svg-icons'
 import PagingButtonsSlim from 'components/buttons/PagingButtonsSlim';
 // Stylesheets
 import 'assets/styles/tables.css'
@@ -32,7 +33,7 @@ const MutationDetails = ({ mutations }) => {
         setEndRecord(items[2]);
     };
 
-    // 🔁 Reset pagination when search changes
+
     useEffect(() => {
         if (filteredData.length > 0) {
             handlePageChange([filteredData.slice(0, 10), 1, Math.min(10, filteredData.length)]);
@@ -49,19 +50,20 @@ const MutationDetails = ({ mutations }) => {
             <div >
                 <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
                     <div
-                                style={{
-                                display: "flex",
-                                alignItems: "center",
-                                gap: "8px"
-                                }}
-                            >
+                        style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "8px"
+                        }}
+                    >
                 <h4 className='title-sub'>Anti-Viral Mutations</h4>
                 <div style={{ whiteSpace: "nowrap", marginLeft: "auto" }}>
-                    <Link to="/polymorphisms">
+                    <FontAwesomeIcon icon={faDownload}/>
+                    {/* <Link to="/polymorphisms">
                         <Button size="sm" className="btn-main-filled">
                             Explore Mutations
                         </Button>
-                    </Link>
+                    </Link> */}
                 </div>
                 
                 </div>
@@ -122,10 +124,6 @@ const MutationDetails = ({ mutations }) => {
                                 />
                                 </div>
                             </div>
-
-                            {/* Bottom row: sequence info */}
-                           
-
                             </div>
                         </th>
                         </tr>
@@ -159,38 +157,3 @@ const MutationDetails = ({ mutations }) => {
 };
 
 export default MutationDetails;
-
-// <div>
-//                 {mutations.map((mutation, mutationIndex) => {
-//                     console.log("mutations", mutation)
-//                     const row = mutation ? mutation.split(";") : null
-//                     return (
-//                         <>
-//                             {row &&
-//                                 <table 
-//                                     key={`table-${mutationIndex}`}
-//                                     className="table table-striped table-bordered table-font-12 table-width-50" 
-//                                 >
-//                                     <thead>
-//                                         <tr>
-//                                             <th>Gene</th>
-//                                             <th>Mutation Present</th>
-//                                         </tr>
-//                                     </thead>
-//                                     {row.map((item, rowIndex) => {
-//                                         const k = item.split(":")
-//                                         return (
-//                                             <tbody key={`tbody-${rowIndex}`}>
-//                                                 <tr>
-//                                                     <td>{k[0]}</td>
-//                                                     <td><Link className='custom-link'>{k[1]}</Link></td>
-//                                                 </tr>
-//                                             </tbody>
-//                                         )
-//                                     })}
-//                                 </table>
-//                             }
-//                         </>
-//                     )
-//                 })}
-//             </div>

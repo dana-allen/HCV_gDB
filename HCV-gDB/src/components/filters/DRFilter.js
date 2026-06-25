@@ -36,69 +36,11 @@ const DRFilter = ({ onApplyFilter, onClickReset }) => {
   };
 
 
-  const handleNucleotideId = (value, exclude) => updateFilterKey("primary_accession", value, exclude);
-  const handleIsolateId = (value, exclude) => updateFilterKey("isolate", value, exclude);
-  const handleCountry = (value, exclude) => updateFilterKey("country", value, exclude);
+  const handleGenesId = (value, exclude) => updateFilterKey("gene", value, exclude);
+  const handlePolymorphismId = (value, exclude) => updateFilterKey("polymorphism", value, exclude);
+  const handleDrug = (value, exclude) => updateFilterKey("drug", value, exclude);
   const handleSignatureKind = (value) => updateFilterKey("signature_kind", value); 
 
-  const handleTaxonomySelections = (value, exclude) => {
-    
-    setFilters(prev => {
-      const updated = { ...prev };
-      delete updated.phylum;
-      delete updated.class;
-      delete updated.order_category;
-      delete updated.family;
-      delete updated.genus;
-      delete updated.species;
-      if (exclude) {
-        updated.exclude_taxa = true
-      } else {
-        delete updated.exclude_taxa
-      }
-      return { ...updated, ...value };
-    });
-  };
-
-  const handleSequenceLength = (value) => {
-    setFilters(prev => {
-      const updated = { ...prev };
-
-      if (value?.min) {
-        updated["length_lower"] = value.min;
-      } else {
-        delete updated["length_lower"];
-      }
-
-      if (value?.max) {
-        updated["length_upper"] = value.max;
-      } else {
-        delete updated["length_upper"];
-      }
-
-      return updated;
-    });
-  };
-
-  const handleCollectionYear = (value) => {
-    setFilters(prev => {
-      const updated = { ...prev };
-
-      if (value?.min) {
-        updated["collection_year_lower"] = value.min;
-      } else {
-        delete updated["collection_year_lower"];
-      }
-
-      if (value?.max) {
-        updated["collection_year_upper"] = value.max;
-      } else {
-        delete updated["collection_year_upper"];
-      }
-
-      return updated;
-    });
-  };
 
   const updateFilters = () => {
     onApplyFilter(filters);
@@ -107,7 +49,7 @@ const DRFilter = ({ onApplyFilter, onClickReset }) => {
   const resetFilters = () => {
     setFilters({});
     setReset(prev => !prev);
-    onApplyFilter({"exclusion_status":"0"});
+    onApplyFilter();
     onClickReset(true)
   };
 
@@ -116,27 +58,27 @@ const DRFilter = ({ onApplyFilter, onClickReset }) => {
       <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
         <span><strong>FILTERS:</strong></span>
 
-        <AccessionDropdown
+        <Dropdown
           label={'Gene'}
-          id={'primary_accession'}
-          url={'/api/filters/search_primary_accession_ids/'}
-          handleParams={handleNucleotideId}
+          id={'protein_name'}
+          url={'/api/filters/search_protein_name/'}
+          handleParams={handleGenesId}
           reset={reset}
         />
 
         <AccessionDropdown
           label={'Polymorphism'}
-          id={'isolate'}
-          url={'/api/filters/search_isolate_ids/'}
-          handleParams={handleIsolateId}
+          id={'polymorphism'}
+          url={'/api/filters/search_polymorphism_ids/'}
+          handleParams={handlePolymorphismId}
           reset={reset}
         />
 
         <Dropdown
           label={'Drug'}
           id={'display_name'}
-          url={'/api/filters/search_country/'}
-          handleParams={handleCountry}
+          url={'/api/filters/search_drug/'}
+          handleParams={handleDrug}
           reset={reset}
         />
 

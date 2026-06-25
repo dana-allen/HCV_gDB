@@ -6,11 +6,12 @@ import { usePolymorphisms } from 'hooks'
 import { useLoadingWheelHandler, useErrorHandler  } from "contexts"
 
 import PolymorphismsTable from './components/PolymorphismsTable';
+import PolymorphismsVisual from './components/PolymorphismsVisual';
 import PagingButtons from 'components/buttons/PagingButtons';
 
 // Stylesheets
 import 'assets/styles/sequences.css';
-
+import 'assets/styles/genome_viewer.css'
 
 import DRFilter from 'components/filters/DRFilter';
 
@@ -58,14 +59,26 @@ const Polymorphisms = () => {
         </div>
 
         {polymorphisms && 
+        <div>
 
-                <div className='padding-table'>
+                {/* <div className='padding-table'>
                     <div><PagingButtons data={polymorphisms} onPageChange={handlePageChange}> </PagingButtons></div>
                     <a>Polymorphisms {startRecord} to {endRecord} of {polymorphisms.length}</a>
 
                     <PolymorphismsTable data={currentItems}/>
 
+                    
+                    
+
+                </div> */}
+
+                <div style={{marginTop:'50px'}}> 
+                    <PolymorphismsVisual data={polymorphisms}/>
                 </div>
+
+                    </div>
+
+                
             }
 
         </div>

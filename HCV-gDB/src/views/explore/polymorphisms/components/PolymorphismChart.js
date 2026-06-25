@@ -17,37 +17,36 @@ import {
 } from "utils/polymorphismHelper";
 
 
-const PolymorphismChart= ( { data=null } ) => {
+const PolymorphismChart= ( { data=null, aminoAcidIndex } ) => {
 
     const counts = countAminoAcids(
         data.meta_data,
         data.reference,
-        155
+        // [24, 31]
+        aminoAcidIndex
     );
 
     const chartData = createChartData(counts);
 
-    console.log("CAHRT DATA", chartData);
-
-
     return (
         <BarChart
-        dataset={chartData}
-        xAxis={[
-            {
-            scaleType: "band",
-            dataKey: "aminoAcid",
-            label: "Amino Acid",
-            },
-        ]}
-        series={[
-            {
-            dataKey: "count",
-            label: "Count",
-            },
-        ]}
-        height={400}
-        width={700}
+            dataset={chartData}
+            borderRadius={5}
+            xAxis={[
+                {
+                scaleType: "band",
+                dataKey: "aminoAcid",
+                label: "Amino Acid",
+                },
+            ]}
+            series={[
+                {
+                dataKey: "count",
+                label: "Count",
+                },
+            ]}
+            height={400}
+            width={700}
         />
     );
 }

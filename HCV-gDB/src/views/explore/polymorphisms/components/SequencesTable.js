@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faDownload} from '@fortawesome/free-solid-svg-icons'
 import PagingButtonsSlim from 'components/buttons/PagingButtonsSlim';
 // Stylesheets
 import 'assets/styles/tables.css'
@@ -46,9 +47,24 @@ const SequencesTable = ({ data = null, clades = null, type = null }) => {
     return (
         <div>
             <div className='row'><h4 className='title-sub'>Sequences</h4></div>
-            <span className='size-12-font'>Sequences with mutation present</span>
-        
             
+            <div
+                        style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "8px"
+                        }}
+                    >
+            <span className='size-12-font'>Sequences with mutation present</span>
+            <div style={{ whiteSpace: "nowrap", marginLeft: "auto" }}>
+                                                <FontAwesomeIcon icon={faDownload}/>
+                                                {/* <Link to="/polymorphisms">
+                                                    <Button size="sm" className="btn-main-filled">
+                                                        Explore Mutations
+                                                    </Button>
+                                                </Link> */}
+                                            </div>
+            </div>
             <table className="table table-striped table-bordered table-font-12">
                 <thead>
                     <tr>
@@ -57,8 +73,11 @@ const SequencesTable = ({ data = null, clades = null, type = null }) => {
                              <div>
                                 <span className="size-12-font" style={{ fontWeight: "normal" }}>
                                 Sequences {startRecord} to {endRecord} of {filteredData.length}
+                                
                                 </span>
+                                
                             </div>
+
                             {/* Top row: search + paging */}
                             <div
                                 style={{

@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faLink} from '@fortawesome/free-solid-svg-icons'
+import { faLink } from '@fortawesome/free-solid-svg-icons'
 
-import { parseRestianceCategory, parseMutationType} from 'assets/javascript/formatHelper'
+import { parseRestianceCategory, parseMutationType } from 'assets/javascript/formatHelper'
 import { aaColors } from 'assets/javascript/sequenceViewerHelper';
 
 // Stylesheets
@@ -29,9 +29,6 @@ const PolymorphismsTable = ( { data=null, type=null } ) => {
                     <th>Found at baseline?</th>
                     <th>Treatment-emergent?</th>
                     <th>Reference</th>
-                    
-                    {/* <th>Mutation</th>
-                    <th>Reference Accssion</th> */}
                 </tr>
             </thead>
             <tbody>
@@ -43,7 +40,7 @@ const PolymorphismsTable = ( { data=null, type=null } ) => {
                         {j === 0 && (
                         <>
                             <td rowSpan={rowSpan}>
-                            {polymorphism.mutation_id.split(':')[0]}
+                                {polymorphism.mutation_id.split(':')[0]}
                             </td>
                             <td rowSpan={rowSpan}>
                                 {polymorphism.aa_position}{<b style={{color:aaColors[polymorphism.alt_residue]}}>{polymorphism.alt_residue}</b>}
@@ -60,17 +57,15 @@ const PolymorphismsTable = ( { data=null, type=null } ) => {
                             {r.drug}
                             <br></br>
                             <span style={{fontSize:'10px'}}><em>{r.drug_category}</em></span>
-                            <div>
-                                
-                                
-                            </div>
                         </td>
                         <td>{parseRestianceCategory(r.resistance_category)}</td>
                         <td>{r.in_vitro_max_ec50_midpoint ? r.in_vitro_max_ec50_midpoint : "-"}</td>
                         <td>{r.in_vivo_baseline ? "Yes" : "-"}</td>
                         <td>{r.in_vivo_treatment_emergent ? "Yes" : "-"}</td>
-                        <td >
-                            { r.pubmed_id ? <Link className='gdb-link' to={`https://www.ncbi.nlm.nih.gov/pubmed/${r.pubmed_id}`} target="_blank"> <FontAwesomeIcon icon={faLink} /> PubMed {r.pubmed_id} </Link>:"-" }
+                        <td>
+                            {r.pubmed_id.split(';').map((pubmed, j) => (
+                                <Link className='gdb-link' to={`https://www.ncbi.nlm.nih.gov/pubmed/${pubmed}`} target="_blank"> <FontAwesomeIcon icon={faLink} /> PubMed {pubmed} </Link> 
+                            ))}
                         </td>
 
                     </tr>

@@ -46,7 +46,7 @@ export const CODON_TABLE = {
 
 export function getReferenceForSequence(sequence, references) {
   return references.find(
-    (ref) => ref.accession === sequence.sequence_id
+    (ref) => ref.accession === sequence.reference_accession
   );
 }
 
@@ -116,19 +116,46 @@ export function getAminoAcidAtPosition(aminoAcids, aaPosition) {
 // --------------------------------------------------
 
 // export function getAAForSequence(sequence, references, aaPosition) {
-export function getAAForSequence(sequence, aaPosition) {
-  // const reference = getReferenceForSequence(sequence, references);
+// // export function getAAForSequence(sequence, aaPosition) {
+//   const reference = getReferenceForSequence(sequence, references);
 
-  // if (!reference) {
-  //   return null;
-  // }
+//   if (!reference) {
+//     return null;
+//   }
 
-  // const cdsStart = Number(reference.cds_start);
-  // const cdsEnd = Number(reference.cds_end);
-  // console.log(sequence)
-    const cdsStart = Number(sequence.cds_start);
-  const cdsEnd = Number(sequence.cds_end);
-  console.log("coordinates", cdsStart, cdsEnd)
+//   const cdsStart = Number(reference.cds_start);
+//   const cdsEnd = Number(reference.cds_end);
+//   // console.log(sequence)
+//   //   const cdsStart = Number(sequence.cds_start);
+//   // const cdsEnd = Number(sequence.cds_end);
+//   console.log("coordinates", cdsStart, cdsEnd)
+//   const codingRegion = extractCodingRegion(
+//     sequence.alignment,
+//     cdsStart,
+//     cdsEnd
+//   );
+
+//   // console.log(sequence.sequence_id, codingRegion)
+
+//   const ungappedSequence = removeGaps(codingRegion);
+
+//   const codons = splitIntoCodons(ungappedSequence);
+
+
+
+//   const aminoAcids = translateCodons(codons);
+//   // console.log(aminoAcids[35])
+//   return getAminoAcidAtPosition(aminoAcids, aaPosition);
+// }
+
+export function getAAForSequence(sequence, references, aaPositions) {
+  const reference = getReferenceForSequence(sequence, references);
+
+  if (!reference) return null;
+
+  const cdsStart = Number(reference.cds_start);
+  const cdsEnd = Number(reference.cds_end);
+
   const codingRegion = extractCodingRegion(
     sequence.alignment,
     cdsStart,
@@ -136,12 +163,18 @@ export function getAAForSequence(sequence, aaPosition) {
   );
 
   const ungappedSequence = removeGaps(codingRegion);
-
-  const codons = splitIntoCodons(codingRegion);
-
+  const codons = splitIntoCodons(ungappedSequence);
   const aminoAcids = translateCodons(codons);
 
-  return getAminoAcidAtPosition(aminoAcids, aaPosition);
+  // 👉 if array, return array of results
+  if (Array.isArray(aaPositions)) {
+    return aaPositions.map(pos =>
+      getAminoAcidAtPosition(aminoAcids, pos)
+    );
+  }
+
+  // fallback (old behaviour)
+  return getAminoAcidAtPosition(aminoAcids, aaPositions);
 }
 
 
@@ -149,17 +182,39 @@ export function getAAForSequence(sequence, aaPosition) {
 // Count amino acids across all sequences
 // --------------------------------------------------
 
-export function countAminoAcids(metaData, references, aaPosition) {
-// export function countAminoAcids(metaData, aaPosition) {
+// export function countAminoAcids(metaData, references, aaPosition) {
+// // export function countAminoAcids(metaData, aaPosition) {
+//   const counts = {};
+//   const bad_sequences = [];
+
+//   metaData.forEach((sequence) => {
+//     const aa = getAAForSequence(sequence, references, aaPosition);
+//     if (aa != 'A') {bad_sequences.push(sequence.sequence_id)}
+//     //  const aa = getAAForSequence(sequence, aaPosition);
+
+//     if (!aa) return;
+
+//     counts[aa] = (counts[aa] || 0) + 1;
+//   });
+//   // console.log(bad_sequences)
+//   return counts;
+// }
+
+export function countAminoAcids(metaData, references, aaPositions) {
   const counts = {};
 
   metaData.forEach((sequence) => {
-    // const aa = getAAForSequence(sequence, references, aaPosition);
-     const aa = getAAForSequence(sequence, aaPosition);
+    const aas = getAAForSequence(sequence, references, aaPositions);
 
-    if (!aa) return;
+    if (!aas) return;
 
-    counts[aa] = (counts[aa] || 0) + 1;
+    // 👉 ensure array
+    const aaArray = Array.isArray(aas) ? aas : [aas];
+
+    aaArray.forEach((aa) => {
+      if (!aa) return;
+      counts[aa] = (counts[aa] || 0) + 1;
+    });
   });
 
   return counts;
@@ -231,9 +286,11 @@ export function createCladeFrequencyChartData(
           genotype: genotypeName,
           count,
           frequency: (count / totalCount)*100,
+          totalCount: totalCount
+          
         };
       }
-    );
+    ).sort((a, b) => b.frequency - a.frequency);
 
   // -----------------------------------
   // Format subtype chart data
@@ -255,9 +312,10 @@ export function createCladeFrequencyChartData(
           genotype: subtypeName,
           count,
           frequency: (count / totalCount)*100,
+          totalCount: totalCount
         };
       }
-    );
+    ).sort((a, b) => b.frequency - a.frequency);
 
   return {
     genotype: formatted_genotype_frequencies,

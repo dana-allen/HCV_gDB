@@ -22,11 +22,35 @@ import SequencesTable from './components/SequencesTable';
 const Polymorphism = () => {
 
   const { id } = useParams()
-  const gene = id.split(':')[0]
-  const combination = id.split(':')[1]
+
+  const [gene, mutationString] = id.split(":");
+
+  const polymorphisms = mutationString.split("+");
+
+  const split_polymorphisms = mutationString
+    .split("+")
+    .filter(Boolean)
+    .map(mutation => {
+      const match = mutation.match(/^(\d+)([A-Z])$/);
+
+      if (!match) return null;
+
+      const [, pos, aa] = match;
+
+      return {
+        position: Number(pos),
+        aa,
+      };
+    })
+  .filter(Boolean);
+
+  const aaPositions = split_polymorphisms.map(p => p.position);
+
+  // const combination = id.split(':')[1]
+  // const aminoAcidIndex = combination.slice(0, -1)
+
   const { polymorphism, sequences, chart_data, loading, error } = usePolymorphism(id);
-  console.log('poly', polymorphism)
-  console.log("chart data", chart_data)
+
 
   // Contexts
   const { triggerLoadingWheel } = useLoadingWheelHandler();
@@ -34,20 +58,19 @@ const Polymorphism = () => {
 
   useEffect(() => {
     
-        triggerLoadingWheel(loading)
-        if (error) triggerError(error);
+    triggerLoadingWheel(loading)
+    if (error) triggerError(error);
     
-    }, [loading, error]);
+  }, [loading, error]);
   return (
     <div className="container">
-      <h2>{gene} polymorphism {combination[0,-1]}</h2>
+      <h2>{id}</h2>
 
       {polymorphism && 
         <div>
           <div className='padding-table'>
             <PolymorphismTable data={polymorphism}/>
             <ResistanceCategoryBlurb />
-
           </div>
 
           <div className="row">
@@ -56,12 +79,12 @@ const Polymorphism = () => {
               <SequencesTable data={sequences} clades={chart_data && chart_data["meta_data"]}/>
             </div>
             <div className="col-md-6">
-              {/* <CladeFrequencyChart data={chart_data} /> */}
+              <CladeFrequencyChart data={chart_data} />
             </div>
 
           </div>
           
-          <PolymorphismChart data={chart_data}/>
+          <PolymorphismChart data={chart_data} aminoAcidIndex={aaPositions}/>
           
         </div>
             

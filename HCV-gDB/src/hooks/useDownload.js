@@ -18,6 +18,19 @@ function useDownload() {
     text: (data) => data.toString(),
     png: (data) => data,
     fasta: (data) => data,
+    csv: (data) => {
+      if (!Array.isArray(data) || data.length === 0) return "";
+
+      const header = Object.keys(data[0]).join(",");
+
+      const rows = data.map(row =>
+        Object.values(row)
+          .map(v => `"${v}"`) // protects commas + formatting issues
+          .join(",")
+      );
+
+      return [header, ...rows].join("\n");
+    },
   };
 
   /**
