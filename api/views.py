@@ -147,6 +147,9 @@ def api_search_country(request, query):
 def api_search_protein_name(request):
     return proxy_get(f"filters/search_protein_name/", request, safe=False)
 
+def api_search_drug(request):
+    return proxy_get(f"filters/search_drug/", request, safe=False)
+
 def api_version(request):
     return proxy_get(f"get_vgt_version/", request, safe=False)
 

@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { Button } from 'react-bootstrap';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 // Stylesheets
 import 'assets/styles/filters.css';
 
 import AccessionDropdown from './components/AccessionDropDown';
-import HostDropdown from './components/HostDropDown';
 import Dropdown from './components/DropDown';
 import RadioButtonDropdown from './components/RadioButtonDropDown';
 
@@ -36,8 +37,8 @@ const DRFilter = ({ onApplyFilter, onClickReset }) => {
   };
 
 
-  const handleGenesId = (value, exclude) => updateFilterKey("gene", value, exclude);
-  const handlePolymorphismId = (value, exclude) => updateFilterKey("polymorphism", value, exclude);
+  const handleGenesId = (value, exclude) => updateFilterKey("protein_name", value, exclude);
+  const handlePolymorphismId = (value, exclude) => updateFilterKey("signature_id", value, exclude);
   const handleDrug = (value, exclude) => updateFilterKey("drug", value, exclude);
   const handleSignatureKind = (value) => updateFilterKey("signature_kind", value); 
 
@@ -76,7 +77,7 @@ const DRFilter = ({ onApplyFilter, onClickReset }) => {
 
         <Dropdown
           label={'Drug'}
-          id={'display_name'}
+          id={'drug'}
           url={'/api/filters/search_drug/'}
           handleParams={handleDrug}
           reset={reset}
@@ -85,18 +86,20 @@ const DRFilter = ({ onApplyFilter, onClickReset }) => {
         <RadioButtonDropdown
           label={'Type'}
           id={'signature_kind'}
-          options={['Single', 'Combination']}
+          options={[
+              { label: "Single", value: 'single' },
+              { label: "Combintation", value: 'combination' }
+            ]}
           onChange={handleSignatureKind}
           reset={reset}
         />
 
-        <div style={{ display: "flex", gap: "5px", marginLeft: "auto" }}>
+        <div style={{ display: "flex", gap: "5px"}}>
+          <Button size="sm" className="btn-main-filled" onClick={updateFilters}>
+            <FontAwesomeIcon icon={faMagnifyingGlass} /> Search
+          </Button>
           <Button size="sm" className="btn-main-no-outline" onClick={resetFilters}>
             Reset
-          </Button>
-
-          <Button size="sm" className="btn-main-filled" onClick={updateFilters}>
-            Search
           </Button>
         </div>
       </div>
@@ -105,7 +108,6 @@ const DRFilter = ({ onApplyFilter, onClickReset }) => {
         <ul>
           <li>click on various filters to view the different options</li>
           <li>options will show in drop-down once you start entering search</li>
-          <li>click <em>Search</em> button to update sequences list with selected filters</li>
         </ul>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { useState, memo } from 'react';
+import { useState, memo, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLink} from '@fortawesome/free-solid-svg-icons'
@@ -27,9 +27,15 @@ const features = [
                 ]
 
 const PolymorphismsVisual = ( { data=null, type=null } ) => {
-    console.log(data)
+
     const [selectedFeature, setSelectedFeature] = useState(null);
     const [selectedPolymorphism, setSelectedPolymorphisms] = useState(null)
+    useEffect(() => {
+        if (data?.length && features.length) {
+            onFeatureClick(0); // load first feature
+        }
+    }, [data]);
+
     if (!Array.isArray(data) || data.length === 0) {
         return <div>No data found...</div>; // or a loader / empty state
     }
@@ -41,27 +47,12 @@ const PolymorphismsVisual = ( { data=null, type=null } ) => {
     const positions_tmp = Array.from(new Set([].concat(...features.map(f => [f.cds_start])))).sort((a, b) => a - b);
     const positions = [min, ...positions_tmp, max]
 
-    // const enrichedFeatures = features.map(feature => {
-    //     const nucleotide_positions = mismatches.filter(
-    //         pos => pos >= feature.cds_start && pos <= feature.cds_end
-    //     );
-
-    //     return {
-    //         ...feature,
-    //         nucleotide_positions,
-    //     };
-    // });
-
-    // const nucleotide_positions = mismatches.filter(
-    //         pos => pos >= feature.cds_start && pos <= feature.cds_end
-    //     );
+    
 
     const onFeatureClick = (feature) => {
-        console.log("FEATURE", features[feature].gene)
-        setSelectedFeature(features[feature])
-
         const polys = data.filter(polymorphism => polymorphism.protein_name == features[feature].gene)
         setSelectedPolymorphisms(polys)
+        setSelectedFeature(features[feature])
     }
 
 
@@ -82,44 +73,16 @@ const PolymorphismsVisual = ( { data=null, type=null } ) => {
                     <h5 className='selected-feature-label'>{selectedFeature.product} ({selectedFeature.cds_start} - {selectedFeature.cds_end})</h5>
                     <MutationViewer  
                         reference_sequence={alignment} 
-                        // query_sequence={query_alignment_sequence ? [query_alignment_sequence.query_alignment_sequence] : query_aligned_sequences.map(item => item.query_alignment_sequence)}
                         mutations={selectedPolymorphism}
                         start={parseInt(selectedFeature.cds_start)}
                         end={parseInt(selectedFeature.cds_end)}
-                        />
+                    />
                     
-                    {/* <AlignmentViewer
-                        reference_sequence={alignment} 
-                        query_sequence={query_alignment_sequence ? [query_alignment_sequence.query_alignment_sequence] : query_aligned_sequences.map(item => item.query_alignment_sequence)}
-                        nucleotidePositions={selectedFeature.nucleotide_positions}
-                        start={parseInt(selectedFeature.cds_start)}
-                        end={parseInt(selectedFeature.cds_end)}   
-                    /> */}
                 </div>
             )}
 
         </div>
-        // <table className="table table-striped table-bordered table-font-12">
-        //     <thead>
-        //         <tr>
-        //             <th>Gene</th>
-        //             <th>Polymorphism</th>
-        //             <th>Type</th>
-        //             <th>Number of Mutations</th>
-        //         </tr>
-        //     </thead>
-        //     <tbody>
-                
-        //         {data.map((polymorphism, i) => (
-        //             <tr key={i} id={i}>
-        //                <td>{polymorphism.signature_id.split(':')[0]}</td>
-        //                 <td><Link className='gdb-link' to={`/polymorphism/${polymorphism.signature_id}`}>{polymorphism.signature_id.split(':')[1]}</Link></td>
-        //                 <td>{polymorphism.signature_kind}</td>
-        //                 <td>{polymorphism.signature_count}</td>
-        //             </tr>
-        //         ))}
-        //     </tbody>
-        // </table>
+
     );
 };
 

@@ -22,6 +22,7 @@ urlpatterns = [
     path('filters/search_hosts/<str:query>', api_search_hosts, name='api_search_hosts'),
     path('filters/search_country/<str:query>', api_search_country, name='api_search_country'),
     path('filters/search_protein_name/', api_search_protein_name, name='api_search_protein_name'),
+    path('filters/search_drug/', api_search_drug, name='api_search_drug'),
 
     path('sequences/download_sequences_meta_data/', api_download_sequences_meta_data, name='api_download_sequences_meta_data'),
     path('alignments/download', api_download_alignments, name='api_download_alignments'),

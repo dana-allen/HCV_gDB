@@ -51,10 +51,30 @@ export default function Dropdown({label, id, url, handleParams, reset}) {
     <div ref={containerRef} className='filter-box'>
 
       <Button
-        size="sm"
-        className={`${selectedValue ? "btn-filter-active" : "btn-filter"}`}
-        onClick={() => setOpen((prev) => !prev)}> 
-        {label} {selectedValue && ( <span className='filter-count'> {selectedValue} </span> )}
+          size="sm"
+          className={`${selectedValue ? "btn-filter-active" : "btn-filter"}`}
+          onClick={() => setOpen((prev) => !prev)}
+          style={{ display: "flex", alignItems: "center", gap: "6px" }}
+          >
+          {label}
+
+          {selectedValue && (
+              <span
+              style={{
+                  background: "var(--primary)",
+                  color: "black",
+                  borderRadius: "4px",
+                  padding: "2px 6px",
+                  fontSize: "12px",
+                  fontWeight: "bold",
+                  minWidth: "18px",
+                  textAlign: "center",
+                  border: "1px solid var(--primary)"
+              }}
+              >
+              {selectedValue}
+              </span>
+          )}
       </Button>
 
       {open && (

@@ -17,17 +17,16 @@ import DRFilter from 'components/filters/DRFilter';
 
 const Polymorphisms = () => {
 
-    const { polymorphisms, loading, error } = usePolymorphisms();
-    console.log('poly', polymorphisms)
+    const [params, setParams] = useState('');
+    const { polymorphisms, loading, error } = usePolymorphisms(params);
 
     const [startRecord, setStartRecord] = useState('')
     const [endRecord, setEndRecord] = useState('')
     const [currentItems, setCurrentItems] = useState([])
     const [viewType, setViewType] = useState('list')
-
+    const [barFilters, setBarFilters] = useState({});
 
     const handlePageChange = (items) => {
-        console.log(items)
         setCurrentItems(items[0])
         setStartRecord(items[1]);
         setEndRecord(items[2])
@@ -44,52 +43,59 @@ const Polymorphisms = () => {
     
     }, [loading, error]);
 
-    const handleBarFilters = useCallback((data) => {  }, []);
+
+    const handleBarFilters = useCallback((data) => { setBarFilters(data || {}); }, []);
     const handleReset = useCallback((data) => {  }, []);
 
     const handleViewType = (value) => {
         setViewType(value)
     }
 
+    useEffect(() => {
+
+
+        setParams(prev => ({
+            ...barFilters
+        }));
+
+    }, [barFilters]);
+
+
     return (
         <div className="container">
-        <h2>Polymorphisms</h2>
-        <p>{process.env.REACT_APP_VIRUS_ABB}-{process.env.REACT_APP_WEB_RESOURCE} analyses sequences for these individual or combined amino acid substitutions and deletions.</p>
+            <h2>Polymorphisms</h2>
+            <p>{process.env.REACT_APP_VIRUS_ABB}-{process.env.REACT_APP_WEB_RESOURCE} analyses sequences for these individual or combined amino acid substitutions and deletions.</p>
 
-        <div>
-        <DRFilter onApplyFilter={handleBarFilters} onClickReset={handleReset}/>
-        <hr></hr>
-        
-        </div>
+            <div>
+            <DRFilter onApplyFilter={handleBarFilters} onClickReset={handleReset}/>
+            <hr></hr>
+            
+            </div>
 
-        {polymorphisms && 
-        <div>
-            <p className='selected-feature-label size-12-font'>
-                <em>view: &nbsp;</em>
-                <Button size='sm' className={`btn-table-sequence size-12-font`} onClick={()=>handleViewType('list')}>Explore</Button> 
-                <Button size='sm' className={`btn-table-sequence size-12-font`} onClick={()=>handleViewType('sequence')}>Inspect</Button>
-            </p>
-            {viewType == 'list' ? 
+            {polymorphisms && 
+                <div>
+                    <p className='selected-feature-label size-12-font'>
+                        <em>view: &nbsp;</em>
+                        <Button size='sm' className={`btn-table-sequence size-12-font`} onClick={()=>handleViewType('list')}>Explore</Button> 
+                        <Button size='sm' className={`btn-table-sequence size-12-font`} onClick={()=>handleViewType('sequence')}>Inspect</Button>
+                    </p>
+                    {viewType == 'list' ? 
 
-                <div className='padding-table'>
-                    <div><PagingButtons data={polymorphisms} onPageChange={handlePageChange}> </PagingButtons></div>
-                    <a>Polymorphisms {startRecord} to {endRecord} of {polymorphisms.length}</a>
+                        <div className='padding-table'>
+                            <div><PagingButtons data={polymorphisms} onPageChange={handlePageChange}> </PagingButtons></div>
+                            <a>Polymorphisms {startRecord} to {endRecord} of {polymorphisms.length}</a>
 
-                    <PolymorphismsTable data={currentItems}/>
+                            <PolymorphismsTable data={currentItems}/>
 
-                    
-                    
+                        </div> :
 
-                </div> :
+                        <div style={{marginTop:'50px'}}> 
+                            <PolymorphismsVisual data={polymorphisms}/>
+                        </div>
+                    }
 
-                <div style={{marginTop:'50px'}}> 
-                    <PolymorphismsVisual data={polymorphisms}/>
                 </div>
-}
-
-                    </div>
-
-                
+                    
             }
 
         </div>

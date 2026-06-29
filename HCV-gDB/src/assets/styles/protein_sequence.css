@@ -32,7 +32,7 @@
 
 .aa-block {
   display: flex;
-  margin-right: 5px; /* space every 10 AAs */
+  margin-right: 2px; /* space every 10 AAs */
 }
 
 .aa-box {

@@ -161,12 +161,17 @@ const BarFilter = ({ onApplyFilter, onClickReset }) => {
         />
 
         <RadioButtonDropdown
-          label={'Exclusion'}
+          label={'Excluded Sequences'}
           id={'primary_accession'}
-          options={['Yes', 'No']}
+          options={[
+              { label: "Yes", value: 1 },
+              { label: "No", value: 0 }
+            ]}
           onChange={handleExclusion}
           reset={reset}
         />
+
+
 
         <div style={{ display: "flex", gap: "5px", marginLeft: "auto" }}>
           <Button size="sm" className="btn-main-no-outline" onClick={resetFilters}>

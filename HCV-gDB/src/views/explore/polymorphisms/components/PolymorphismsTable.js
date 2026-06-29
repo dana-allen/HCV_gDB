@@ -22,7 +22,7 @@ const PolymorphismsTable = ( { data=null, type=null } ) => {
                     <th>Gene</th>
                     <th>Polymorphism</th>
                     <th>Type</th>
-                    <th>Number of Mutations</th>
+                    <th>Drug</th>
                 </tr>
             </thead>
             <tbody>
@@ -32,7 +32,7 @@ const PolymorphismsTable = ( { data=null, type=null } ) => {
                        <td>{polymorphism.signature_id.split(':')[0]}</td>
                         <td><Link className='gdb-link' to={`/polymorphism/${polymorphism.signature_id}`}>{polymorphism.signature_id.split(':')[1]}</Link></td>
                         <td>{polymorphism.signature_kind}</td>
-                        <td>{polymorphism.signature_count}</td>
+                        <td>{polymorphism.drugs.map(d => d).join(", ")}</td>
                     </tr>
                 ))}
             </tbody>
