@@ -79,11 +79,11 @@ const MutationViewer = ({reference_sequence, mutations, start, end}) => {
                                                             ? () => onResidueClick(globalPos, aa)
                                                             : undefined
                                                         }
-                                                        onMouseOver={
-                                                            isMutated
-                                                            ? () => onResidueClick(globalPos, aa)
-                                                            : undefined
-                                                        }
+                                                        // onMouseOver={
+                                                        //     isMutated
+                                                        //     ? () => onResidueHover(globalPos, aa)
+                                                        //     : undefined
+                                                        // }
                                                     >
                                                     {aa}
                                                     </span>
@@ -104,25 +104,23 @@ const MutationViewer = ({reference_sequence, mutations, start, end}) => {
                                                                 },
                                                                 },
                                                             }}
-                                                        title={
-                                                            <div>
-                                                                {selectedPosition && 
-                                                                    <DialogContent>
-                                                                        <div className='sequence_viewer_tooltip' style={{ border:'none'}}>
-                                                                            
-                                                                        </div>
-                                                                    </DialogContent>
-                                                                }
-                                                            <p className='size-12-font'>
-                                                                {/* Position {globalPos}{" "} */}
-                                                                {/* {residue} */}
-                                                                {/* {mutations
-                                                                    .filter(item => Number(item.aa_position) === globalPos)
-                                                                    .map(m => m.signature_id)
-                                                                    .join(", ")} */}
-                                                            </p>
-                                                            </div>
-                                                        }
+                                                        // title={
+                                                        //     <div>
+                                                        //         {selectedPosition && 
+                                                        //             <div>
+                                                        //                 <p>{selectedPosition}</p>   
+                                                        //             </div>
+                                                        //         }
+                                                        //     <p className='size-12-font'>
+                                                        //         {/* Position {globalPos}{" "} */}
+                                                        //         {/* {residue} */}
+                                                        //         {/* {mutations
+                                                        //             .filter(item => Number(item.aa_position) === globalPos)
+                                                        //             .map(m => m.signature_id)
+                                                        //             .join(", ")} */}
+                                                        //     </p>
+                                                        //     </div>
+                                                        // }
                                                         arrow
                                                         placement="top"
                                                     >

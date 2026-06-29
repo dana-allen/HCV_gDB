@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 // Hooks and Contexts
 import { usePolymorphisms } from 'hooks'
 import { useLoadingWheelHandler, useErrorHandler  } from "contexts"
-
+import { Button } from "react-bootstrap";
 import PolymorphismsTable from './components/PolymorphismsTable';
 import PolymorphismsVisual from './components/PolymorphismsVisual';
 import PagingButtons from 'components/buttons/PagingButtons';
@@ -23,6 +23,7 @@ const Polymorphisms = () => {
     const [startRecord, setStartRecord] = useState('')
     const [endRecord, setEndRecord] = useState('')
     const [currentItems, setCurrentItems] = useState([])
+    const [viewType, setViewType] = useState('list')
 
 
     const handlePageChange = (items) => {
@@ -46,6 +47,9 @@ const Polymorphisms = () => {
     const handleBarFilters = useCallback((data) => {  }, []);
     const handleReset = useCallback((data) => {  }, []);
 
+    const handleViewType = (value) => {
+        setViewType(value)
+    }
 
     return (
         <div className="container">
@@ -60,8 +64,14 @@ const Polymorphisms = () => {
 
         {polymorphisms && 
         <div>
+            <p className='selected-feature-label size-12-font'>
+                <em>view: &nbsp;</em>
+                <Button size='sm' className={`btn-table-sequence size-12-font`} onClick={()=>handleViewType('list')}>Explore</Button> 
+                <Button size='sm' className={`btn-table-sequence size-12-font`} onClick={()=>handleViewType('sequence')}>Inspect</Button>
+            </p>
+            {viewType == 'list' ? 
 
-                {/* <div className='padding-table'>
+                <div className='padding-table'>
                     <div><PagingButtons data={polymorphisms} onPageChange={handlePageChange}> </PagingButtons></div>
                     <a>Polymorphisms {startRecord} to {endRecord} of {polymorphisms.length}</a>
 
@@ -70,11 +80,12 @@ const Polymorphisms = () => {
                     
                     
 
-                </div> */}
+                </div> :
 
                 <div style={{marginTop:'50px'}}> 
                     <PolymorphismsVisual data={polymorphisms}/>
                 </div>
+}
 
                     </div>
 

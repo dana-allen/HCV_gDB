@@ -163,7 +163,7 @@ export function getAAForSequence(sequence, references, aaPositions) {
   );
 
   const ungappedSequence = removeGaps(codingRegion);
-  const codons = splitIntoCodons(ungappedSequence);
+  const codons = splitIntoCodons(codingRegion);
   const aminoAcids = translateCodons(codons);
 
   // 👉 if array, return array of results
