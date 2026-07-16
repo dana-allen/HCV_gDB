@@ -1,11 +1,11 @@
 import { useState, useRef, useEffect } from "react";
 import { Button } from 'react-bootstrap';
-import TaxonomyFilter from "../TaxonomyFilter";
+import RegionFilter from "../RegionFilter";
 import 'assets/styles/filters.css';
 
-export default function HostDropdown({label, handleParams, reset}) {
+export default function RegionDropdown({label, handleParams, reset, alwaysOpen=false}) {
 
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(alwaysOpen);
     const [exclude, setExclude] = useState(false)
     const containerRef = useRef(null);
     const autocompleteRef = useRef(null);
@@ -26,16 +26,14 @@ export default function HostDropdown({label, handleParams, reset}) {
       return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
-    const [taxonomySelections, setTaxonomySelections] = useState({})
+    const [regionSelections, setRegionSelections] = useState({})
     const [selected, setSelected] = useState([])
 
-    const taxonomyTree = [
-                            {name:'phylum', nodes:null, parent:null, text:'Phylum'},
-                            {name:'class', nodes:null, parent:null, text:'Class'},
-                            {name:'order_category', nodes:null, parent:null, text:'Order'},
-                            {name:'family', nodes:null, parent:null, text:'Family'},
-                            {name:'genus', nodes:null, parent:null, text:'Genus'},
-                            {name:'species', nodes:null, parent:null, text:'Species'}
+    const regionTree = [
+                            {name:'m49_region_id', display_name: 'Region', nodes:null, parent:null, text:'Global Region', label:'display_name'},
+                            {name:'m49_intermediate_region_id', display_name: 'Intermediate region', nodes:null, parent:null, text:'Intermediate Region', label:'display_name'},
+                            {name:'m49_sub_region_id', display_name: "Sub-region", nodes:null, parent:null, text:'Sub Region', label:'display_name'},
+                            {name:'m49_code', display_name: "Country", nodes:null, parent:null, text:'Country', label:'display_name'}
     ]
 
 
@@ -50,7 +48,7 @@ export default function HostDropdown({label, handleParams, reset}) {
       )
 
       if (wasSelected) {
-        setTaxonomySelections(prev => {
+        setRegionSelections(prev => {
             const copy = { ...prev }
             delete copy[name]
             return copy
@@ -60,7 +58,7 @@ export default function HostDropdown({label, handleParams, reset}) {
     }
 
     const handleNodeIds = (nodeName) => (ids) => {
-      setTaxonomySelections(prev => {
+      setRegionSelections(prev => {
           if (!ids || ids.length === 0) {
               const copy = { ...prev }
               delete copy[nodeName]
@@ -74,7 +72,7 @@ export default function HostDropdown({label, handleParams, reset}) {
     }
 
     const clearInputs = () => {
-      setTaxonomySelections({})
+      setRegionSelections({})
       setSelected([])
       setSelectedValue(false)
       setExclude(false)
@@ -83,9 +81,9 @@ export default function HostDropdown({label, handleParams, reset}) {
 
 
     useEffect(() => {
-      Object.keys(taxonomySelections).length > 0 ? setSelectedValue(Object.keys(taxonomySelections).length) : setSelectedValue(false)
-      handleParams(taxonomySelections, exclude)
-    }, [taxonomySelections, exclude]);
+      Object.keys(regionSelections).length > 0 ? setSelectedValue(Object.keys(regionSelections).length) : setSelectedValue(false)
+      handleParams(regionSelections, exclude)
+    }, [regionSelections, exclude]);
 
     useEffect(() => {
       clearInputs()
@@ -118,27 +116,28 @@ export default function HostDropdown({label, handleParams, reset}) {
           }}
         >
           <button
-              onClick={clearInputs}
-              style={{
-                position: "absolute",
-                top: "6px",
-                right: "8px",
-                border: "none",
-                background: "transparent",
-                cursor: "pointer",
-                fontSize: "14px",
-                fontWeight: "bold",
-                color: "#888"
-              }}
-            >
+            onClick={clearInputs}
+            style={{
+              position: "absolute",
+              top: "6px",
+              right: "8px",
+              border: "none",
+              background: "transparent",
+              cursor: "pointer",
+              fontSize: "14px",
+              fontWeight: "bold",
+              color: "#888"
+            }}
+          >
             ×
           </button>
+
 
           <div>
             <label style={{ fontSize: "12px", fontWeight: "bold" }}>
               Find {label}
             </label>
-            {taxonomyTree.map(node => (
+            {regionTree.map(node => (
               <div key={node.name} style={{ marginBottom: '5px' }}>
                   <label
                       style={{
@@ -164,18 +163,17 @@ export default function HostDropdown({label, handleParams, reset}) {
                               : "white",
                             cursor: "pointer",
                         }}
-
                     />
                     <span style={{ fontSize:"12px" }}>{node.text}</span>
                   </label>
 
                   {selected.includes(node.name) && (
                     <div style={{padding: '5px 0px 0px 20px'}}>
-                        <TaxonomyFilter ref={autocompleteRef}
-                                        label={node.name} 
-                                        taxa_level={node.name} 
-                                        idKey={node.name} 
-                                        params={taxonomySelections} 
+                        <RegionFilter ref={autocompleteRef}
+                                        label={node.display_name} 
+                                        region_level={node.name} 
+                                        idKey={node.label} 
+                                        params={regionSelections} 
                                         handleId={handleNodeIds(node.name)} 
                         />
                     </div>
@@ -184,16 +182,16 @@ export default function HostDropdown({label, handleParams, reset}) {
               </div>
             ))}
           </div>
+          <hr className='exclude-hr'/>
           <div style={{ marginBottom: "10px" }}>
-            <hr className='exclude-hr'/>
             <label className='exclude-label'>
               <input
                 className='exclude-checkbox'
                 type="checkbox"
                 checked={exclude}
-                onChange={ (e) => setExclude(e.target.checked) }
+                onChange={(e) => setExclude(e.target.checked)}
               />
-              Exclude selected hosts
+              Exclude selected regions
             </label>            
           </div>
         </div>

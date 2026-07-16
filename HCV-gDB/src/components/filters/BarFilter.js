@@ -5,9 +5,17 @@ import { Button } from 'react-bootstrap';
 import 'assets/styles/filters.css';
 
 import AccessionDropdown from './components/AccessionDropDown';
+// import CommonHostDropdown from './components/CommonHostDropDown';
 import HostDropdown from './components/HostDropDown';
 import InputDropdown from './components/InputDropDown';
 import RadioButtonDropdown from './components/RadioButtonDropDown';
+import RegionDropdown from './components/RegionDropDown';
+import GenomeCoverageDropdown from './components/GenomeCoverageDropDown';
+import Dropdown from './components/DropDown';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+import CladeCheckboxes from './components/CladeCheckboxes';
 
 const BarFilter = ({ onApplyFilter, onClickReset }) => {
 
@@ -35,14 +43,84 @@ const BarFilter = ({ onApplyFilter, onClickReset }) => {
 
   };
 
-
+  const handleHost = (value, exclude) => updateFilterKey("host", value, exclude);
   const handleNucleotideId = (value, exclude) => updateFilterKey("primary_accession", value, exclude);
   const handleIsolateId = (value, exclude) => updateFilterKey("isolate", value, exclude);
   const handleCountry = (value, exclude) => updateFilterKey("country", value, exclude);
   const handleExclusion = (value) => updateFilterKey("exclusion_status", value); 
 
-  const handleTaxonomySelections = (value, exclude) => {
+  const handleGenomeCoverage = (value, exclude) => {
+
+    console.log("handle genome", value)
     
+    setFilters(prev => {
+      const updated = { ...prev };
+      delete updated.full_genome;
+      delete updated.nucleoprotein;
+      delete updated.phosphoprotein;
+      delete updated.m2_protein;
+      delete updated.glycoprotein;
+      delete updated.l_protein;
+      if (exclude) {
+        updated.exclude_coverage = true
+      } else {
+        delete updated.exclude_coverage
+      }
+      return { ...updated, ...value };
+    });
+
+  }
+
+  const handleClades = (value, exclude = false) => {
+
+
+    const flattenClades = (clades = []) => {
+      const EPA_major_clade = [];
+      const EPA_minor_clade = [];
+
+      clades.forEach(({ parent, children }) => {
+        // always add parent
+        EPA_major_clade.push(parent);
+
+        // add children if they exist
+        if (Array.isArray(children) && children.length > 0) {
+          EPA_minor_clade.push(...children);
+        }
+      });
+
+      return {
+        EPA_major_clade,
+        EPA_minor_clade,
+      };
+    }
+      
+    const flattened = flattenClades(value)
+
+    setFilters((prev) => {
+      const updated = { ...prev };
+
+      delete updated.EPA_major_clades;
+      delete updated.EPA_minor_clades;
+      delete updated.exclude_clades;
+
+      if (value && value.length > 0) {
+        // updated[exclude ? excludeKey : normalKey] = value;
+        updated["EPA_major_clade"] = flattened.EPA_major_clade;
+        if (flattened.EPA_minor_clade.length > 0) {
+          updated["EPA_minor_clade"] = flattened.EPA_minor_clade;
+        } 
+
+      if (exclude) {
+          updated.exclude_clades = true
+        } else {
+          delete updated.exclude_clades
+        }
+      }
+      return updated;
+    });
+  };
+
+  const handleTaxonomySelections = (value, exclude) => {
     setFilters(prev => {
       const updated = { ...prev };
       delete updated.phylum;
@@ -55,6 +133,22 @@ const BarFilter = ({ onApplyFilter, onClickReset }) => {
         updated.exclude_taxa = true
       } else {
         delete updated.exclude_taxa
+      }
+      return { ...updated, ...value };
+    });
+  };
+
+  const handleRegionSelections = (value, exclude) => {
+    console.log(value)
+    setFilters(prev => {
+      const updated = { ...prev };
+      delete updated.m49_region_id;
+      delete updated.m49_sub_region_id;
+      delete updated.m49_intermediate_region_id;
+      if (exclude) {
+        updated.exclude_region = true
+      } else {
+        delete updated.exclude_region
       }
       return { ...updated, ...value };
     });
@@ -116,6 +210,41 @@ const BarFilter = ({ onApplyFilter, onClickReset }) => {
       <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
         <span><strong>FILTERS:</strong></span>
 
+
+        <CladeCheckboxes 
+          label={'Clades'}
+          id={'primary_accession'}
+          url={'/api/filters/search_primary_accession_ids/'}
+          handleParams={handleClades}
+          reset={reset}
+        />
+
+        {/* <Dropdown
+          label={'Common Host'}
+          id={'host'}
+          url={'/api/filters/search_hosts/'}
+          handleParams={handleHost}
+          reset={reset}
+        /> */}
+        
+        <RegionDropdown
+          label={'Region'}
+          handleParams={handleRegionSelections}
+          reset={reset}
+        />
+
+        <GenomeCoverageDropdown 
+          label={'Genome Coverage'}
+          handleParams={handleGenomeCoverage}
+          reset={reset}
+        />
+
+        {/* <HostDropdown
+          label={'Taxonomy'}
+          handleParams={handleTaxonomySelections}
+          reset={reset}
+        /> */}
+
         <AccessionDropdown
           label={'Primary Accession'}
           id={'primary_accession'}
@@ -132,19 +261,15 @@ const BarFilter = ({ onApplyFilter, onClickReset }) => {
           reset={reset}
         />
 
-        <AccessionDropdown
+        {/* <Dropdown
           label={'Country'}
           id={'display_name'}
           url={'/api/filters/search_country/'}
           handleParams={handleCountry}
           reset={reset}
-        />
+        /> */}
 
-        <HostDropdown
-          label={'Host'}
-          handleParams={handleTaxonomySelections}
-          reset={reset}
-        />
+
 
         <InputDropdown
           label={'Sequence Length'}
@@ -161,25 +286,19 @@ const BarFilter = ({ onApplyFilter, onClickReset }) => {
         />
 
         <RadioButtonDropdown
-          label={'Excluded Sequences'}
+          label={'Exclusion'}
           id={'primary_accession'}
-          options={[
-              { label: "Yes", value: 1 },
-              { label: "No", value: 0 }
-            ]}
+          options={['Yes', 'No']}
           onChange={handleExclusion}
           reset={reset}
         />
 
-
-
-        <div style={{ display: "flex", gap: "5px", marginLeft: "auto" }}>
+        <div style={{ display: "flex", gap: "5px"}}>
+          <Button size="sm" className="btn-main-filled" onClick={updateFilters}>
+            <FontAwesomeIcon icon={faMagnifyingGlass} /> Search
+          </Button>
           <Button size="sm" className="btn-main-no-outline" onClick={resetFilters}>
             Reset
-          </Button>
-
-          <Button size="sm" className="btn-main-filled" onClick={updateFilters}>
-            Search
           </Button>
         </div>
       </div>

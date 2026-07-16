@@ -20,17 +20,17 @@ const CladeFrequencyChart= ( { data=null } ) => {
 
     const { downloadFile } = useDownload();
     const chartData = createCladeFrequencyChartData(data.meta_data, data.genotype_count, data.subtype_count);
-    const [chartType, setChartType] = useState(chartData['genotype'])
+    const [currentChart, setCurrentChart] = useState(chartData['genotype'])
     const [chartLabel, setChartLabel] = useState('Genotype')
     
 
     const onChange = (type) => {
-        setChartType(chartData[type])
+        setCurrentChart(chartData[type])
         setChartLabel(type)
     } 
 
     const CustomTooltip = (value, context) => {
-        const row = chartType[context.dataIndex];
+        const row = currentChart[context.dataIndex];
         return `${row.count} of ${row.totalCount} (${row.frequency.toFixed(2)}%)`;
     };
 
@@ -48,18 +48,18 @@ const CladeFrequencyChart= ( { data=null } ) => {
                     }}>
                     <span className='size-12-font'>Frequency of this polymorphism amongst sequences within different genotypes and subtypes.</span>
                     <div style={{ whiteSpace: "nowrap", marginLeft: "auto" }}>
-                        <span onClick={() => downloadCSV(chartType)}><FontAwesomeIcon icon={faDownload}/></span>
+                        <span onClick={() => downloadCSV(currentChart)}><FontAwesomeIcon icon={faDownload}/></span>
                     </div>
                 </div>
             
             <p className='selected-feature-label size-12-font'>
                 <em>view: &nbsp;</em>
-                <Button size='sm' className={`btn-table-sequence ${chartType} size-12-font`} onClick={()=>onChange('genotype')}>Genotype</Button> 
+                <Button size='sm' className={`btn-table-sequence ${currentChart} size-12-font`} onClick={()=>onChange('genotype')}>Genotype</Button> 
                 <Button size='sm' className={`btn-table-sequence size-12-font`} onClick={()=>onChange('subtype')}>Subtype</Button>
             </p>
             <div>
                 <BarChart
-                    dataset={chartType}
+                    dataset={currentChart}
                     borderRadius={5}
                     xAxis={[
                         {

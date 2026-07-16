@@ -249,7 +249,7 @@ export function createCladeFrequencyChartData(
   // -----------------------------------
 
   meta_data.forEach((sequence) => {
-    const key = sequence.nearest_reference_genotype;
+    const key = sequence.EPA_major_clade;
 
     counts_genotype[key] =
       (counts_genotype[key] || 0) + 1;
@@ -260,7 +260,7 @@ export function createCladeFrequencyChartData(
   // -----------------------------------
 
   meta_data.forEach((sequence) => {
-    const key = `${sequence.nearest_reference_genotype}${sequence.nearest_reference_subtype}`;
+    const key = `${sequence.EPA_major_clade}${sequence.EPA_minor_clade}`;
 
     counts_subtype[key] =
       (counts_subtype[key] || 0) + 1;
@@ -276,7 +276,7 @@ export function createCladeFrequencyChartData(
 
         const total = genotype.find(
           (g) =>
-            g.nearest_reference_genotype ==
+            g.EPA_major_clade ==
             genotypeName
         );
 
@@ -302,7 +302,7 @@ export function createCladeFrequencyChartData(
 
         const total = subtype.find(
           (s) =>
-            `${s.nearest_reference_genotype}${s.nearest_reference_subtype}` ==
+            `${s.EPA_major_clade}${s.EPA_minor_clade}` ==
             subtypeName
         );
 

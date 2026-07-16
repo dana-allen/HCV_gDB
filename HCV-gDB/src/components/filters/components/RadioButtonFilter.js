@@ -31,52 +31,25 @@ const RadioButtonFilter = ({label, label_values, value, handleId}) => {
                                 onChange={e => handleChange(e.target.value)}  
                             >
                                 <FormControlLabel value={value[0]} 
-                                sx={{
-                                display: "flex",
-                                alignItems: "center",
-                                mb: 0.25,
-                                "& .MuiFormControlLabel-label": {
-                                  fontSize: "12px",
-                                  lineHeight: 1.2,
-                                },
-                              }}
-                                control={
-                                    <Radio size="small" 
-                                        sx={{
-                                            padding: "4px",
-                                            transform: "scale(0.8)",
-                                            color: "var(--primary)",
-                                            "&.Mui-checked": {
-                                            color: "var(--primary)",
-                                            },
-                                        }}
-                                    />
-                                } 
-                                    label={label_values[0]} />
-                                <FormControlLabel value={value[1]} 
-                                sx={{
-                                display: "flex",
-                                alignItems: "center",
-                                mb: 0.25,
-                                "& .MuiFormControlLabel-label": {
-                                  fontSize: "12px",
-                                  lineHeight: 1.2,
-                                },
-                              }}
+                                
                                                     control={<Radio size="small" 
                                                                     sx={{
-                                    padding: "4px",
-                                    transform: "scale(0.8)",
-                                    color: "var(--primary)",
-                                    "&.Mui-checked": {
-                                      color: "var(--primary)",
-                                    },
-                                  }}/>}  label={label_values[1]} />
+                                                                        color: 'var(--primary)',
+                                                                        '&.Mui-checked': {color: 'var(--primary)',},
+                                                                    }}/>} 
+                                                                    label={label_values[0]} />
+                                <FormControlLabel value={value[1]} 
+                                                    control={<Radio size="small" 
+                                                                    sx={{
+                                                                        color: 'var(--primary)',
+                                                                        '&.Mui-checked': {color: 'var(--primary)',},
+                                                                    }}/>}  label={label_values[1]} />
                             </RadioGroup>
                         </FormControl>
                       </div>
                   </Box>
               </div>
+        
   );
 };
 

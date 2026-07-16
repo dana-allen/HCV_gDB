@@ -41,7 +41,7 @@ const SequencesTable = ({ data = null, clades = null, type = null }) => {
     }, [search, filteredData]);
 
     if (!Array.isArray(data) || data.length === 0) {
-        return <div>No data found...</div>;
+        return <div>No sequences found with this polymorphism...</div>;
     }
 
     return (
@@ -145,7 +145,7 @@ const SequencesTable = ({ data = null, clades = null, type = null }) => {
                                     {sequence.primary_accession}
                                 </Link>
                             </td>
-                            <td>{clades.filter(c => c.sequence_id === sequence.primary_accession)[0].nearest_reference_genotype}{clades.filter(c => c.sequence_id === sequence.primary_accession)[0].nearest_reference_subtype}</td>
+                            <td>{clades.filter(c => c.sequence_id === sequence.primary_accession)[0].EPA_major_clade}{clades.filter(c => c.sequence_id === sequence.primary_accession)[0].EPA_minor_clade}</td>
                         </tr>
                     ))}
                 </tbody>

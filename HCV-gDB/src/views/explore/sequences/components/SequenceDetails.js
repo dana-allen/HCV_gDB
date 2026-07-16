@@ -40,7 +40,7 @@ const SequenceDetails = ({ meta_data, alignment }) => {
                     </tr>
                     <tr>
                         <td><b>Genotype/Subtype</b></td>
-                        <td>{meta_data["nearest_reference_genotype"] ? `${meta_data["nearest_reference_genotype"]}` : "" }{meta_data["nearest_reference_subtype"] ? meta_data["nearest_reference_subtype"] : ""}</td>
+                        <td>{meta_data["EPA_major_clade"] ? `${meta_data["EPA_major_clade"]}` : "" }{meta_data["EPA_minor_clade"] ? meta_data["EPA_minor_clade"] : ""}</td>
                     </tr>
                     {meta_data["serotype"] &&
                         <tr>				

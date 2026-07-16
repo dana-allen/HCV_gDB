@@ -54,15 +54,15 @@ const CladeAssignment = () => {
     return (
         <div className='container'>
             <div className='row'>
-                <h2>Phylogenetic Clade Assignment</h2>
+                <h2>Genotyping Submission</h2>
 
                 <p>
                     Submit your sequence files in FASTA nucleotide format for automated
-                    alignment and clade assignment against the {process.env.REACT_APP_VIRUS_ABB}-{process.env.REACT_APP_WEB_RESOURCE}&nbsp;
+                    alignment and genotype assignment against the {process.env.REACT_APP_VIRUS_ABB}-{process.env.REACT_APP_WEB_RESOURCE}&nbsp;
                     database.
                 </p>
                 <p>	   
-                    <b>NOTE</b>: we do not store any sequences submitted to RABV-{process.env.REACT_APP_WEB_RESOURCE}!	   
+                    <b>NOTE</b>: we do not store any sequences submitted to {process.env.REACT_APP_VIRUS_ABB}-{process.env.REACT_APP_WEB_RESOURCE}!	   
                 </p>
 
                 <SequenceSubmission onJobFinished={handleJobFinished}/>

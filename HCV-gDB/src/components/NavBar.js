@@ -26,17 +26,18 @@ const NavBar = () => {
               <a className="dropdown-item" href="/references">References</a>
               <a className="dropdown-item" href="/global_overview">Global Overview</a>
               <a className="dropdown-item" href="/phylogeny">Phylogenetic Trees</a>
-              <a className="dropdown-item" href="/polymorphisms">Polymorphisms</a>
+              
             </div>
           </li>
+
+          <li className="nav-item"> <a className="nav-link custom-toggle" href="/polymorphisms">Polymorphisms</a></li>
 
 
           <li className="nav-item dropdown">
             <a className="nav-link dropdown-toggle custom-toggle" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Analysis</a>
             <div className="dropdown-menu">
-              <a className="dropdown-item" href="/clade_assignment">Phylogenetic Clade Submission</a>
+              <a className="dropdown-item" href="/clade_assignment">Genotyping Submission</a>
               {/* <a className="dropdown-item" href="/mutations">Host Mutations </a> */}
-              <a className="dropdown-item" href="/maddog">MADDOG</a>
             </div>
           </li>
 
@@ -61,7 +62,7 @@ const NavBar = () => {
           </li>
 
           {/* 
-          <li className="nav-item"> <a className="nav-link custom-toggle" href="/help"> Help </a></li>
+          
           <li className="nav-item"> <a className="nav-link custom-toggle" href="/api"> API </a></li>
           <li className="nav-item"> <a className="nav-link custom-toggle" href="/documentation"> Documentation </a></li> 
           */}

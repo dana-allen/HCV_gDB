@@ -4,7 +4,7 @@ import useFetch from "./useFetch";
 function useHostMutation(segment, params) {
     
     const query_params = new URLSearchParams(params).toString();
-    const url = `${`/api/adaptive_mutations_chart/1`}${query_params ? `?${query_params}` : ''}`;
+    const url = `${`/api/mutations/host_adaptation/1`}${query_params ? `?${query_params}` : ''}`;
     const { data, ...rest } = useFetch(url);
     const translated_sequences = data ? data.translated_sequences : null
     const translated_reference_sequences = data ? data.reference_protein : null
