@@ -59,18 +59,12 @@ const MutationDetails = ({ mutations }) => {
                 <h4 className='title-sub'>Anti-Viral Mutations</h4>
                 <div style={{ whiteSpace: "nowrap", marginLeft: "auto" }}>
                     <FontAwesomeIcon icon={faDownload}/>
-                    {/* <Link to="/polymorphisms">
-                        <Button size="sm" className="btn-main-filled">
-                            Explore Mutations
-                        </Button>
-                    </Link> */}
                 </div>
                 
                 </div>
                 
                 </div>
             </div>
-
             <table className="table table-striped table-bordered table-font-12">
                 <thead>
                     <tr>
@@ -146,7 +140,7 @@ const MutationDetails = ({ mutations }) => {
                                     {mutation.signature_id.split(':')[1]}
                                 </Link>
                             </td>
-                            <td>{mutation.signature_kind}</td>
+                            <td >{mutation.signature_kind}</td>
                         </tr>
                     ))}
                 </tbody>

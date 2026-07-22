@@ -219,13 +219,13 @@ const BarFilter = ({ onApplyFilter, onClickReset }) => {
           reset={reset}
         />
 
-        <Dropdown
+        {/* <Dropdown
           label={'Common Host'}
           id={'host'}
           url={'/api/filters/search_hosts/'}
           handleParams={handleHost}
           reset={reset}
-        />
+        /> */}
         
         <RegionDropdown
           label={'Region'}
@@ -239,11 +239,11 @@ const BarFilter = ({ onApplyFilter, onClickReset }) => {
           reset={reset}
         />
 
-        <HostDropdown
+        {/* <HostDropdown
           label={'Taxonomy'}
           handleParams={handleTaxonomySelections}
           reset={reset}
-        />
+        /> */}
 
         <AccessionDropdown
           label={'Primary Accession'}

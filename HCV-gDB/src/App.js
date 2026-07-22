@@ -22,8 +22,8 @@ import Sequences from "./views/explore/sequences/sequences";
 import Sequence from "./views/explore/sequences/sequence";
 import References from "./views/explore/references/references";
 import Reference from "./views/explore/references/reference";
+import Mutations from './views/analysis/adaptation_mutations/mutations';
 
-import Maddog from './views/analysis/maddog/maddog';
 
 import GlobalOverview from './views/explore/global_overview/global_overview';
 
@@ -102,7 +102,6 @@ function App() {
 
                 {/* Analysis */}
                 <Route path="/clade_assignment"     element={<CladeAssignment />} />
-                <Route path="/maddog"               element={<Maddog />} />
 
 
                 {/* Other */}

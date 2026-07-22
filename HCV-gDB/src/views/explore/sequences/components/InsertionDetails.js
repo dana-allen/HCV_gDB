@@ -10,13 +10,9 @@ import PagingButtonsSlim from 'components/buttons/PagingButtonsSlim';
 
 const InsertionDetails = ({ insertions }) => {
 
-    console.log(insertions)
 
     const [data, setData] = useState(insertions ? insertions[0].split(";") : null)
 
-    // const filteredData = 
-
-    const [search, setSearch] = useState('');
     const [startRecord, setStartRecord] = useState('');
     const [endRecord, setEndRecord] = useState('');
     const [currentItems, setCurrentItems] = useState([]);
@@ -50,7 +46,11 @@ const InsertionDetails = ({ insertions }) => {
                     <tr>
                         <th colSpan={3}>
                             <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-                             
+                             <div>
+                                <span className="size-12-font" style={{ fontWeight: "normal" }}>
+                                Insertions {startRecord} to {endRecord} of {data.length}
+                                </span>
+                            </div>
                             {/* Top row: search + paging */}
                             <div
                                 style={{
@@ -60,10 +60,6 @@ const InsertionDetails = ({ insertions }) => {
                                 }}
                             >
                                 <div style={{ position: "relative", flex: 1 }}>
-                                <span className="size-12-font" style={{ fontWeight: "normal" }}>
-                                Insertions {startRecord} to {endRecord} of {data.length}
-                                </span>
-                            </div>
 
                                 {/* Paging buttons */}
                                 <div style={{ whiteSpace: "nowrap" }}>
@@ -72,18 +68,17 @@ const InsertionDetails = ({ insertions }) => {
                                     onPageChange={handlePageChange}
                                 />
                                 </div>
+                                </div>
                             </div>
 
                             {/* Bottom row: sequence info */}
-                           
-
                             </div>
                         </th>
-                        </tr>
-                        <tr>
-                            <th>Nucleotide Position</th>
-                            <th>Insertions</th>
-                        </tr>
+                    </tr>
+                    <tr>
+                        <th>Nucleotide Position</th>
+                        <th>Insertions</th>
+                    </tr>
                 </thead>
 
                 <tbody>
@@ -94,13 +89,13 @@ const InsertionDetails = ({ insertions }) => {
                             <tr>
                                 <td>{k[0]}</td>
                                 <td>
-                                    <div className='blocks'>
+                                    <div className='blocks-insertions'>
                                         {k[1].split("").map((nuc, nucId) => (
-                                            <div className='block'
+                                            <div className='block-insertion'
                                                 key={nucId}
                                                 style={{
                                                     backgroundColor: nucColors[nuc],
-                                                    width:'15px'
+                                                    // width:'15px'
                                                 }}
                                             ><b>{nuc}</b></div>
                                         ))}
@@ -120,85 +115,3 @@ const InsertionDetails = ({ insertions }) => {
 };
 
 export default InsertionDetails;
-
-{/* <div>
-                {insertions_split.map((insertion, insertionIndex) => {
-                    console.log("Insertions", insertion)
-                    const row = insertion ? insertion.split(";") : null
-                    return (
-                        <table 
-                                    key={`table-${insertionIndex}`}
-                                    className="table table-striped table-bordered table-font-12 table-width-50" 
-                                >
-                                                    <thead>
-                    <tr>
-                        <th colSpan={3}>
-                            <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-                             <div>
-                                <span className="size-12-font" style={{ fontWeight: "normal" }}>
-                                Polymorphisms {startRecord} to {endRecord} of {insertions.length}
-                                </span>
-                            </div>
-
-                            <div
-                                style={{
-                                display: "flex",
-                                alignItems: "center",
-                                gap: "8px"
-                                }}
-                            >
-
-                                <div style={{ whiteSpace: "nowrap" }}>
-                                <PagingButtonsSlim
-                                    data={insertions_split}
-                                    onPageChange={handlePageChange}
-                                />
-                                </div>
-                            </div>
-                           
-
-                            </div>
-                        </th>
-                        </tr>
-                        <tr>
-                            <th>Nucleotide Position</th>
-                            <th>Insertions</th>
-                        </tr>
-                </thead>
-                                    <thead>
-                                        
-                                    </thead>
-                                    {currentItems.map((item, rowIndex) => {
-                                        const k = item.split(":")
-                                        return (
-                                            <tbody key={`tbody-${rowIndex}`}>
-                                                <tr>
-                                                    <td>{k[0]}</td>
-                                                    <td>
-                                                        <div className='blocks'>
-                                                            {k[1].split("").map((nuc, nucId) => (
-                                                                <div className='block'
-                                                                    key={nucId}
-                                                                    style={{
-                                                                        backgroundColor: nucColors[nuc],
-                                                                        width:'15px'
-                                                                    }}
-                                                                ><b>{nuc}</b></div>
-                                                            ))}
-                                                        </div>
-
-                                                    </td>
-                                                    
-                                                </tr>
-                                            </tbody>
-                                        )
-                                    })}
-                                </table>
-                        // <>
-                        //     {row &&
-                        //         <
-                        //     }
-                        // </>
-                    )
-                })}
-            </div> */}

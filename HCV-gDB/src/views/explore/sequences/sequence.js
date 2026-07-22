@@ -128,14 +128,13 @@ const Sequence = () => {
                     <br></br>
                     <hr style={{color:'var(--primary)'}}></hr>
 
-                    <div className="row">
+                    <div className="row" >
   
                         {insertions && (
                             <div className="col-md-6">
                             <InsertionDetails insertions={insertions} />
                             </div>
                         )}
-
                         {mutations && (
                             <div className="col-md-6">
                             <MutationDetails mutations={mutations} />

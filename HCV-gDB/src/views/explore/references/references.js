@@ -62,7 +62,13 @@ const References = ({  } ) => {
                 This dataset contains all the {process.env.REACT_APP_VIRUS_NAME} virus reference sequences.
                 View all sequences <Link className='custom-link' to='/sequences' >here</Link>.
             </p>
+            {/* <ul className='size-12-font tight-list'>
+                <li>Click on a clade to view the references within that clade.</li>
+                <li>Use the <em>Filters</em> button to view advanced filtering options.</li>
+    
+            </ul> */}
             <div className='col-3'>
+                {/* <CladeTree onCladeSelect={handleFiltersChange}/> */}
             </div>
             <hr></hr>
         

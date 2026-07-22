@@ -50,7 +50,7 @@ const TreeTable = ( { data=null, onTreeClick } ) => {
                   </input>
                 </td>
                 <td>
-                  {tree.tree_type}
+                  {tree.name}
                 </td>
                 <td>{tree.description}</td>
                 

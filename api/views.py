@@ -23,7 +23,7 @@ def proxy_get_download(endpoint, request=None, safe=True):
         if query_string:
             url = f"{url}?{query_string}"
         
-        database = request.headers.get("database", "default")
+        database = request.headers.get("database", "HCV")
         headers = {"database": database}
 
         response = requests.get(url, headers=headers, timeout=10)
@@ -61,7 +61,7 @@ def proxy_get(endpoint, request=None, safe=True):
             if query_string:
                 url = f"{url}?{query_string}"
 
-        database = request.headers.get("database", "default")
+        database = request.headers.get("database", "HCV")
         headers = {"database": database}
 
         response = requests.get(url, headers=headers, timeout=20)
@@ -120,8 +120,6 @@ def api_sequence_reference(request, seq_id):
 def api_taxonomy(request, taxa_level):
     return proxy_get(f"taxonomy/{taxa_level}", request, safe=False)
 
-def api_phylogeny_tree(request):
-    return proxy_get("phylogeny/tree/", request)
 
 def api_sequences_global(request):
     return proxy_get("sequences/global/", request, safe=False)
@@ -129,8 +127,8 @@ def api_sequences_global(request):
 def api_lineages(request):
     return proxy_get("lineages/", request, safe=False)
 
-def api_host_mutation(request, segment):
-    return proxy_get("adaptive_mutations_chart/", request)
+def api_mutations_host_adaptation(request, segment):
+    return proxy_get("mutations/host_adaptation", request)
 
 def api_search_primary_accession(request, query):
     return proxy_get(f"filters/search_primary_accession_ids/{query}", request, safe=False)
@@ -141,8 +139,17 @@ def api_search_isolate_ids(request, query):
 def api_search_hosts(request, query):
     return proxy_get(f"filters/search_hosts/{query}", request, safe=False)
 
-def api_search_country(request, query):
-    return proxy_get(f"filters/search_country/{query}", request, safe=False)
+def api_search_country(request):
+    return proxy_get(f"filters/search_country/", request, safe=False)
+
+def api_search_m49_region(request):
+    return proxy_get(f"filters/search_m49_region/", request, safe=False)
+
+def api_search_m49_sub_region(request):
+    return proxy_get(f"filters/search_m49_sub_region/", request, safe=False)
+
+def api_search_m49_intermediate(request):
+    return proxy_get(f"filters/search_m49_intermediate/", request, safe=False)
 
 def api_search_protein_name(request):
     return proxy_get(f"filters/search_protein_name/", request, safe=False)
