@@ -83,8 +83,8 @@ const Polymorphism = () => {
             </div>
 
           </div>
-          
-          <PolymorphismChart data={chart_data} aminoAcidIndex={aaPositions}/>
+          {/* This is for testing purposes */}
+          {/* <PolymorphismChart data={chart_data} aminoAcidIndex={aaPositions}/> */} 
           
         </div>
             

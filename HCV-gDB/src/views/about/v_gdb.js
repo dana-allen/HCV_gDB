@@ -46,6 +46,7 @@ const VGdb = () => {
                     <p>
 
                         <ul>
+                            
                             <li>data retrieval</li>
                             <li>metadata validation</li>
                             <li>sequence filtering</li>

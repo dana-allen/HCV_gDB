@@ -22,7 +22,7 @@ import Sequences from "./views/explore/sequences/sequences";
 import Sequence from "./views/explore/sequences/sequence";
 import References from "./views/explore/references/references";
 import Reference from "./views/explore/references/reference";
-import Mutations from './views/analysis/adaptation_mutations/mutations';
+
 import Maddog from './views/analysis/maddog/maddog';
 
 import GlobalOverview from './views/explore/global_overview/global_overview';
@@ -45,15 +45,14 @@ import LoadingWheel from './components/LoadingWheel';
 import { ErrorHandlerProvider } from './contexts/ErrorHandlerContext';
 import ErrorMessage from './components/ErrorMessage';
 
-import Phylogeny from './views/explore/phylogeny';
+import Phylogeny from './views/explore/phylogeny/phylogeny';
 import Acknowledgments from 'views/about/acknowledgements';
 import VGdb from 'views/about/v_gdb';
 
 
-import DrugResistance from './views/explore/drug_resistance/drug_resistance'
 
-import Polymorphisms from 'views/explore/polymorphisms/polymorphisms';
-import Polymorphism from 'views/explore/polymorphisms/polymorphism';
+import Polymorphisms from 'views/polymorphisms/polymorphisms';
+import Polymorphism from 'views/polymorphisms/polymorphism';
 
 function App() {
 
@@ -84,7 +83,6 @@ function App() {
                 <Route exact path="/reference/:id"  element={<Reference />} />
                 <Route path="/global_overview"      element={<GlobalOverview />} />
                 <Route path="/phylogeny"            element={<Phylogeny />} />
-                <Route path="/drug_resistance"      element={<DrugResistance />} />
                 <Route path="/polymorphisms"        element={<Polymorphisms />} />
                 <Route path="/polymorphism/:id"         element={<Polymorphism />} />
 

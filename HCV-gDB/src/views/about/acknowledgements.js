@@ -16,8 +16,6 @@ const Acknowledgments = () => {
                 and the PHE HCV Resistance Group.
             </p>
 
-            <p>We thank Rob Gifford and Josh Singer for the inspiration of {process.env.REACT_APP_VIRUS_ABB}-{process.env.REACT_APP_WEB_RESOURCE} from GLUE. </p>
-
             <div className="row">
                 <div className="card border-0 team-card">
                     <div className="d-flex align-items-center p-2">
@@ -63,6 +61,12 @@ const Acknowledgments = () => {
                     </div>
                 </div>
             </div>
+
+            <br></br>
+            <p>
+                A previous version, RABV-GLUE, was underpinned by the <a className='custom-link' target="_blank" href="https://github.com/giffordlabcvr/gluetools"> GLUE software </a> 
+                developed by Rob Gifford and Josh Singer (<a className='custom-link' target="_blank" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9162366/">https://pmc.ncbi.nlm.nih.gov/articles/PMC9162366/</a>).
+            </p>
 
         </div>
     );

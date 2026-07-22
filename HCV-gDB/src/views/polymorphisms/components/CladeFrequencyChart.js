@@ -31,7 +31,10 @@ const CladeFrequencyChart= ( { data=null } ) => {
 
     const CustomTooltip = (value, context) => {
         const row = chartType[context.dataIndex];
-        return `${row.count} of ${row.totalCount} (${row.frequency.toFixed(2)}%)`;
+        if (row) {
+            return `${row.count} of ${row.totalCount} (${row.frequency.toFixed(2)}%)`;
+        }
+        
     };
 
     const downloadCSV= (data) => {

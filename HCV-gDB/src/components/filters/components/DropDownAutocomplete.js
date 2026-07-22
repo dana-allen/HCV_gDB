@@ -15,7 +15,6 @@ const DropDownAutocomplete = ({ref, url, label, idKey, params, handleId, preSele
 
   const [ids, setIds] = useState([]) 
   const newParams = params && params.split(',')
-  console.log("newParams",newParams)
 
   const handleChange = (event, value) => {
     console.log(value)
@@ -23,7 +22,7 @@ const DropDownAutocomplete = ({ref, url, label, idKey, params, handleId, preSele
     handleId(`${value}`)
   }
 
-  const { data, loading, error } = useFetch(url);
+  const { data, loading, error } = useFetch(url, {headers: { database: process.env.REACT_APP_DATABASE }});
 
   useEffect(() => {
     if (data){ setIds(data) }

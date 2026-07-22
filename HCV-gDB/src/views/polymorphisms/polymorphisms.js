@@ -23,7 +23,7 @@ const Polymorphisms = () => {
     const [startRecord, setStartRecord] = useState('')
     const [endRecord, setEndRecord] = useState('')
     const [currentItems, setCurrentItems] = useState([])
-    const [viewType, setViewType] = useState('list')
+    const [viewType, setViewType] = useState('visual')
     const [barFilters, setBarFilters] = useState({});
 
     const handlePageChange = (items) => {
@@ -76,21 +76,21 @@ const Polymorphisms = () => {
                 <div>
                     <p className='selected-feature-label size-12-font'>
                         <em>view: &nbsp;</em>
-                        <Button size='sm' className={`btn-table-sequence size-12-font`} onClick={()=>handleViewType('list')}>Explore</Button> 
-                        <Button size='sm' className={`btn-table-sequence size-12-font`} onClick={()=>handleViewType('sequence')}>Inspect</Button>
+                        <Button size='sm' className={`btn-table-sequence size-12-font`} onClick={()=>handleViewType('sequence')}>Visual</Button>
+                        <Button size='sm' className={`btn-table-sequence size-12-font`} onClick={()=>handleViewType('list')}>Tabular</Button> 
+                        
                     </p>
-                    {viewType == 'list' ? 
+                    {viewType == 'visual' ? 
 
+                        <div style={{marginTop:'50px'}}> 
+                            <PolymorphismsVisual data={polymorphisms}/>
+                        </div> : 
                         <div className='padding-table'>
                             <div><PagingButtons data={polymorphisms} onPageChange={handlePageChange}> </PagingButtons></div>
                             <a>Polymorphisms {startRecord} to {endRecord} of {polymorphisms.length}</a>
 
                             <PolymorphismsTable data={currentItems}/>
 
-                        </div> :
-
-                        <div style={{marginTop:'50px'}}> 
-                            <PolymorphismsVisual data={polymorphisms}/>
                         </div>
                     }
 
