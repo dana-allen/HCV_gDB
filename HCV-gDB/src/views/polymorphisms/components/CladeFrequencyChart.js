@@ -9,6 +9,7 @@ import { nucColors } from 'assets/javascript/sequenceViewerHelper';
 
 // Stylesheets
 import 'assets/styles/tables.css'
+import 'assets/styles/buttons.css'
 import {  useDownload} from "hooks"
 
 import { BarChart } from "@mui/x-charts";
@@ -21,16 +22,16 @@ const CladeFrequencyChart= ( { data=null } ) => {
     const { downloadFile } = useDownload();
     const chartData = createCladeFrequencyChartData(data.meta_data, data.genotype_count, data.subtype_count);
     const [currentChart, setCurrentChart] = useState(chartData['genotype'])
-    const [chartLabel, setChartLabel] = useState('Genotype')
+    const [chartLabel, setChartLabel] = useState('genotype')
     
-
+    console.log(chartData)
     const onChange = (type) => {
         setCurrentChart(chartData[type])
         setChartLabel(type)
     } 
 
     const CustomTooltip = (value, context) => {
-        const row = chartType[context.dataIndex];
+        const row = chartData[chartLabel][context.dataIndex];
         if (row) {
             return `${row.count} of ${row.totalCount} (${row.frequency.toFixed(2)}%)`;
         }
@@ -51,14 +52,21 @@ const CladeFrequencyChart= ( { data=null } ) => {
                     }}>
                     <span className='size-12-font'>Frequency of this polymorphism amongst sequences within different genotypes and subtypes.</span>
                     <div style={{ whiteSpace: "nowrap", marginLeft: "auto" }}>
-                        <span onClick={() => downloadCSV(currentChart)}><FontAwesomeIcon icon={faDownload}/></span>
+                        <Button size='sm' className={'btn-main-dwl'} onClick={() => downloadCSV(currentChart)}><FontAwesomeIcon icon={faDownload}/></Button>
                     </div>
                 </div>
             
             <p className='selected-feature-label size-12-font'>
                 <em>view: &nbsp;</em>
-                <Button size='sm' className={`btn-table-sequence ${currentChart} size-12-font`} onClick={()=>onChange('genotype')}>Genotype</Button> 
-                <Button size='sm' className={`btn-table-sequence size-12-font`} onClick={()=>onChange('subtype')}>Subtype</Button>
+                    <Button
+                    size="sm"
+                    active={chartLabel === "genotype"}
+                    className="btn-table-sequence size-12-font"
+                    onClick={() => onChange("genotype")}
+                    >
+                    Genotype
+                    </Button>
+                <Button size='sm' active={chartLabel === "subtype"} className={`btn-table-sequence size-12-font`} onClick={()=>onChange('subtype')}>Subtype</Button>
             </p>
             <div>
                 <BarChart

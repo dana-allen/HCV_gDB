@@ -26,11 +26,7 @@ const SearchAutocomplete = ({ ref, label, url, idKey, handleId, preSelected = []
         if (query.length > 2) {
           setLoading(true);
           try {
-<<<<<<< HEAD
             const res = await fetch(`${url}${query}`, {headers: { database: process.env.REACT_APP_DATABASE }});
-=======
-            const res = await fetch(`${url}${query}`);
->>>>>>> 6cf6c132327c0bb94385d7f3e23c248bce6c12b6
             const data = await res.json() || [];
 
             // Merge with already selected options so chips are visible
@@ -69,11 +65,7 @@ const SearchAutocomplete = ({ ref, label, url, idKey, handleId, preSelected = []
     try {
       const results = await Promise.all(
         ids.map(async id => {
-<<<<<<< HEAD
           const res = await fetch(`${url}${id}`, {headers: { database: process.env.REACT_APP_DATABASE }});
-=======
-          const res = await fetch(`${url}${id}`);
->>>>>>> 6cf6c132327c0bb94385d7f3e23c248bce6c12b6
           const data = await res.json();
 
           // adjust depending on your API

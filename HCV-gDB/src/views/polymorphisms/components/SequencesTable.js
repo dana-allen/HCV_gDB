@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDownload} from '@fortawesome/free-solid-svg-icons'
 import PagingButtonsSlim from 'components/buttons/PagingButtonsSlim';
+
+import { Button } from "react-bootstrap";
+import {  useDownload } from "hooks"
 // Stylesheets
 import 'assets/styles/tables.css'
 
@@ -12,6 +15,8 @@ const SequencesTable = ({ data = null, clades = null, type = null }) => {
     const [startRecord, setStartRecord] = useState('');
     const [endRecord, setEndRecord] = useState('');
     const [currentItems, setCurrentItems] = useState([]);
+
+    const { downloadFile } = useDownload();
 
     // 🔍 Filter data based on search
     const filteredData = useMemo(() => {
@@ -40,6 +45,11 @@ const SequencesTable = ({ data = null, clades = null, type = null }) => {
         }
     }, [search, filteredData]);
 
+    const downloadCSV= (data) => {
+        downloadFile(data, `polymorphism-sequences.csv`, "csv");
+    };
+
+
     if (!Array.isArray(data) || data.length === 0) {
         return <div>No sequences found with this polymorphism...</div>;
     }
@@ -49,21 +59,17 @@ const SequencesTable = ({ data = null, clades = null, type = null }) => {
             <div className='row'><h4 className='title-sub'>Sequences</h4></div>
             
             <div
-                        style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "8px"
-                        }}
-                    >
-            <span className='size-12-font'>Sequences with mutation present</span>
-            <div style={{ whiteSpace: "nowrap", marginLeft: "auto" }}>
-                                                <FontAwesomeIcon icon={faDownload}/>
-                                                {/* <Link to="/polymorphisms">
-                                                    <Button size="sm" className="btn-main-filled">
-                                                        Explore Mutations
-                                                    </Button>
-                                                </Link> */}
-                                            </div>
+                style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "8px"
+                }}
+            >
+                <span className='size-12-font'>Sequences with mutation present.</span>
+                <div style={{ whiteSpace: "nowrap", marginLeft: "auto" }}>
+                    <Button size='sm' className={'btn-main-dwl'} onClick={() => downloadCSV(data)}><FontAwesomeIcon icon={faDownload}/></Button>
+                </div>
+                
             </div>
             <table className="table table-striped table-bordered table-font-12">
                 <thead>
@@ -145,7 +151,7 @@ const SequencesTable = ({ data = null, clades = null, type = null }) => {
                                     {sequence.primary_accession}
                                 </Link>
                             </td>
-                            <td>{clades.filter(c => c.sequence_id === sequence.primary_accession)[0].EPA_major_clade}{clades.filter(c => c.sequence_id === sequence.primary_accession)[0].EPA_minor_clade}</td>
+                            <td>{clades.filter(c => c.primary_accession === sequence.primary_accession)[0].EPA_major_clade}{clades.filter(c => c.primary_accession === sequence.primary_accession)[0].EPA_minor_clade}</td>
                         </tr>
                     ))}
                 </tbody>

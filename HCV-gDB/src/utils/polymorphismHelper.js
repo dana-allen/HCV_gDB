@@ -178,28 +178,6 @@ export function getAAForSequence(sequence, references, aaPositions) {
 }
 
 
-// --------------------------------------------------
-// Count amino acids across all sequences
-// --------------------------------------------------
-
-// export function countAminoAcids(metaData, references, aaPosition) {
-// // export function countAminoAcids(metaData, aaPosition) {
-//   const counts = {};
-//   const bad_sequences = [];
-
-//   metaData.forEach((sequence) => {
-//     const aa = getAAForSequence(sequence, references, aaPosition);
-//     if (aa != 'A') {bad_sequences.push(sequence.sequence_id)}
-//     //  const aa = getAAForSequence(sequence, aaPosition);
-
-//     if (!aa) return;
-
-//     counts[aa] = (counts[aa] || 0) + 1;
-//   });
-//   // console.log(bad_sequences)
-//   return counts;
-// }
-
 export function countAminoAcids(metaData, references, aaPositions) {
   const counts = {};
 
@@ -322,10 +300,5 @@ export function createCladeFrequencyChartData(
     subtype: formatted_subtype_frequencies,
   };
 
-
-  // return Object.entries(counts).map(([genotype, count]) => ({
-  //   genotype,
-  //   count,
-  // }));
 
 }

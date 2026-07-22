@@ -18,7 +18,7 @@ const exploreItems = [
 ];
 
 const analysisItems = [
-  { title: "Phylogenetic Clade Submission", description: "Tool providing genotyping analysis and visualisation of submitted FASTA sequences.", icon: faGear, link:'/clade_assignment' },
+//   { title: "Phylogenetic Clade Submission", description: "Tool providing genotyping analysis and visualisation of submitted FASTA sequences.", icon: faGear, link:'/clade_assignment' },
 //   { title: "Host Mutations", description: "Identify mutations among different hosts.", icon: faDna, link:'/mutations' }
 ];
 

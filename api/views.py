@@ -169,6 +169,9 @@ def api_download_sequences_meta_data(request):
 def api_download_alignments(request):
     return proxy_get_download(f"alignments/download", request, safe=False)
 
+def api_download_sequences(request):
+    return proxy_get_download(f"sequences/download_sequences/", request, safe=False)
+
 @csrf_exempt
 @require_POST
 def api_analysis_clade_assignment(request):

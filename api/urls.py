@@ -28,6 +28,7 @@ urlpatterns = [
 
     path('sequences/download_sequences_meta_data/', api_download_sequences_meta_data, name='api_download_sequences_meta_data'),
     path('alignments/download', api_download_alignments, name='api_download_alignments'),
+    path('sequences/download_sequences/', api_download_sequences, name='api_download_sequences'),
 
     path('analysis/clade_assignment/', api_analysis_clade_assignment, name='api_analysis_clade_assignment'),
 

@@ -69,4 +69,48 @@
   border-color: var(--secondary) !important; /*set the color you want here*/
 }
 
+.btn-main-dwl {
+  color: var(--secondary) !important;
+  background-color: #fff !important;
+  border-color: #fff !important; /*set the color you want here*/
+  border-radius: 5px !important;
+  
+}
+
+.btn-main-dwl:hover {
+  /* color: var(--secondary) !important; */
+  background-color: #fff !important;
+  color: var(--secondary-dark) !important;
+  /* border-color: var(--secondary) !important; set the color you want here */
+}
+
+.btn-table-sequence {
+  color: #fff;
+  background-color: var(--secondary) !important;
+  border-color: var(--secondary) !important;
+  border-radius: 20px !important;
+}
+
+.btn-table-sequence.show {
+  color: #fff;
+  background-color: var(--secondary-dark) !important;
+  border: var(--secondary-dark);
+}
+
+.btn-table-sequence:hover {
+  background-color: var(--secondary-dark) !important;
+  border: var(--secondary-dark);
+}
+
+.btn-table-sequence:active {
+  background-color: var(--secondary-dark) !important;
+  border: var(--secondary-dark);
+}
+
+.btn-table-sequence.active {
+  color: #fff;
+  background-color: var(--secondary-dark) !important;
+  border-color: var(--secondary-dark) !important;
+}
+
 

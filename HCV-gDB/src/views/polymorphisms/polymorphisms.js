@@ -1,19 +1,21 @@
 import { useState,  useEffect, useCallback, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
 
 // Hooks and Contexts
 import { usePolymorphisms } from 'hooks'
 import { useLoadingWheelHandler, useErrorHandler  } from "contexts"
+
+
 import { Button } from "react-bootstrap";
 import PolymorphismsTable from './components/PolymorphismsTable';
 import PolymorphismsVisual from './components/PolymorphismsVisual';
 import PagingButtons from 'components/buttons/PagingButtons';
+import DRFilter from 'components/filters/DRFilter';
 
 // Stylesheets
 import 'assets/styles/sequences.css';
 import 'assets/styles/genome_viewer.css'
 
-import DRFilter from 'components/filters/DRFilter';
+
 
 const Polymorphisms = () => {
 
@@ -47,12 +49,9 @@ const Polymorphisms = () => {
     const handleBarFilters = useCallback((data) => { setBarFilters(data || {}); }, []);
     const handleReset = useCallback((data) => {  }, []);
 
-    const handleViewType = (value) => {
-        setViewType(value)
-    }
+    const handleViewType = (value) => { setViewType(value) }
 
     useEffect(() => {
-
 
         setParams(prev => ({
             ...barFilters
@@ -76,9 +75,8 @@ const Polymorphisms = () => {
                 <div>
                     <p className='selected-feature-label size-12-font'>
                         <em>view: &nbsp;</em>
-                        <Button size='sm' className={`btn-table-sequence size-12-font`} onClick={()=>handleViewType('sequence')}>Visual</Button>
+                        <Button size='sm' className={`btn-table-sequence size-12-font`} onClick={()=>handleViewType('sequence')}>Sequence</Button>
                         <Button size='sm' className={`btn-table-sequence size-12-font`} onClick={()=>handleViewType('list')}>Tabular</Button> 
-                        
                     </p>
                     {viewType == 'visual' ? 
 

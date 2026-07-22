@@ -32,13 +32,6 @@ export default function GenomeCoverageDropdown({label, handleParams, reset, alwa
 
     const regionTree = [
                           // {name:'full_genome', display_name: 'full genome', nodes:null, parent:null, text:'Full genome', label:'display_name'},
-<<<<<<< HEAD
-                          {name:'nucleoprotein', display_name: 'Nucleoprotein', nodes:null, parent:null, text:'nucleoprotein N', label:'display_name'},
-                          {name:'phosphoprotein', display_name: 'Phosphoprotein', nodes:null, parent:null, text:'phosphoprotein M1', label:'display_name'},
-                          {name:'m2_protein', display_name: "M2 protein", nodes:null, parent:null, text:'M2 protein', label:'display_name'},
-                          {name:'glycoprotein', display_name: "Glycoprotein", nodes:null, parent:null, text:'transmembrane glycoprotein G', label:'display_name'},
-                          {name:'l_protein', display_name: "L protein", nodes:null, parent:null, text:'L protein', label:'display_name'}
-=======
                           {name:'coreprotein', display_name: 'Core protein', nodes:null, parent:null, text:'core protein', label:'display_name'},
                           {name:'envelope_protein_E1', display_name: 'Envelope protein E1', nodes:null, parent:null, text:'envelope protein E1', label:'display_name'},
                           {name:'envelope_protein_E2', display_name: 'Envelope protein E2', nodes:null, parent:null, text:'envelope protein E2', label:'display_name'},
@@ -48,7 +41,6 @@ export default function GenomeCoverageDropdown({label, handleParams, reset, alwa
                           {name:'NS4A', display_name: "NS4A", nodes:null, parent:null, text:'nonstructural protein NS4A', label:'display_name'},
                           {name:'NS4B', display_name: "NS4B", nodes:null, parent:null, text:'nonstructural protein NS4B', label:'display_name'},
                           {name:'NS5B', display_name: "NS5B", nodes:null, parent:null, text:'RNA-dependent RNA polymerase NS5B', label:'display_name'},
->>>>>>> 6cf6c132327c0bb94385d7f3e23c248bce6c12b6
                         ]
 
   const handleChange = (name) => {
@@ -173,11 +165,7 @@ export default function GenomeCoverageDropdown({label, handleParams, reset, alwa
                           cursor: "pointer",
                       }}
                     />
-<<<<<<< HEAD
-                    <span style={{ fontSize:"12px" }}>{node.text}</span>
-=======
                     <span style={{ fontSize:"12px" }}>{node.display_name}</span>
->>>>>>> 6cf6c132327c0bb94385d7f3e23c248bce6c12b6
                   </label>
 
                   {selected === node.name && (

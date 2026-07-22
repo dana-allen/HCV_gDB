@@ -195,3 +195,9 @@
   background-color: var(--secondary-dark) !important;
   border: var(--secondary-light);
 }
+
+.btn-table-sequence.active {
+  color: #fff;
+  background-color: var(--secondary-dark) !important;
+  border-color: var(--secondary-light) !important;
+}

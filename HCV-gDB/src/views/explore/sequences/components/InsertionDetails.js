@@ -11,7 +11,7 @@ import PagingButtonsSlim from 'components/buttons/PagingButtonsSlim';
 const InsertionDetails = ({ insertions }) => {
 
 
-    const [data, setData] = useState(insertions ? insertions[0].split(";") : null)
+    const [data, setData] = useState(insertions ? insertions[0].insertion.split(";") : null)
 
     const [startRecord, setStartRecord] = useState('');
     const [endRecord, setEndRecord] = useState('');

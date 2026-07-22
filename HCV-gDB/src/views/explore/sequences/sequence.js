@@ -44,6 +44,7 @@ const Sequence = () => {
             mutations,
             loading, error } = useSequence(id);
 
+    console.log(insertions)
     useEffect(() => {
     
         triggerLoadingWheel(loading)
@@ -130,7 +131,7 @@ const Sequence = () => {
 
                     <div className="row" >
   
-                        {insertions && (
+                        {insertions.length > 0 && (
                             <div className="col-md-6">
                             <InsertionDetails insertions={insertions} />
                             </div>
