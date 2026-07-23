@@ -1,13 +1,13 @@
 
 import useFetch from "./useFetch";
 
-function useRegion(region_level, params) {
+function useParamsFetch(url_path, params) {
     
     const query_params = new URLSearchParams(params).toString();
-    const url = `${`/api/filters/search_${region_level}`}/${query_params ? `?${query_params}` : ''}`;
+    const url = `${`${url_path}`}${query_params ? `?${query_params}` : ''}`;
     const { data, ...rest } = useFetch(url);
     return { data, ...rest };
 
 };
 
-export default useRegion;
+export default useParamsFetch;

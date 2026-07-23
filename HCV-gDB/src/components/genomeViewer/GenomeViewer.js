@@ -12,8 +12,6 @@ import { Button } from "react-bootstrap";
 
 const GenomeViewer = ({ data }) => {
 
-    console.log(data)
-    
     const [selectedFeature, setSelectedFeature] = useState(null);
     
 
@@ -42,8 +40,6 @@ const GenomeViewer = ({ data }) => {
             nucleotide_positions,
         };
     });
-
-    console.log('enriched', enrichedFeatures)
 
 
     const onFeatureClick = (feature) => {

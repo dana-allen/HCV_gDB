@@ -84,17 +84,7 @@ const SearchAutocomplete = ({ ref, label, url, idKey, handleId, preSelected = []
     }
     }
   };
-  // const handleInputChange = (value) => {
-  //   const tmp_value = value.split(',')
-  //   console.log("TEMP VALUE", tmp_value)
-  //   if (tmp_value.length > 0){
-  //     setInputValue(tmp_value)
-  //     setOptions(tmp_value)
-  //   } else {
-  //     setInputValue(value)
-  //   }
-  //   // AB009601,AB009663
-  // }
+
 
   useEffect(() => {
     if (inputValue) {

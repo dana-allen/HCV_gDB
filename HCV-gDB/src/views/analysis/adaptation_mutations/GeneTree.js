@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import TreeView from 'components/trees//TreeView';
-import TaxonomyFilter from 'views/analysis/adaptation_mutations/TaxonomyFilter'
+
 
 const GeneTree = ({ onRegionSelect }) => {
 

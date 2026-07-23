@@ -2,7 +2,7 @@ import { useState } from 'react';
 import AdvancedMDFilter from 'components/filters/AdvancedMDFilter'
 
 const MetaDataDownload = ({filters}) => {
-    console.log(filters)
+
     const [show, setShow] = useState(false)
     const handleClose = () => { setShow(false) }
     const [loading, setLoading] = useState(false)
@@ -34,18 +34,12 @@ const MetaDataDownload = ({filters}) => {
     };
 
 
-    const handleOnClick = () => {
-        download({...filters});
-    };
-
     const handleApplyFilter = (e) => {
-        console.log("alignment filters", e)
         const final_params = { ...filters["filters"], ...e };
         download(final_params);
     };
     return (
         <div>
-            {/* <a onClick={handleOnClick}>Download Meta-data</a> */}
             {loading && <a onClick={() => setShow(true)}>Downloading</a> }
             {!loading && <a onClick={() => setShow(true)}>Download Meta-data</a> }
             <AdvancedMDFilter 

@@ -1,10 +1,8 @@
 import { useState } from 'react';
-import AdvancedMDFilter from 'components/filters/AdvancedMDFilter'
+
 
 const SequenceDownload = ({filters}) => {
-    console.log(filters)
-    const [show, setShow] = useState(false)
-    const handleClose = () => { setShow(false) }
+
     const [loading, setLoading] = useState(false)
     const download = async (params) => {
         try {
@@ -42,7 +40,7 @@ const SequenceDownload = ({filters}) => {
     return (
         <div>
             {/* <a onClick={handleOnClick}>Download Meta-data</a> */}
-            {loading && <a onClick={() => setShow(true)}>Downloading</a> }
+            {loading && <a>Downloading</a> }
             {!loading && <a onClick={handleOnClick}>Download Sequences</a> }
         </div>
 

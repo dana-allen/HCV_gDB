@@ -22,3 +22,4 @@ export { default as usePolymorphisms } from "./usePolymorphisms";
 export { default as usePolymorphism } from "./usePolymorphism";
 
 export { default as useFetch } from "./useFetch";
+export { default as useParamsFetch } from "./useParamsFetch";

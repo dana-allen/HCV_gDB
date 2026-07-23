@@ -220,7 +220,7 @@ export default function Checkboxes({ data, onCheckboxChange, preSelected = [], }
                           e.target.checked
                         )
                         }
-                              checkedIcon={<BpCheckedIcon />}
+                        checkedIcon={<BpCheckedIcon />}
                         icon={<BpIcon />}
                         size="small"
                       />

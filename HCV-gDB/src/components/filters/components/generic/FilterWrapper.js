@@ -1,11 +1,12 @@
 import { useState, useRef, useEffect } from "react";
 import { Button } from "react-bootstrap";
 
-
 import 'assets/styles/filters.css';
-export default function FilterWrapper({ label, selectedCount, reset, children }) {
+
+export default function FilterWrapper({ label, selectedCount, reset, children, onExclude, excludeLabel, keepExclude=true }) {
   const [open, setOpen] = useState(false);
   const containerRef = useRef(null);
+  const [exclude, setExclude] = useState(false)
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -23,10 +24,16 @@ export default function FilterWrapper({ label, selectedCount, reset, children })
     setOpen(false);
   }, [reset]);
 
+  const handleExclude = (value) => {
+    setExclude(value)
+    onExclude(value)
+  }
+
   return (
     <div
       ref={containerRef}
       style={{ position: "relative", display: "inline-block" }}
+      className='filter-box'
     >
       <Button
         size="sm"
@@ -54,6 +61,21 @@ export default function FilterWrapper({ label, selectedCount, reset, children })
           </label>
 
           {children}
+
+          {keepExclude &&
+            <div>
+              <hr className="exclude-hr" />
+              <label className='exclude-label'>
+                <input
+                    className='exclude-checkbox'
+                    type="checkbox"
+                    checked={exclude}
+                    onChange={ (e) => handleExclude(e.target.checked) }
+                  />
+                Exclude selected {excludeLabel}
+              </label>
+            </div>
+          }
         </div>
       )}
     </div>

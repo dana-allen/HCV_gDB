@@ -4,18 +4,16 @@ import { Button } from 'react-bootstrap';
 // Stylesheets
 import 'assets/styles/filters.css';
 
-import AccessionDropdown from './components/AccessionDropDown';
-// import CommonHostDropdown from './components/CommonHostDropDown';
-import HostDropdown from './components/HostDropDown';
-import InputDropdown from './components/InputDropDown';
-import RadioButtonDropdown from './components/RadioButtonDropDown';
-import RegionDropdown from './components/RegionDropDown';
-import GenomeCoverageDropdown from './components/GenomeCoverageDropDown';
-import Dropdown from './components/DropDown';
-
+import ComparisonSelector from './components/ComparisonSelector';
+import Dropdown from './components/generic/DropDown';
+import GenomeCoverage from './components/GenomeCoverage';
+import Taxonomy from './components/Taxonomy';
+import SearchDropdown from './components/generic/SearchDropdown';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
-import CladeCheckboxes from './components/CladeCheckboxes';
+import Clades from './components/Clades';
+import RadioButtons from './components/RadioButtons';
+import Region from './components/Region';
 
 const BarFilter = ({ onApplyFilter, onClickReset }) => {
 
@@ -44,14 +42,11 @@ const BarFilter = ({ onApplyFilter, onClickReset }) => {
   };
 
   const handleHost = (value, exclude) => updateFilterKey("host", value, exclude);
-  const handleNucleotideId = (value, exclude) => updateFilterKey("primary_accession", value, exclude);
+  const handlePrimaryAccession = (value, exclude) => updateFilterKey("primary_accession", value, exclude);
   const handleIsolateId = (value, exclude) => updateFilterKey("isolate", value, exclude);
-  const handleCountry = (value, exclude) => updateFilterKey("country", value, exclude);
   const handleExclusion = (value) => updateFilterKey("exclusion_status", value); 
 
   const handleGenomeCoverage = (value, exclude) => {
-
-    console.log("handle genome", value)
     
     setFilters(prev => {
       const updated = { ...prev };
@@ -139,7 +134,7 @@ const BarFilter = ({ onApplyFilter, onClickReset }) => {
   };
 
   const handleRegionSelections = (value, exclude) => {
-    console.log(value)
+
     setFilters(prev => {
       const updated = { ...prev };
       delete updated.m49_region_id;
@@ -211,49 +206,48 @@ const BarFilter = ({ onApplyFilter, onClickReset }) => {
         <span><strong>FILTERS:</strong></span>
 
 
-        <CladeCheckboxes 
+        <Clades 
           label={'Clades'}
-          id={'primary_accession'}
-          url={'/api/filters/search_primary_accession_ids/'}
           handleParams={handleClades}
           reset={reset}
         />
 
-        {/* <Dropdown
+        <Dropdown
           label={'Common Host'}
           id={'host'}
           url={'/api/filters/search_hosts/'}
           handleParams={handleHost}
           reset={reset}
-        /> */}
-        
-        <RegionDropdown
+        />
+               
+        <Region
           label={'Region'}
           handleParams={handleRegionSelections}
           reset={reset}
         />
 
-        <GenomeCoverageDropdown 
+        <GenomeCoverage
           label={'Genome Coverage'}
           handleParams={handleGenomeCoverage}
           reset={reset}
         />
 
-        {/* <HostDropdown
+        <Taxonomy
           label={'Taxonomy'}
           handleParams={handleTaxonomySelections}
           reset={reset}
-        /> */}
 
-        <AccessionDropdown
+        />
+
+        <SearchDropdown
           label={'Primary Accession'}
           id={'primary_accession'}
           url={'/api/filters/search_primary_accession_ids/'}
-          handleParams={handleNucleotideId}
+          handleParams={handlePrimaryAccession}
           reset={reset}
         />
 
-        <AccessionDropdown
+        <SearchDropdown
           label={'Isolate'}
           id={'isolate'}
           url={'/api/filters/search_isolate_ids/'}
@@ -261,34 +255,26 @@ const BarFilter = ({ onApplyFilter, onClickReset }) => {
           reset={reset}
         />
 
-        {/* <Dropdown
-          label={'Country'}
-          id={'display_name'}
-          url={'/api/filters/search_country/'}
-          handleParams={handleCountry}
-          reset={reset}
-        /> */}
-
-
-
-        <InputDropdown
+        <ComparisonSelector
           label={'Sequence Length'}
-          options={['Less than', 'Greater than', 'In-between']}
+          // options={['Less than', 'Greater than', 'In-between']}
+          options={[{name:"gt", text:'Less than'}, {name:"lt", text:'Greater than'}, {name:"between", text:'In-between'}]}
           onChange={handleSequenceLength}
           reset={reset}
         />
 
-        <InputDropdown
+        <ComparisonSelector
           label={'Collection Year'}
-          options={['Earlier than', 'Later than', 'In-between']}
+          // options={['Earlier than', 'Later than', 'In-between']}
+          options={[{name:"gt", text:'Earlier than'}, {name:"lt", text:'Later than'}, {name:"between", text:'In-between'}]}
           onChange={handleCollectionYear}
           reset={reset}
         />
 
-        <RadioButtonDropdown
+        <RadioButtons
           label={'Exclusion'}
           id={'primary_accession'}
-          options={['Yes', 'No']}
+          options={[{name:"1", text:'Yes'}, {name:"0", text:'No'}]}
           onChange={handleExclusion}
           reset={reset}
         />

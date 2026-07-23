@@ -29,7 +29,6 @@ const SequenceViewer = ({ start, end, refSequence, currentSequences, nucPosition
                                         currentSequences,
                                         nucPositionsRegion
                                       );
-                              console.log("results", results)
       setSequenceData(results);
     }
   }, [start, end, nucPositions]);

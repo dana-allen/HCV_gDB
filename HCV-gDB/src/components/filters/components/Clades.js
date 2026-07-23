@@ -1,14 +1,12 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 
-import { Button } from 'react-bootstrap';
-
-import Checkboxes from "./Checkboxes";
-import 'assets/styles/filters.css';
-
-import FilterWrapper from "./FilterWrapper";
+import FilterWrapper from "./generic/FilterWrapper";
+import Checkboxes from "./generic/Checkboxes";
 import { useLineage } from "hooks";
 
-export default function CladeCheckboxes({label, id, url, handleParams, reset}) {
+import 'assets/styles/filters.css';
+
+export default function Clades({label, handleParams, reset}) {
 
   const { lineageTree = [], loading, error } = useLineage();
 
@@ -16,7 +14,6 @@ export default function CladeCheckboxes({label, id, url, handleParams, reset}) {
   const [selectedValue, setSelectedValue ] = useState()
   const [preSelected, setPreselected] = useState()
 
-  const handleExclude = (value) => { setExclude(value) }
 
   const handleIds = (value) => {
     
@@ -33,8 +30,6 @@ export default function CladeCheckboxes({label, id, url, handleParams, reset}) {
     handleParams(preSelected || [], exclude);
   }, [preSelected, exclude]);
 
-    
-
   useEffect(() => {
     setPreselected()
     setExclude(false)
@@ -46,24 +41,14 @@ export default function CladeCheckboxes({label, id, url, handleParams, reset}) {
       label={label}
       selectedCount={selectedValue}
       reset={reset}
+      onExclude = {(e) => setExclude(e)}
+      excludeLabel={'clades'}
     >
       <Checkboxes
         data={lineageTree}
         onCheckboxChange={handleIds}
         preSelected={preSelected}
       />
-
-      <hr className="exclude-hr" />
-
-      <label className="exclude-label">
-        <input
-          className="exclude-checkbox"
-          type="checkbox"
-          checked={exclude}
-          onChange={e => handleExclude(e.target.checked)}
-        />
-        Exclude selected accessions
-      </label>
 
     </FilterWrapper>
   );

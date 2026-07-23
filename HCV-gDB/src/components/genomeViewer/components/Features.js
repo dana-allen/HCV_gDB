@@ -3,9 +3,9 @@ import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import 'assets/styles/genome_viewer.css'
 
 const isStructural = (value) => {
-  console.log(value, ["core protein", "envelope protein E1", "envelope protein E2"].includes(value))
   return ["core protein", "envelope protein E1", "envelope protein E2"].includes(value)
 } 
+
 const productDisplay = {'core protein':'Core',
                     'envelope protein E1': 'E1',
                     'envelope protein E2':'E2',
@@ -18,37 +18,6 @@ const productDisplay = {'core protein':'Core',
                     'protein p7':'p7'
                   }
 
-// export const FeatureBtn = ({i, feature, min, range, onClick}) => {
-//     const leftPercent = ((feature.cds_start - min) / range) * 100;
-//     const widthPercent = ((feature.cds_end - feature.cds_start) / range) * 100;
-
-//     return (
-//       <OverlayTrigger
-//           key={i}
-//           placement="top"
-//           overlay={
-//             <Tooltip id={`tooltip-${i}`}>
-//             {feature.product} ({feature.cds_start}-{feature.cds_end})
-//             </Tooltip>
-//           }
-//           >
-//           <button 
-//             className={`features-btn ${
-//               isStructural(feature.product)
-//                 ? "structural"
-//                 : "non-structural"
-//             }`}
-//             style={{
-//               left: `${leftPercent}%`,
-//               width: `${widthPercent}%`,
-//             }}
-//             onClick={() => onClick(feature)}
-//           >
-//             {feature.product}
-//           </button>
-//       </OverlayTrigger>
-//     );
-// }
 const clamp = (v) => Math.max(0, Math.min(100, v));
 export const FeatureBtnMultiple = ({ i, feature, min, range, onClick }) => {
   // compute overall bounds of the feature

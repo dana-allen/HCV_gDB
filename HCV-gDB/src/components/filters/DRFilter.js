@@ -6,9 +6,9 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 // Stylesheets
 import 'assets/styles/filters.css';
 
-import AccessionDropdown from './components/AccessionDropDown';
-import Dropdown from './components/DropDown';
-import RadioButtonDropdown from './components/RadioButtonDropDown';
+import Dropdown from './components/generic/DropDown';
+import SearchDropdown from './components/generic/SearchDropdown';
+import RadioButtons from './components/RadioButtons';
 
 const DRFilter = ({ onApplyFilter, onClickReset }) => {
 
@@ -67,7 +67,7 @@ const DRFilter = ({ onApplyFilter, onClickReset }) => {
           reset={reset}
         />
 
-        <AccessionDropdown
+        <SearchDropdown
           label={'Polymorphism'}
           id={'polymorphism'}
           url={'/api/filters/search_polymorphism_ids/'}
@@ -83,12 +83,12 @@ const DRFilter = ({ onApplyFilter, onClickReset }) => {
           reset={reset}
         />
 
-        <RadioButtonDropdown
+        <RadioButtons
           label={'Type'}
           id={'signature_kind'}
           options={[
-              { label: "Single", value: 'single' },
-              { label: "Combintation", value: 'combination' }
+              { text: "Single", name: 'single' },
+              { text: "Combintation", name: 'combination' }
             ]}
           onChange={handleSignatureKind}
           reset={reset}
