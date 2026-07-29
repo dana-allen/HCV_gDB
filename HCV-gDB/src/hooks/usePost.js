@@ -23,7 +23,7 @@ function usePost() {
         },
         body: body, // JSON.stringify(...) already done by caller
       });
-
+      console.log(process.env.REACT_APP_DATABASE)
       const result = await response.json();
 
       if (!response.ok) {

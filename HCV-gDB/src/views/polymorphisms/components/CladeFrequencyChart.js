@@ -1,16 +1,12 @@
-import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom';
+import { useState} from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDownload} from '@fortawesome/free-solid-svg-icons'
-import { faLink} from '@fortawesome/free-solid-svg-icons'
 import { Button } from "react-bootstrap";
-import { parseRestianceCategory, parseMutationType} from 'assets/javascript/formatHelper'
-import { nucColors } from 'assets/javascript/sequenceViewerHelper';
 
 // Stylesheets
 import 'assets/styles/tables.css'
 import 'assets/styles/buttons.css'
-import {  useDownload} from "hooks"
+import { useDownload } from "hooks"
 
 import { BarChart } from "@mui/x-charts";
 

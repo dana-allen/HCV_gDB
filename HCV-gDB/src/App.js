@@ -6,8 +6,7 @@ import 'assets/styles/gdb-app-custom.css'
 import 'assets/styles/buttons.css'
 import 'assets/styles/modals.css'
 import 'assets/styles/tooltips.css'
-import ReactGA from 'react-ga4';
-import React, {useEffect} from 'react';
+import React from 'react';
 import { Router, BrowserRouter, Routes, Route } from "react-router-dom";
 
 

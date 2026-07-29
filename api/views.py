@@ -8,6 +8,7 @@ from django.views.decorators.http import require_POST
 
 # PRIVATE_API_BASE_URL = "http://gdb-dev.cvr.gla.ac.uk/api"
 PRIVATE_API_BASE_URL = "http://localhost:8001/api"
+DATABASE = "HCV"
 
 def proxy_get_download(endpoint, request=None, safe=True):
     """
@@ -99,6 +100,7 @@ def proxy_post(endpoint, request):
         response = requests.post(
             url,
             json=json.loads(request.body),
+            headers= {"database": DATABASE}
         )
 
         response.raise_for_status()

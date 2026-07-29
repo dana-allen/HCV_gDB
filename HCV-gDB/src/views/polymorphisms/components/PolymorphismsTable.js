@@ -1,9 +1,4 @@
 import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faLink} from '@fortawesome/free-solid-svg-icons'
-
-import { parseRestianceCategory, parseMutationType} from 'assets/javascript/formatHelper'
-import { nucColors } from 'assets/javascript/sequenceViewerHelper';
 
 // Stylesheets
 import 'assets/styles/tables.css'

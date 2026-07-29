@@ -20,11 +20,26 @@ const GenomeViewer = ({ data }) => {
     const query_aligned_sequences = data ? data["query_aligned_sequences"] : null
     const reference_alignment_sequence = data ? data["reference_alignment_sequence"] : null
     const features = data ? data["features"] : null
+    
+
+
     const min = 1;
     const max = reference_alignment_sequence.length;
     const range = max - min;
-    const positions_tmp = Array.from(new Set([].concat(...features.map(f => [f.cds_start])))).sort((a, b) => a - b);
-    const positions = [min, ...positions_tmp, max]
+
+    const positions = [
+                        min,
+                        ...new Set(features.map(f => f.cds_start)),
+                        max,
+                        ].sort((a, b) => a - b);
+    
+    
+    
+    // const min = 1;
+    // const max = reference_alignment_sequence.length;
+    // const range = max - min;
+    // const positions_tmp = Array.from(new Set([].concat(...features.map(f => [f.cds_start])))).sort((a, b) => a - b);
+    // const positions = [min, ...positions_tmp, max]
 
 
     const mismatches = query_alignment_sequence ? getMismatches(reference_alignment_sequence, query_alignment_sequence.query_alignment_sequence) :
