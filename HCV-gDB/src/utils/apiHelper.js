@@ -93,8 +93,8 @@ export const getPythonCode = (api) => {
   url = "http://gdb-dev.cvr.gla.ac.uk/api/${api_call}"
 
   headers = {
-      "Content-Type": "application/json",
-      'database': ${process.env.REACT_APP_DATABASE }
+    "Content-Type": "application/json",
+    'database': ${process.env.REACT_APP_DATABASE }
   }
 
   response = requests.get(url, headers=headers)

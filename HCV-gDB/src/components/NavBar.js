@@ -33,6 +33,7 @@ const NavBar = () => {
             <a className="nav-link dropdown-toggle custom-toggle"  href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Drug Resistance</a>
             <div className="dropdown-menu">
               <a className="dropdown-item" href="/polymorphisms">Polymorphisms</a>
+              <a className="dropdown-item" href="/drug_resistance_report">Report</a>
             </div>
           </li>
 

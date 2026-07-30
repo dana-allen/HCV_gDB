@@ -174,6 +174,11 @@ def api_download_alignments(request):
 def api_download_sequences(request):
     return proxy_get_download(f"sequences/download_sequences/", request, safe=False)
 
+
+
+def api_analysis_drug_analysis(request):
+    return proxy_get(f"analysis/drug_analysis/", request, safe=False)
+
 @csrf_exempt
 @require_POST
 def api_analysis_clade_assignment(request):
