@@ -18,6 +18,7 @@ const PolymorphismsTable = ( { data=null, type=null } ) => {
                     <th>Polymorphism</th>
                     <th>Type</th>
                     <th>Drug</th>
+                    <th>Genotype(s) / Subtype(s)</th>
                 </tr>
             </thead>
             <tbody>
@@ -28,6 +29,7 @@ const PolymorphismsTable = ( { data=null, type=null } ) => {
                         <td><Link className='gdb-link' to={`/polymorphism/${polymorphism.signature_id}`}>{polymorphism.signature_id.split(':')[1]}</Link></td>
                         <td>{polymorphism.signature_kind}</td>
                         <td>{polymorphism.drugs.map(d => d).join(", ")}</td>
+                        <td>{polymorphism.genotypes.map(d => d.split("_")[1]).join(", ")}</td>
                     </tr>
                 ))}
             </tbody>

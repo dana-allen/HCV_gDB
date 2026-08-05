@@ -14,14 +14,15 @@ const PolymorphismsTable = ( { data=null, type=null } ) => {
     if (!Array.isArray(data) || data.length === 0) {
         return <div>No data found...</div>; // or a loader / empty state
     }
-
+    console.log(data)
     return (
         <table className="table table-striped table-bordered table-font-12">
             <thead>
                 <tr>
+                    <th>Genotype / Subtype</th>
                     <th>Gene</th>
                     <th>Mutation</th>
-                    <th>Reference</th>
+                    {/* <th>Reference</th> */}
                     <th>Drug</th>
                     <th>Resistance Category*</th>
                     <th>EC<sub>50</sub> fold change <em>in vitro</em></th>
@@ -31,47 +32,100 @@ const PolymorphismsTable = ( { data=null, type=null } ) => {
                     <th>Reference</th>
                 </tr>
             </thead>
+
+            
             <tbody>
-                {data.map((polymorphism, i) => {
-                    const rowSpan = polymorphism.resistance.length;
+                {data.map((alignment) => {
+                    const mutations = Object.values(alignment.mutations);
 
-                    return polymorphism.resistance.map((r, j) => (
-                    <tr key={`${i}-${j}`}>
-                        {j === 0 && (
-                        <>
-                            <td rowSpan={rowSpan}>
-                                {polymorphism.mutation_id.split(':')[0]}
-                            </td>
-                            <td rowSpan={rowSpan}>
-                                {polymorphism.aa_position}{<b style={{color:aaColors[polymorphism.alt_residue]}}>{polymorphism.alt_residue}</b>}
-                            </td>
-                            
-                            <td rowSpan={rowSpan}>
-                                <Link className='gdb-link' to={`/reference/${polymorphism.reference_accession}` }> {polymorphism.reference_accession} </Link>
-                            </td>
-                            
-                        </>
-                        )}
+                    return mutations.map((polymorphism, mutationIndex) => {
+                        const resistance = polymorphism.resistance;
 
-                        <td>
-                            {r.drug}
-                            <br></br>
-                            <span style={{fontSize:'10px'}}><em>{r.drug_category}</em></span>
-                        </td>
-                        <td>{parseRestianceCategory(r.resistance_category)}</td>
-                        <td>{r.in_vitro_max_ec50_midpoint ? r.in_vitro_max_ec50_midpoint : "-"}</td>
-                        <td>{r.in_vivo_baseline ? "Yes" : "-"}</td>
-                        <td>{r.in_vivo_treatment_emergent ? "Yes" : "-"}</td>
-                        <td>
-                            {r.pubmed_id.split(';').map((pubmed, j) => (
-                                <Link className='gdb-link' to={`https://www.ncbi.nlm.nih.gov/pubmed/${pubmed}`} target="_blank"> <FontAwesomeIcon icon={faLink} /> PubMed {pubmed} </Link> 
-                            ))}
-                        </td>
+                        return resistance.map((r, resistanceIndex) => (
+                            <tr key={`${alignment.alignment_name}-${polymorphism.mutation_id}-${r.drug}-${resistanceIndex}`}>
 
-                    </tr>
-                    ));
+                                {/* Alignment + mutation information */}
+                                {resistanceIndex === 0 && (
+                                    <>
+                                        <td rowSpan={resistance.length}>
+                                            {alignment.alignment_name.split("_")[1]}
+                                        </td>
+
+                                        <td rowSpan={resistance.length}>
+                                            {polymorphism.mutation_id.split(":")[0]}
+                                        </td>
+
+                                        <td rowSpan={resistance.length}>
+                                            {polymorphism.aa_position}
+                                            <b style={{ color: aaColors[polymorphism.alt_residue] }}>
+                                                {polymorphism.alt_residue}
+                                            </b>
+                                        </td>
+
+                                        {/* <td rowSpan={resistance.length}>
+                                            <Link
+                                                className="gdb-link"
+                                                to={`/reference/${polymorphism.reference_accession}`}
+                                            >
+                                                {polymorphism.reference_accession}
+                                            </Link>
+                                        </td> */}
+                                    </>
+                                )}
+
+                                {/* Drug */}
+                                <td>
+                                    {r.drug}
+                                    <br />
+                                    <span style={{ fontSize: "10px" }}>
+                                        <em>{r.drug_category}</em>
+                                    </span>
+                                </td>
+
+                                {/* Resistance category */}
+                                <td>
+                                    {parseRestianceCategory(r.resistance_category)}
+                                </td>
+
+                                {/* In vitro */}
+                                <td>
+                                    {r.in_vitro_max_ec50_midpoint
+                                        ? r.in_vitro_max_ec50_midpoint
+                                        : "-"}
+                                </td>
+
+                                {/* In vivo baseline */}
+                                <td>
+                                    {r.in_vivo_baseline ? "Yes" : "-"}
+                                </td>
+
+                                {/* In vivo treatment emergent */}
+                                <td>
+                                    {r.in_vivo_treatment_emergent ? "Yes" : "-"}
+                                </td>
+
+                                {/* PubMed */}
+                                <td>
+                                    {r.pubmed_id &&
+                                        r.pubmed_id.split(";").map((pubmed) => (
+                                            <div key={pubmed}>
+                                                <Link
+                                                    className="gdb-link"
+                                                    to={`https://www.ncbi.nlm.nih.gov/pubmed/${pubmed}`}
+                                                    target="_blank"
+                                                    rel="noreferrer"
+                                                >
+                                                    <FontAwesomeIcon icon={faLink} /> PubMed {pubmed}
+                                                </Link>
+                                            </div>
+                                        ))}
+                                </td>
+
+                            </tr>
+                        ));
+                    });
                 })}
-                </tbody>
+            </tbody>
 
         </table>
     );

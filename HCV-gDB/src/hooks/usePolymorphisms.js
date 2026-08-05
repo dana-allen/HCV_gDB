@@ -27,7 +27,8 @@ function usePolymorphisms(params) {
                         protein_name: item.protein_name,
                         mutation_type: item.mutation_type,
                         aa_positions: [],
-                        drugs: []
+                        drugs: [],
+                        genotypes: []
                     };
                 }
 
@@ -51,6 +52,15 @@ function usePolymorphisms(params) {
                     acc[item.signature_id]
                         .drugs
                         .push(item.drug);
+                } if (
+                    item.alignment_name &&
+                    !acc[item.signature_id]
+                        .genotypes
+                        .includes(item.alignment_name)
+                ) {
+                    acc[item.signature_id]
+                        .genotypes
+                        .push(item.alignment_name);
                 }
 
                 return acc;
