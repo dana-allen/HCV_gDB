@@ -5,7 +5,7 @@ urlpatterns = [
 
     # path("", home, name="home"),
     path('sequence/<str:seq_id>', api_sequence, name='api_sequence'),
-    path('sequences/', api_sequences, name='api_sequences'),
+    path('/equences/', api_sequences, name='api_sequences'),
 
     path('sequence/reference/<str:seq_id>', api_sequence_reference, name='api_sequence_reference'),
 
@@ -31,6 +31,7 @@ urlpatterns = [
     path('sequences/download_sequences/', api_download_sequences, name='api_download_sequences'),
 
     path('analysis/clade_assignment/', api_analysis_clade_assignment, name='api_analysis_clade_assignment'),
+    path('analysis/drug_analysis/', api_analysis_drug_analysis, name='api_analysis_drug_analysis'),
 
     path('version', api_version, name='api_version'),
 
