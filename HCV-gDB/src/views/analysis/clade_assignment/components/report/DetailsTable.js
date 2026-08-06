@@ -6,13 +6,32 @@ import { parseRestianceCategory, parseMutationType } from 'assets/javascript/for
 const DetailsTable = ( { data } ) => {
 
     console.log(data)
+    const filtered_data = data && data["mutations"].filter(item => item.alignment_name =='AL_1a')
+    console.log("filtered data", filtered_data)
     const reshaped = data && Object.values(
-        data.reduce((acc, item) => {
-        const key = item.mutation_id;
+        filtered_data.reduce((acc, item) => {
+            console.log("ITEM", item)
+        // const key = item.mutation_id;
+        const key = item.signature_id
+        const drug_regimen_id = item.id;
+        const drug_regimens = data["drug_regimen_results"].filter(item => item.phdr_alignment_ras_drug_id === drug_regimen_id).filter((item, index, array) =>
+            index === array.findIndex(
+                x => x.phdr_regimen_id === item.phdr_regimen_id
+            )
+        );
+
+        const drug_trials = data["drug_regimen_results"].filter(item => item.phdr_alignment_ras_drug_id === drug_regimen_id).filter((item, index, array) =>
+            index === array.findIndex(
+                x => x.phdr_clinical_trial_id === item.phdr_clinical_trial_id
+            )
+        );
 
         if (!acc[key]) {
             acc[key] = {
             mutation_id: item.mutation_id,
+            signature_id: item.signature_id,
+            protein_name: item.protein_name,
+            geno_subtype: item.alignment_name,
             aa_position: item.aa_position,
             alt_residue: item.alt_residue,
             reference_accession: item.reference_accession,
@@ -33,6 +52,8 @@ const DetailsTable = ( { data } ) => {
             drug_category: item.drug_category,
             drug_producer: item.drug_producer,
             pubmed_id: item.pubmed_id,
+            drug_regimens: drug_regimens,
+            drug_trials: drug_trials,
             in_vitro_max_ec50_midpoint: item.in_vitro_max_ec50_midpoint,
             in_vivo_baseline: item.in_vivo_baseline,
             in_vivo_treatment_emergent: item.in_vivo_treatment_emergent, 
@@ -65,22 +86,22 @@ const DetailsTable = ( { data } ) => {
 
            <tbody>
             {reshaped.map((polymorphism, i) => {
+                console.log("RESHAPES", reshaped)
                 const rowSpan = polymorphism.resistance.length;
-
+                console.log(polymorphism)
                 return polymorphism.resistance.map((r, j) => (
                 <tr key={`${i}-${j}`}>
                     {j === 0 && (
                     <>
                         <td rowSpan={rowSpan}>
-                            {polymorphism.mutation_id.split(':')[0]}
+                            {polymorphism.protein_name}
                         </td>
                         <td rowSpan={rowSpan}>
-                            <Link className='gdb-link' to={`/reference/${polymorphism.reference_accession}` }> {polymorphism.aa_position}{<b>{polymorphism.alt_residue}</b>}</Link>
+                            <Link to={`/polymorphism/${polymorphism.signature_id}` }> {polymorphism.signature_id.split(":")[1]}</Link>
                         </td>
                         
                         <td rowSpan={rowSpan}>
-                            -
-                            {/* <Link className='gdb-link' to={`/reference/${polymorphism.reference_accession}` }> {polymorphism.reference_accession} </Link> */}
+                            {polymorphism.geno_subtype && polymorphism.geno_subtype.split('_')[1]}
                         </td>
                         
                     </>
@@ -93,15 +114,42 @@ const DetailsTable = ( { data } ) => {
                     </td>
                     <td>{parseRestianceCategory(r.resistance_category)}</td>
                     <td>{r.in_vitro_max_ec50_midpoint ? r.in_vitro_max_ec50_midpoint : "-"}</td>
-                    <td></td>
-                    <td></td>
+                    <td>
+                        {r.drug_trials.map((trial, index) => (
+                            <span key={index}>
+                                {trial.phdr_clinical_trial_id && 
+                                <>
+                                    {trial.trial_nct_id ? 
+                                        <Link
+                                            to={`https://clinicaltrials.gov/study/${trial.trial_nct_id}`}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                        >
+                                        {trial.trial_display_name}
+                                        </Link> :
+                                        <>{trial.phdr_clinical_trial_id}</>
+                                    
+                                    }
+                                    </>
+                                }
+                                {index < r.drug_trials.length - 1 && ", "}
+                            </span>
+                        ))}
+                    </td>
+                    <td>
+                    {r.drug_regimens && r.drug_regimens.map((regimen, index) => (
+                        <span key={index}>
+                            {regimen.phdr_regimen_id && regimen.phdr_regimen_id.replaceAll("_", "/")}
+                            {index < r.drug_regimens.length - 1 && "; "}
+                        </span>
+                    ))}
+                </td>
                     <td>{r.in_vivo_baseline ? "Yes" : "-"}</td>
                     <td>{r.in_vivo_treatment_emergent ? "Yes" : "-"}</td>
                     <td>
-                        {r.pubmed_id.split(';').map((pubmed, index) => (
+                        {r.pubmed_id && r.pubmed_id.split(';').map((pubmed, index) => (
                             <span key={pubmed}>
                                 <Link 
-                                    // className='gdb-link' 
                                     to={`https://www.ncbi.nlm.nih.gov/pubmed/${pubmed}`} 
                                     target="_blank"> 
                                         {pubmed} 

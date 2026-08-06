@@ -26,7 +26,8 @@ const PolymorphismsTable = ( { data=null, type=null } ) => {
                     <th>Drug</th>
                     <th>Resistance Category*</th>
                     <th>EC<sub>50</sub> fold change <em>in vitro</em></th>
-                    
+                    <th>Clinical trials / study cohort</th>
+                    <th>Associated drug regimens</th>
                     <th>Found at baseline?</th>
                     <th>Treatment-emergent?</th>
                     <th>Reference</th>
@@ -93,6 +94,48 @@ const PolymorphismsTable = ( { data=null, type=null } ) => {
                                         ? r.in_vitro_max_ec50_midpoint
                                         : "-"}
                                 </td>
+
+                                <td>
+                                    {r.drug_trials.map((trial, index) => (
+                                        <>
+                                            {trial.phdr_clinical_trial_id && 
+                                                <span className='size-12-font' key={index}>
+                                                    
+                                                    <>
+                                                        {trial.trial_nct_id ? 
+                                                            <Link
+                                                                className="gdb-link"
+                                                                to={`https://clinicaltrials.gov/study/${trial.trial_nct_id}`}
+                                                                target="_blank"
+                                                                rel="noreferrer"
+                                                            >
+                                                            {trial.trial_display_name}
+                                                            </Link> :
+                                                            <>{trial.trial_display_name}</>
+                                                        
+                                                        }
+                                                        </>
+                                                    
+                                                    {index < r.drug_trials.length - 1 && ", "}
+                                                </span>
+                                            }
+                                        </>
+                                    ))}
+                                </td>
+
+                                <td>
+                                    {r.drug_regimen.map((regimen, index) => (
+                                        <>
+                                            {regimen.phdr_regimen_id && 
+                                                <span key={index}>
+                                                    {regimen.phdr_regimen_id && regimen.phdr_regimen_id.replaceAll("_", "/")}
+                                                    {index < r.drug_regimen.length - 1 && "; "}
+                                                </span>
+                                            }
+                                        </>
+                                    ))}
+                                </td>
+                                
 
                                 {/* In vivo baseline */}
                                 <td>

@@ -20,7 +20,10 @@ const DrugResistanceReport = () => {
     const { data, ...rest } = useFetch(url);
 
     console.log(data)
-    const grouped = data && data["mutations"].reduce((acc, item) => {
+
+    const filtered_data = data && data["mutations"].filter(item => item.alignment_name =='AL_1a')
+    console.log("filtered ", filtered_data)
+    const grouped = data && filtered_data.reduce((acc, item) => {
         const { protein_name, drug, resistance_category } = item;
 
         // Ignore records that don't have a drug
@@ -67,13 +70,13 @@ const DrugResistanceReport = () => {
             
             <h3>Resistance-associated polymorphism details</h3>
             
-            {data && <DetailsTable data={data['mutations']}/>}
+            {data && <DetailsTable data={data}/>}
             <div class="pagebreak"> </div>
             <ResistanceDescription />
             <div class="pagebreak"> </div>
             
             <h3>Other Polymorphisms of Interest</h3>      
-            <OthersTable />
+            {data && <OthersTable data={data}/> }
 
 
 
