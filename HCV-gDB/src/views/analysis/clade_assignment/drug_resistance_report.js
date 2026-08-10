@@ -22,7 +22,6 @@ const DrugResistanceReport = () => {
     console.log(data)
 
     const filtered_data = data && data["mutations"].filter(item => item.alignment_name =='AL_1a')
-    console.log("filtered ", filtered_data)
     const grouped = data && filtered_data.reduce((acc, item) => {
         const { protein_name, drug, resistance_category } = item;
 
@@ -51,8 +50,6 @@ const DrugResistanceReport = () => {
     const alignment = null
     const features = null
 
-    console.log(grouped)
-
     const phylogeneticData = {
                                 identified: true,
                                 clade_assignment: {major:"1", minor:"a"},
@@ -76,16 +73,14 @@ const DrugResistanceReport = () => {
             <div class="pagebreak"> </div>
             
             <h3>Other Polymorphisms of Interest</h3>      
-            {data && <OthersTable data={data}/> }
-
-
+            {data && <OthersTable data={data} alignment={'AL_1a'}/> }
 
             <h3>Genome coding region coverage</h3>
             <GenomeCoverageTable alignment={alignment} features={features} />
 
 
 
-                <div class="pagebreak"> </div>
+            <div class="pagebreak"> </div>
         </div> 
     );
 };

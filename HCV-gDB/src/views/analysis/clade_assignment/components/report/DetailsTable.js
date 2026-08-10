@@ -5,62 +5,61 @@ import { parseRestianceCategory, parseMutationType } from 'assets/javascript/for
 
 const DetailsTable = ( { data } ) => {
 
-    console.log(data)
     const filtered_data = data && data["mutations"].filter(item => item.alignment_name =='AL_1a')
-    console.log("filtered data", filtered_data)
+
     const reshaped = data && Object.values(
         filtered_data.reduce((acc, item) => {
-            console.log("ITEM", item)
-        // const key = item.mutation_id;
-        const key = item.signature_id
-        const drug_regimen_id = item.id;
-        const drug_regimens = data["drug_regimen_results"].filter(item => item.phdr_alignment_ras_drug_id === drug_regimen_id).filter((item, index, array) =>
-            index === array.findIndex(
-                x => x.phdr_regimen_id === item.phdr_regimen_id
-            )
-        );
 
-        const drug_trials = data["drug_regimen_results"].filter(item => item.phdr_alignment_ras_drug_id === drug_regimen_id).filter((item, index, array) =>
-            index === array.findIndex(
-                x => x.phdr_clinical_trial_id === item.phdr_clinical_trial_id
-            )
-        );
+            // const key = item.mutation_id;
+            const key = item.signature_id
+            const drug_regimen_id = item.id;
+            const drug_regimens = data["drug_regimen_results"].filter(item => item.phdr_alignment_ras_drug_id === drug_regimen_id).filter((item, index, array) =>
+                index === array.findIndex(
+                    x => x.phdr_regimen_id === item.phdr_regimen_id
+                )
+            );
 
-        if (!acc[key]) {
-            acc[key] = {
-            mutation_id: item.mutation_id,
-            signature_id: item.signature_id,
-            protein_name: item.protein_name,
-            geno_subtype: item.alignment_name,
-            aa_position: item.aa_position,
-            alt_residue: item.alt_residue,
-            reference_accession: item.reference_accession,
-            resistance: []
-            };
-        }
+            const drug_trials = data["drug_regimen_results"].filter(item => item.phdr_alignment_ras_drug_id === drug_regimen_id).filter((item, index, array) =>
+                index === array.findIndex(
+                    x => x.phdr_clinical_trial_id === item.phdr_clinical_trial_id
+                )
+            );
 
-        const exists = acc[key].resistance.some(
-            r =>
-            r.drug === item.drug &&
-            r.resistance_category === item.resistance_category
-        );
+            if (!acc[key]) {
+                acc[key] = {
+                mutation_id: item.mutation_id,
+                signature_id: item.signature_id,
+                protein_name: item.protein_name,
+                geno_subtype: item.alignment_name,
+                aa_position: item.aa_position,
+                alt_residue: item.alt_residue,
+                reference_accession: item.reference_accession,
+                resistance: []
+                };
+            }
 
-        if (!exists) {
-            acc[key].resistance.push({
-            resistance_category: item.resistance_category,
-            drug: item.drug,
-            drug_category: item.drug_category,
-            drug_producer: item.drug_producer,
-            pubmed_id: item.pubmed_id,
-            drug_regimens: drug_regimens,
-            drug_trials: drug_trials,
-            in_vitro_max_ec50_midpoint: item.in_vitro_max_ec50_midpoint,
-            in_vivo_baseline: item.in_vivo_baseline,
-            in_vivo_treatment_emergent: item.in_vivo_treatment_emergent, 
-            });
-        }
+            const exists = acc[key].resistance.some(
+                r =>
+                r.drug === item.drug &&
+                r.resistance_category === item.resistance_category
+            );
 
-        return acc;
+            if (!exists) {
+                acc[key].resistance.push({
+                resistance_category: item.resistance_category,
+                drug: item.drug,
+                drug_category: item.drug_category,
+                drug_producer: item.drug_producer,
+                pubmed_id: item.pubmed_id,
+                drug_regimens: drug_regimens,
+                drug_trials: drug_trials,
+                in_vitro_max_ec50_midpoint: item.in_vitro_max_ec50_midpoint,
+                in_vivo_baseline: item.in_vivo_baseline,
+                in_vivo_treatment_emergent: item.in_vivo_treatment_emergent, 
+                });
+            }
+
+            return acc;
         }, {})
     );
 

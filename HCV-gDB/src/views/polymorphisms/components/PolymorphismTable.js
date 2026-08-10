@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLink } from '@fortawesome/free-solid-svg-icons'
 
 import { parseRestianceCategory, parseMutationType } from 'assets/javascript/formatHelper'
-import { aaColors } from 'assets/javascript/sequenceViewerHelper';
+
 
 // Stylesheets
 import 'assets/styles/tables.css'
@@ -14,7 +14,7 @@ const PolymorphismsTable = ( { data=null, type=null } ) => {
     if (!Array.isArray(data) || data.length === 0) {
         return <div>No data found...</div>; // or a loader / empty state
     }
-    console.log(data)
+
     return (
         <table className="table table-striped table-bordered table-font-12">
             <thead>
@@ -53,14 +53,11 @@ const PolymorphismsTable = ( { data=null, type=null } ) => {
                                         </td>
 
                                         <td rowSpan={resistance.length}>
-                                            {polymorphism.mutation_id.split(":")[0]}
+                                            {polymorphism.signature_id.split(":")[0]}
                                         </td>
 
                                         <td rowSpan={resistance.length}>
-                                            {polymorphism.aa_position}
-                                            <b style={{ color: aaColors[polymorphism.alt_residue] }}>
-                                                {polymorphism.alt_residue}
-                                            </b>
+                                            {polymorphism.signature_id.split(":")[1]}
                                         </td>
 
                                         {/* <td rowSpan={resistance.length}>
@@ -150,17 +147,19 @@ const PolymorphismsTable = ( { data=null, type=null } ) => {
                                 {/* PubMed */}
                                 <td>
                                     {r.pubmed_id &&
-                                        r.pubmed_id.split(";").map((pubmed) => (
-                                            <div key={pubmed}>
+                                        r.pubmed_id.split(";").map((pubmed, j) => (
+                                            <span>
                                                 <Link
                                                     className="gdb-link"
                                                     to={`https://www.ncbi.nlm.nih.gov/pubmed/${pubmed}`}
                                                     target="_blank"
                                                     rel="noreferrer"
                                                 >
-                                                    <FontAwesomeIcon icon={faLink} /> PubMed {pubmed}
+                                                    {/* <FontAwesomeIcon icon={faLink} /> PubMed {pubmed} */}
+                                                    {pubmed}
+                                                    {j < r.pubmed_id.length - 1 && ", "}
                                                 </Link>
-                                            </div>
+                                            </span>
                                         ))}
                                 </td>
 
